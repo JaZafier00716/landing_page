@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 
-const programming = () => {
+const Programming = () => {
   const [icons, setIcons] = useState([
     {
       id: 0,
@@ -81,4 +81,4 @@ const programming = () => {
   );
 };
 
-export default programming;
+export default Programming;

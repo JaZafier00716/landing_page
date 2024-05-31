@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import Clipboard from "@/components/ui/clipboard";
 import { useState } from "react";
 
-const page = () => {
+const Page = () => {
   const [showClipboard, setShowClipboard] = useState(false);
 
   const PhoneClickHandler = () => {
@@ -165,4 +165,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
