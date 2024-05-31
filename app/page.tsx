@@ -89,10 +89,10 @@ const Page = () => {
                 }}
               >
                 <Button
-                  className="w-min h-full aspect-square border-2 border-emerald-600 rounded-full p-4 bg-gray-900"
+                  className="w-min h-full aspect-square border-2 border-emerald-600 hover:border-emerald-400 rounded-full p-4 bg-gray-900 text-emerald-600 hover:text-emerald-400 transition-colors duration-300"
                   onClick={() => PhoneClickHandler()}
                 >
-                  <Phone className="text-emerald-600" />
+                  <Phone />
                 </Button>
               </motion.div>
               <motion.div
@@ -108,10 +108,10 @@ const Page = () => {
                 }}
               >
                 <Button
-                  className="w-min h-full aspect-square border-2 border-emerald-600 rounded-full p-4 bg-gray-900"
+                  className="w-min h-full aspect-square border-2 border-emerald-600 hover:border-emerald-400 rounded-full p-4 bg-gray-900 text-emerald-600 hover:text-emerald-400 transition-colors duration-300"
                   onClick={() => MailClickHandler()}
                 >
-                  <Mail className="text-emerald-600" />
+                  <Mail />
                 </Button>
               </motion.div>
               <motion.div
@@ -125,10 +125,10 @@ const Page = () => {
                     ease: "easeOut",
                   },
                 }}
-                className="w-min h-full aspect-square border-2 border-emerald-600 rounded-full p-4 bg-gray-900"
+                className="w-min h-full aspect-square border-2 border-emerald-600 hover:border-emerald-400 rounded-full p-4 bg-gray-900 text-emerald-600 hover:text-emerald-400 transition-colors duration-300"
               >
                 <Link href="https://www.linkedin.com/in/zamostny-jan" target="_blank" passHref rel="noopener noreferrer">
-                  <Linkedin className="text-emerald-600" />
+                  <Linkedin />
                 </Link>
               </motion.div>
             </div>
@@ -149,10 +149,10 @@ const Page = () => {
                 href="/cv.pdf"
                 rel="noopener noreferrer"
                 download
-                className="xs:mb-24 sm:mb-0 bg-gray-900 border-emerald-600 border-2 border-dashed flex py-5 px-4 text-lg gap-4 rounded-xl"
+                className="xs:mb-24 sm:mb-0 bg-gray-900 border-emerald-600 hover:border-emerald-400 border-2 border-dashed flex py-5 px-4 text-lg gap-4 rounded-xl text-emerald-600 hover:text-emerald-400 transition-colors duration-300"
               >
-                Stáhnout CV
-                <Download className="text-emerald-600 animate-bounce duration-[3000ms]" />
+                <span className="text-white">Stáhnout CV</span>
+                <Download className="animate-bounce duration-[3000ms]" />
               </Link>
             </motion.div>
           </div>

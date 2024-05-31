@@ -70,7 +70,23 @@ const web = () => {
 
   return (
     <div className="flex flex-col items-center justify-center gap-4 xs:w-full lg:w-auto">
-      <h2 className="xs:text-3xl sm:text-4xl text-white">Web Development</h2>
+      <motion.div
+        initial={{
+          opacity: 0,
+          translateY: "-100%",
+        }}
+        animate={{
+          opacity: 1,
+          translateY: 0,
+          transition: {
+            delay: 0.2,
+            duration: 0.3,
+            ease: "easeOut",
+          },
+        }}
+      >
+        <h2 className="xs:text-3xl sm:text-4xl text-white">Web Development</h2>
+      </motion.div>
       <div className="grid grid-flow-row xs:grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4 place-items-center gap-4 w-fit text-[96px] text-white">
         {icons.map((item) => (
           <motion.div

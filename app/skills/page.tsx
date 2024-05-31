@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Web from "@/components/ui/web";
-import Programming from "@/components/ui/programming";
+import Programming from "@/components/ui/Programming";
 import Lang from "@/components/ui/lang";
 
 const page = () => {
