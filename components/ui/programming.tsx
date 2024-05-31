@@ -3,7 +3,6 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 
 const programming = () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [icons, setIcons] = useState([
     {
       id: 0,

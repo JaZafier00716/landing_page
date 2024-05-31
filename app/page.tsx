@@ -9,7 +9,6 @@ import Clipboard from "@/components/ui/clipboard";
 import { useState } from "react";
 
 const page = () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [showClipboard, setShowClipboard] = useState(false);
 
   const PhoneClickHandler = () => {
