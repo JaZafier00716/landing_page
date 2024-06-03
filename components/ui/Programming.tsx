@@ -20,7 +20,7 @@ const Programming = () => {
       id: 2,
       title: "VHDL",
       class:
-        "text-5xl text-extrabold xs:col-span-2 sm:col-span-1 h-full flex justify-center items-center",
+        "text-5xl text-extrabold xs:col-span-2 sm:col-span-1 h-full flex justify-center items-center col-span-2",
       active: false,
     },
   ]);
@@ -74,11 +74,11 @@ const Programming = () => {
                 ease: "easeOut",
               },
             }}
+            className={`${item.class} ${parent} not-italic ${
+              item.active ? "text-emerald-600 " : "text-white"
+            }`}
           >
             <i
-              className={`${item.class} ${parent} not-italic ${
-                item.active ? "text-emerald-600 " : "text-white"
-              }`}
               onClick={() => setActiveHandler(item.id)}
             >
               {item.title === "VHDL" && item.title}
