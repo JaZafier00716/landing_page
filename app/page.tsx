@@ -22,7 +22,7 @@ const Page = () => {
 
   return (
     <>
-      <div className="box-border flex xl:px-24 xxl:px-52 xs:px-8 xs:flex-col lg:flex-row">
+      <div className="box-border flex xl:px-24 xxl:px-52 xs:px-8 xs:flex-col lg:flex-row" onClick={() => showClipboard ? setShowClipboard(false) : null}>
         {showClipboard && <Clipboard setClipboard={setShowClipboard} />}
         <main className="z-20 flex flex-col justify-center xs:items-center lg:items-start h-full lg:py-32 text-white xs:text-center lg:text-start lg:w-1/2 xs:order-2 lg:order-1">
           <motion.div
@@ -89,9 +89,12 @@ const Page = () => {
                 }}
               >
                 <Button
-                  className="w-min h-full aspect-square border-2 border-emerald-600 hover:border-emerald-400 rounded-full p-4 bg-gray-900 text-emerald-600 hover:text-emerald-400 transition-colors duration-300"
+                  className="relative group w-min h-full aspect-square border-2 border-emerald-600 hover:border-emerald-400 rounded-full p-4 bg-gray-900 text-emerald-600 hover:text-emerald-400 transition-colors duration-300"
                   onClick={() => PhoneClickHandler()}
                 >
+                  <div className="opacity-0 group-hover:opacity-100 absolute text-base font-bold text-white -top-12 left-1/2 -translate-x-1/2 bg-gray-800 bg-opacity-90 p-2 rounded-full transition-all duration-300 delay-200">
+                  +420 603 762 712
+                  </div>
                   <Phone />
                 </Button>
               </motion.div>
@@ -108,9 +111,12 @@ const Page = () => {
                 }}
               >
                 <Button
-                  className="w-min h-full aspect-square border-2 border-emerald-600 hover:border-emerald-400 rounded-full p-4 bg-gray-900 text-emerald-600 hover:text-emerald-400 transition-colors duration-300"
+                  className="relative group w-min h-full aspect-square border-2 border-emerald-600 hover:border-emerald-400 rounded-full p-4 bg-gray-900 text-emerald-600 hover:text-emerald-400 transition-colors duration-300"
                   onClick={() => MailClickHandler()}
                 >
+                <div className="opacity-0 group-hover:opacity-100 absolute text-base font-bold text-white -top-12 left-1/2 -translate-x-1/2 bg-gray-800 bg-opacity-90 p-2 rounded-full transition-all duration-300 delay-200">
+                jan.zamostny04@gmail.com
+                </div>
                   <Mail />
                 </Button>
               </motion.div>

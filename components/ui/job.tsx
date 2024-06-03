@@ -1,17 +1,20 @@
 "use client"
 import { motion } from "framer-motion";
+import { twMerge } from "tailwind-merge";
+
 
 type Job = {
   time: string;
   company: string;
   position: string;
   skills?: {id:number, title: string}[];
-  delay: number
+  delay: number;
+  className?:string;
 };
 
-const job = ({ time, company, position, skills, delay }: Job) => {
+const job = ({ time, company, position, skills, delay, className}: Job) => {
   return (
-    <div className="border-emerald-600 border-2 bg-gray-900 flex flex-col justify-center items-start box-border p-6 rounded-2xl">
+    <div className={twMerge("border-emerald-600 border-2 bg-gray-900 flex flex-col justify-center items-start box-border p-6 rounded-2xl", className)}>
       <motion.div
         initial={{
           opacity: 0,

@@ -16,7 +16,7 @@ const Header = () => {
       <div className="h-[1px] w-full bg-gradient-to-r from-green-400 to-green-600 animate-pulse"></div>
       <div className={showMenu ? 'opacity-100' : 'opacity-0'}>
         <Links
-          className={`xs:flex md:hidden flex-col bg-opacity-20 bg-black justify-end items-center transition-all duration-500 ease-out delay-100 ${
+          className={`xs:flex md:hidden flex-col bg-opacity-20 bg-black justify-end items-center transition-all duration-500 ease-out ${
             showMenu
               ? "h-[var(--radix-accordion-content-height)] gap-4 py-8 box-border"
               : "h-0 min-h-0 gap-0 py-0"
