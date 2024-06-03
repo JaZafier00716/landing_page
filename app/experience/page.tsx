@@ -20,7 +20,7 @@ const page = () => {
             ease: "easeOut",
           },
         }}
-        className="xs:w-auto xs:max-w-[20rem] sm:w-2/3 lg:w-auto lg:min-w-[20rem]"
+        className="xs:w-auto xs:max-w-[20rem] sm:w-2/3 lg:w-auto lg:min-w-[21rem]"
       >
         <Job
           delay={0.2}
@@ -79,7 +79,7 @@ const page = () => {
             ease: "easeOut",
           },
         }}
-        className="xs:w-auto xs:max-w-[20rem] sm:w-2/3 lg:w-auto lg:min-w-[20rem]"
+        className="xs:w-auto xs:max-w-[20rem] sm:w-2/3 lg:w-auto lg:min-w-[21rem]"
       >
         <Job
           delay={0.5}
