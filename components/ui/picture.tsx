@@ -2,7 +2,6 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import picture_quality from "@/public/images/picture_v3_cropped.png";
-import picture_quality2 from "@/public/images/picture_no_bg_edited.png";
 
 const picture = () => {
   return (

@@ -37,6 +37,7 @@ const lang = () => {
               ease: "easeOut",
             },
           }}
+          className="h-full"
         >
           <h3 className="h-full bg-gray-900 rounded-2xl border-2 border-emerald-600 text-center w-full cursor-pointer box-border px-2 py-8 flex justify-center items-center relative group transition-all duration-500 hover:text-emerald-400">
             Čeština
