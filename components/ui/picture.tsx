@@ -20,12 +20,12 @@ const picture = () => {
             opacity: 1,
             transition: { delay: 1.4, duration: 0.5, ease: "easeInOut" },
           }}
-          className="w-[298px] h-[298px] md:w-[358px] md:h-[358px] xl:w-[498px] xl:h-[498px] mix-blend-lighten absolute"
+          className="w-[298px] h-[298px] md:w-[358px] md:h-[358px] xl:w-[498px] xl:h-[498px] mix-blend-lighten absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
         >
           <Image
             src={picture_quality}
             alt="My Picture"
-            className="object-contain rounded-full"
+            className="object-contain rounded-full radial"
             priority
             quality={100}
             fill
