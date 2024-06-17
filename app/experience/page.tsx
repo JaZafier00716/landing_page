@@ -53,7 +53,7 @@ const page = () => {
       >
         <Job
           delay={0.2}
-          time="2023"
+          time="2023 - 2024"
           company="Blackfish.co"
           position="Vývojář webových stránek"
           skills={[
