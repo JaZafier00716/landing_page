@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const jetbrainsMono = JetBrains_Mono({ 
   subsets: ["latin"], 
@@ -27,6 +28,7 @@ export default function RootLayout({
       <body className={`h-full ${jetbrainsMono.variable}`}>
         <Header />
         {children}
+        <SpeedInsights/>
         </body>
     </html>
   );
