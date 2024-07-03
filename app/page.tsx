@@ -17,12 +17,15 @@ const Page = () => {
   };
   const MailClickHandler = () => {
     setShowClipboard(true);
-    navigator.clipboard.writeText("jan.zamostny04@gmail.com")
+    navigator.clipboard.writeText("jan.zamostny04@gmail.com");
   };
 
   return (
     <>
-      <div className="box-border flex xl:px-24 xxl:px-52 xs:px-8 xs:flex-col lg:flex-row" onClick={() => showClipboard ? setShowClipboard(false) : null}>
+      <div
+        className="box-border flex xl:px-24 xxl:px-52 xs:px-8 xs:flex-col lg:flex-row"
+        onClick={() => (showClipboard ? setShowClipboard(false) : null)}
+      >
         {showClipboard && <Clipboard setClipboard={setShowClipboard} />}
         <main className="z-20 flex flex-col justify-center xs:items-center lg:items-start h-full lg:py-32 text-white xs:text-center lg:text-start lg:w-1/2 xs:order-2 lg:order-1">
           <motion.div
@@ -93,7 +96,7 @@ const Page = () => {
                   onClick={() => PhoneClickHandler()}
                 >
                   <div className="opacity-0 group-hover:opacity-100 absolute text-base font-bold text-white -top-12 left-1/2 -translate-x-1/2 bg-gray-800 bg-opacity-90 p-2 rounded-full transition-all duration-300 delay-200">
-                  +420 603 762 712
+                    +420 603 762 712
                   </div>
                   <Phone />
                 </Button>
@@ -114,29 +117,34 @@ const Page = () => {
                   className="relative group w-min h-full aspect-square border-2 border-emerald-600 hover:border-emerald-400 rounded-full p-4 bg-gray-900 text-emerald-600 hover:text-emerald-400 transition-colors duration-300"
                   onClick={() => MailClickHandler()}
                 >
-                <div className="opacity-0 group-hover:opacity-100 absolute text-base font-bold text-white -top-12 left-1/2 -translate-x-1/2 bg-gray-800 bg-opacity-90 p-2 rounded-full transition-all duration-300 delay-200">
-                jan.zamostny04@gmail.com
-                </div>
+                  <div className="opacity-0 group-hover:opacity-100 absolute text-base font-bold text-white -top-12 left-1/2 -translate-x-1/2 bg-gray-800 bg-opacity-90 p-2 rounded-full transition-all duration-300 delay-200">
+                    jan.zamostny04@gmail.com
+                  </div>
                   <Mail />
                 </Button>
               </motion.div>
-              <motion.div
-                initial={{ opacity: 0, rotateZ: 360 }}
-                animate={{
-                  opacity: 1,
-                  rotateZ: 0,
-                  transition: {
-                    delay: 2,
-                    duration: 0.5,
-                    ease: "easeOut",
-                  },
-                }}
-                className="w-min h-full aspect-square border-2 border-emerald-600 hover:border-emerald-400 rounded-full p-4 bg-gray-900 text-emerald-600 hover:text-emerald-400 transition-colors duration-300"
+              <Link
+                href="https://www.linkedin.com/in/zamostny-jan"
+                target="_blank"
+                passHref
+                rel="noopener noreferrer"
               >
-                <Link href="https://www.linkedin.com/in/zamostny-jan" target="_blank" passHref rel="noopener noreferrer">
+                <motion.div
+                  initial={{ opacity: 0, rotateZ: 360 }}
+                  animate={{
+                    opacity: 1,
+                    rotateZ: 0,
+                    transition: {
+                      delay: 2,
+                      duration: 0.5,
+                      ease: "easeOut",
+                    },
+                  }}
+                  className="w-min h-full aspect-square border-2 border-emerald-600 hover:border-emerald-400 rounded-full p-4 bg-gray-900 text-emerald-600 hover:text-emerald-400 transition-colors duration-300"
+                >
                   <Linkedin />
-                </Link>
-              </motion.div>
+                </motion.div>
+              </Link>
             </div>
             <motion.div
               initial={{ opacity: 0, translateY: "200%" }}
