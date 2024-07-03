@@ -1,3 +1,5 @@
 {
-    "cSpell.language": "en,cs"
+    "cSpell.language": "en,cs",
+    "WillLuke.nextjs.addTypesOnSave": true,
+    "WillLuke.nextjs.hasPrompted": true
 }

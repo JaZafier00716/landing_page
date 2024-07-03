@@ -39,7 +39,9 @@
     @apply h-full;
   }
   body {
-    @apply font-primary bg-gradient-to-br bg-no-repeat bg-fixed from-blue-1000 to-[#180022]  text-white leading-loose;
+    @apply font-primary bg-no-repeat bg-fixed text-white leading-loose;
+    /* @apply bg-gradient-to-br from-blue-1000 to-[#180022]; */
+    background-image: linear-gradient(to bottom right in lch, #040340, #180022);
   }
   .radial {
     background: radial-gradient(
