@@ -1,8 +1,10 @@
 "use client";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { Lang } from "@/app/types";
 
-const Programming = () => {
+
+const Programming = ({ lang }: { lang: Lang }) => {
   const [icons, setIcons] = useState([
     {
       id: 0,
@@ -19,6 +21,13 @@ const Programming = () => {
     {
       id: 2,
       title: "VHDL",
+      class:
+        "text-5xl text-extrabold xs:col-span-2 sm:col-span-1 h-full flex justify-center items-center col-span-2",
+      active: false,
+    },
+    {
+      id: 3,
+      title: "NASM",
       class:
         "text-5xl text-extrabold xs:col-span-2 sm:col-span-1 h-full flex justify-center items-center col-span-2",
       active: false,
@@ -55,7 +64,7 @@ const Programming = () => {
           },
         }}
       >
-      <h2 className="xs:text-3xl sm:text-4xl text-white">Programování</h2>
+        <h2 className="xs:text-3xl sm:text-4xl text-white">{lang === "cs" ? "Programování" : "Programming"}</h2>
       </motion.div>
       <div className="grid grid-flow-row xs:grid-cols-2 sm:grid-cols-3 place-items-center gap-4 w-fit text-[96px] text-white">
         {icons.map((item) => (
@@ -69,24 +78,22 @@ const Programming = () => {
               opacity: 1,
               translateX: 0,
               transition: {
-                delay: 1+item.id / 4,
+                delay: 1 + item.id / 4,
                 duration: 0.3,
                 ease: "easeOut",
               },
             }}
-            className={`flex items-center justify-center h-full ${item.title === "VHDL" ? 'xs:col-span-2 sm:col-span-1 xs:w-auto sm:w-full' : 'w-full'}`}
+            className={`flex items-center justify-center h-full ${(item.title === "VHDL" || item.title === "NASM") ? 'xs:col-span-2 sm:col-span-1 xs:w-auto sm:w-full' : 'w-full'}`}
           >
             <i
-            className={`${item.class} ${parent} not-italic ${
-              item.active ? "text-emerald-600 " : "text-white"
-            }`}
+              className={`${item.class} ${parent} not-italic ${item.active ? "text-emerald-600 " : "text-white"
+                }`}
               onClick={() => setActiveHandler(item.id)}
             >
-              {item.title === "VHDL" && item.title}
+              {(item.title === "VHDL" || item.title === "NASM") && item.title}
               <span
-                className={`${
-                  item.active ? "opacity-100" : "opacity-0"
-                } ${child}`}
+                className={`${item.active ? "opacity-100" : "opacity-0"
+                  } ${child}`}
               >
                 {item.title}
               </span>

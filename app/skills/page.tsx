@@ -1,18 +1,40 @@
-import Image from "next/image";
-import Web from "@/components/ui/web";
-import Programming from "@/components/ui/Programming";
-import Lang from "@/components/ui/lang";
+"use client";
+import SkillsGrid from "@/components/ui/SkillsGrid";
+import { useLanguage } from "@/components/ui/LanguageProvider";
+import { ICONS } from "@/app/icons";
 
-const page = () => {
+const Page = () => {
+  const { lang } = useLanguage();
+
+  // Extract unique categories
+  const categories = Array.from(new Set(ICONS.map((i) => i.category)));
+
+  // Map category to user-friendly title
+  const categoryTitles: Record<string, string> = {
+    web: lang === "cs" ? "Webový Vývoj" : "Web Development",
+    programming: lang === "cs" ? "Programovací Jazyky" : "Programming Languages",
+    languages: lang === "cs" ? "Jazyky" : "Languages",
+  };
+
+  // Column counts per category
+  const categoryCols: Record<string, number> = {
+    web: 4,
+    programming: 2,
+    languages: 2,
+  };
+
   return (
-    <div className="flex xs:flex-col xs:gap-8 lg:flex-row justify-evenly items-start xs:py-8 xl:py-32">
-      <Web />
-      <div className="flex flex-col items-center justify-center gap-8 xs:w-full lg:w-auto">
-        <Programming />
-        <Lang />
-      </div>
+    <div className="flex flex-wrap xl:flex-nowrap flex-col gap-8 lg:flex-row justify-evenly items-start py-8 xl:py-32">
+      {categories.map((cat) => (
+        <SkillsGrid
+          key={cat}
+          items={ICONS.filter((i) => i.category === cat)}
+          colAmount={categoryCols[cat] || 2}
+          title={categoryTitles[cat] || cat}
+        />
+      ))}
     </div>
   );
 };
 
-export default page;
+export default Page;

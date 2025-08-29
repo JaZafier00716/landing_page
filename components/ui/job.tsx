@@ -61,7 +61,7 @@ const job = ({ time, company, position, skills, delay, className}: Job) => {
         <h3 className="text-lg text-white mt-2">{position}</h3>
       </motion.div>
       {skills && (
-        <ol className=" text-white flex justify-start items-start w-full flex-col mt-4">
+        <ol className=" text-white flex justify-start items-start w-full flex-col mt-4 gap-4">
           {skills?.map((skill) => (
             <motion.div
               key={skill.id}
@@ -77,8 +77,8 @@ const job = ({ time, company, position, skills, delay, className}: Job) => {
                 },
               }}
             >
-              <li className="flex justify-start gap-4 items-center">
-                <div className="w-[6px] h-[6px] rounded-full bg-emerald-600" />
+              <li className="flex justify-start gap-4 items-center leading-relaxed">
+                <div className="w-[6px] h-[6px] min-w-[6px] min-h-[6px] flex-shrink-0 rounded-full bg-emerald-600" />
                 {skill.title}
               </li>
             </motion.div>

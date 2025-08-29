@@ -3,12 +3,15 @@ import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { LanguageProvider } from "@/components/ui/LanguageProvider";
+
 
 const jetbrainsMono = JetBrains_Mono({ 
   subsets: ["latin"], 
   weight: ["100", "200", "300", "400", "500", "600", "700", "800"],
   variable: '--font-jetbrainsMono'
 });
+
 
 export const metadata: Metadata = {
   title: "Jan Zámostný",
@@ -21,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <LanguageProvider>
       <head>
       <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" /> 
       </head>
@@ -30,6 +33,6 @@ export default function RootLayout({
         {children}
         <SpeedInsights/>
         </body>
-    </html>
+    </LanguageProvider>
   );
 }

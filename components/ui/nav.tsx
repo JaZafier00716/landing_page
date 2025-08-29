@@ -2,20 +2,23 @@
 import { twMerge } from "tailwind-merge";
 import Links from "./links";
 import { Menu, X } from "lucide-react";
+import { Lang } from "@/app/types";
 
 type Nav = {
   ShowMobileMenu: boolean
   SetShowMobileMenu: (menu: boolean) => void
+  Lang: Lang;
+  ToggleLang: () => void;
   className?: string
 }
 
-const nav = ({ShowMobileMenu, SetShowMobileMenu, className}: Nav) => {
-  
+const nav = ({ShowMobileMenu, SetShowMobileMenu, className, Lang, ToggleLang}: Nav) => {
+
   return (
     <>
-      {!ShowMobileMenu && <Menu size={64} strokeWidth={2} className="xs:block md:hidden text-emerald-600 cursor-pointer" onClick={() => SetShowMobileMenu(!ShowMobileMenu)} />}
-      {ShowMobileMenu && <X size={64} strokeWidth={2} className="xs:block md:hidden text-emerald-600 cursor-pointer" onClick={() => SetShowMobileMenu(!ShowMobileMenu)} />}
-      <Links className={twMerge("xs:hidden md:flex gap-8 lg:gap-16", className)} />
+      {!ShowMobileMenu && <Menu size={64} strokeWidth={2} className="block md:hidden text-emerald-600 cursor-pointer" onClick={() => SetShowMobileMenu(!ShowMobileMenu)} />}
+      {ShowMobileMenu && <X size={64} strokeWidth={2} className="block md:hidden text-emerald-600 cursor-pointer" onClick={() => SetShowMobileMenu(!ShowMobileMenu)} />}
+      <Links Lang={Lang} ToggleLang={ToggleLang} className={twMerge("hidden md:flex gap-8 lg:gap-16", className)} />
     </>
   );
 };

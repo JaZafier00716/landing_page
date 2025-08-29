@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import picture_quality from "@/public/images/picture_v3_cropped.png";
+import picture_quality from "@/public/images/picture.png";
 
 const picture = () => {
   return (

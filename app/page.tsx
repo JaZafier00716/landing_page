@@ -7,9 +7,12 @@ import { Phone, Mail, Linkedin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Clipboard from "@/components/ui/clipboard";
 import { useState } from "react";
+import {useLanguage } from "@/components/ui/LanguageProvider";
+
 
 const Page = () => {
   const [showClipboard, setShowClipboard] = useState(false);
+  const { lang, toggleLang } = useLanguage();
 
   const PhoneClickHandler = () => {
     setShowClipboard(true);
@@ -19,6 +22,8 @@ const Page = () => {
     setShowClipboard(true);
     navigator.clipboard.writeText("jan.zamostny04@gmail.com");
   };
+
+
 
   return (
     <>
@@ -41,7 +46,7 @@ const Page = () => {
             }}
           >
             <h1 className="xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-wrap">
-              Vítejte na mé osobní stránce
+              {lang === "en" ? "Welcome to my landing page" : "Vítejte na mé osobní stránce"}
             </h1>
           </motion.div>
           <motion.div
@@ -57,7 +62,14 @@ const Page = () => {
             }}
           >
             <h3 className="xs:text-xl sm:text-2xl md:text-3xl xl:text-4xl mt-4">
-              Jmenuji se <span className="text-emerald-400">Jan Zámostný</span>
+              {lang === "en" ? (<>
+                My name is <span className="text-emerald-400">Jan Zamostny</span>
+              </>
+              ) : (
+                <>
+                Jmenuji se <span className="text-emerald-400">Jan Zámostný</span>
+                </>
+              )}
             </h3>
           </motion.div>
           <motion.div
@@ -73,8 +85,14 @@ const Page = () => {
             }}
           >
             <p className="xs:text-md sm:text-lg md:text-xl lg:text-2xl mt-8">
-              Jsem nadšený vývojář webových stránek a programátor v různých
-              jazycích.
+              {lang === "en" ? (<>
+                Motivated Software developer with a solid background in Web apps development and keen interest in C/C++ engeneering.
+              </>
+              ) : (
+                <>
+                Jsem motivovaný Software Developer se silnými základy ve vývoji webových aplikací a programování v C/C++.
+                </>
+              )}
             </p>
           </motion.div>
           <div className="flex xs:flex-col sm:flex-row xs:justify-center lg:justify-start xs:gap-8 xl:gap-16 items-center w-full mt-8">
@@ -158,9 +176,22 @@ const Page = () => {
                 },
               }}
             >
-              <Link
+              {lang === "en" ? (<>
+                <Link
                 target="_blank"
-                href="/cv.pdf"
+                href="/cv_en.pdf"
+                rel="noopener noreferrer"
+                download
+                className="xs:mb-24 sm:mb-0 bg-gray-900 border-emerald-600 hover:border-emerald-400 border-2 border-dashed flex py-5 px-4 text-lg gap-4 rounded-xl text-emerald-600 hover:text-emerald-400 transition-colors duration-300"
+              >
+                <span className="text-white">Download CV</span>
+                <Download className="animate-bounce duration-[3000ms]" />
+              </Link>
+              </>
+              ) : (
+                  <Link
+                target="_blank"
+                href="/cv_cz.pdf"
                 rel="noopener noreferrer"
                 download
                 className="xs:mb-24 sm:mb-0 bg-gray-900 border-emerald-600 hover:border-emerald-400 border-2 border-dashed flex py-5 px-4 text-lg gap-4 rounded-xl text-emerald-600 hover:text-emerald-400 transition-colors duration-300"
@@ -168,6 +199,8 @@ const Page = () => {
                 <span className="text-white">Stáhnout CV</span>
                 <Download className="animate-bounce duration-[3000ms]" />
               </Link>
+              )}
+              
             </motion.div>
           </div>
         </main>
