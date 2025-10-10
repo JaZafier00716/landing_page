@@ -61,7 +61,7 @@ const lang = ({lang} : {lang: Lang}) => {
         >
           <h3 className="h-full bg-gray-900 rounded-2xl border-2 border-emerald-600 text-center w-full cursor-pointer box-border px-2 py-4 flex justify-center items-center flex-col relative group transition-all duration-500 hover:text-emerald-400">
             <span>{lang === "cs" ? "Angličtina" : "English"}</span>
-            <span>C2</span>
+            <span>(C2)</span>
           </h3>
         </motion.div>
       </div>
