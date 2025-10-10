@@ -28,5 +28,5 @@ export const ICONS: SkillItem[] = [
 
   // Example Languages (with optional flags)
   { id: 12, title: "Czech", category: "languages" },
-  { id: 13, title: "English", subTitle: "C1", category: "languages" },
+  { id: 13, title: "English", subTitle: "C2", category: "languages" },
 ];
