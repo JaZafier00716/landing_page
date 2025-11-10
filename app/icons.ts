@@ -5,7 +5,7 @@ export type SkillItem = {
   title: string;          // main text
   subTitle?: string;      // optional second line (for languages etc.)
   iconClass?: string;     // devicon class for icons
-  category: "web" | "programming" | "languages"; // extended category
+  category: "web" | "programming" | "languages" | "os"; // extended category
   Flag?: LucideIcon;      // optional flag icon
 };
 
