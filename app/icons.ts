@@ -35,9 +35,9 @@ export const ICONS: SkillItem[] = [
 
   // Operating systems
   { id: 16, title: "Arch Linux", iconClass: "devicon-archlinux-plain", category: "os" },
-  { id: 16, title: "Debian Linux", iconClass: "devicon-debian-plain", category: "os" },
-  { id: 16, title: "Fedora Linux", iconClass: "devicon-fedora-plain", category: "os" },
-  { id: 16, title: "Linux Mint", iconClass: "devicon-linuxmint-plain", category: "os" },
-  { id: 16, title: "Ubuntu Linux", iconClass: "devicon-ubuntu-plain", category: "os" },
-  { id: 16, title: "Kali Linux", iconClass: "devicon-kalilinux-plain", category: "os" },
+  { id: 17, title: "Debian Linux", iconClass: "devicon-debian-plain", category: "os" },
+  { id: 18, title: "Fedora Linux", iconClass: "devicon-fedora-plain", category: "os" },
+  { id: 19, title: "Linux Mint", iconClass: "devicon-linuxmint-plain", category: "os" },
+  { id: 20, title: "Ubuntu Linux", iconClass: "devicon-ubuntu-plain", category: "os" },
+  { id: 21, title: "Kali Linux", iconClass: "devicon-kalilinux-plain", category: "os" },
 ];
