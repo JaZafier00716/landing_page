@@ -21,8 +21,8 @@ const Page = () => {
   const categoryCols: Record<string, number> = {
     web: 3,
     programming: 3,
-    os: 2,
-    languages: 1,
+    os: 3,
+    languages: 2,
   };
 
   return (
