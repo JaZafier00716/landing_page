@@ -23,10 +23,11 @@ export const ICONS: SkillItem[] = [
   // Programming
   { id: 8, title: "C", iconClass: "devicon-c-plain", category: "programming" },
   { id: 9, title: "C++", iconClass: "devicon-cplusplus-plain", category: "programming" },
-  { id: 10, title: "VHDL", category: "programming" },  // text-only
-  { id: 11, title: "NASM", category: "programming" },  // text-only
+  { id: 10, title: "JAVA", iconClass: "devicon-java-plain", category: "programming" },
+  { id: 11, title: "VHDL", category: "programming" },  // text-only
+  { id: 12, title: "NASM", category: "programming" },  // text-only
 
   // Example Languages (with optional flags)
-  { id: 12, title: "Czech", category: "languages" },
-  { id: 13, title: "English", subTitle: "C2", category: "languages" },
+  { id: 13, title: "Czech", category: "languages" },
+  { id: 14, title: "English", subTitle: "C2", category: "languages" },
 ];
