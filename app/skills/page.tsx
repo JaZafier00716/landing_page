@@ -14,6 +14,7 @@ const Page = () => {
     web: lang === "cs" ? "Webový Vývoj" : "Web Development",
     programming: lang === "cs" ? "Programovací Jazyky" : "Programming Languages",
     languages: lang === "cs" ? "Jazyky" : "Languages",
+    os: lang === "cs" ? "Linux Distribuce" : "Linux Distributions",
   };
 
   // Column counts per category
@@ -21,6 +22,7 @@ const Page = () => {
     web: 3,
     programming: 3,
     languages: 1,
+    os: 2
   };
 
   return (
