@@ -20,7 +20,7 @@ const Page = () => {
   const categoryCols: Record<string, number> = {
     web: 3,
     programming: 3,
-    languages: 2,
+    languages: 1,
   };
 
   return (
