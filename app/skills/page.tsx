@@ -18,8 +18,8 @@ const Page = () => {
 
   // Column counts per category
   const categoryCols: Record<string, number> = {
-    web: 4,
-    programming: 2,
+    web: 3,
+    programming: 3,
     languages: 2,
   };
 
