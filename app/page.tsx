@@ -3,7 +3,7 @@ import { Download } from "lucide-react";
 import { motion } from "framer-motion";
 import Picture from "@/components/ui/picture";
 import Link from "next/link";
-import { Phone, Mail, Linkedin } from "lucide-react";
+import { Phone, Mail, Linkedin, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Clipboard from "@/components/ui/clipboard";
 import { useState } from "react";
@@ -161,6 +161,28 @@ const Page = () => {
                   className="w-min h-full aspect-square border-2 border-emerald-600 hover:border-emerald-400 rounded-full p-4 bg-gray-900 text-emerald-600 hover:text-emerald-400 transition-colors duration-300"
                 >
                   <Linkedin />
+                </motion.div>
+              </Link>
+              <Link
+                href="https://github.com/JaZafier00716"
+                target="_blank"
+                passHref
+                rel="noopener noreferrer"
+              >
+                <motion.div
+                  initial={{ opacity: 0, rotateZ: 360 }}
+                  animate={{
+                    opacity: 1,
+                    rotateZ: 0,
+                    transition: {
+                      delay: 2.3,
+                      duration: 0.5,
+                      ease: "easeOut",
+                    },
+                  }}
+                  className="w-min h-full aspect-square border-2 border-emerald-600 hover:border-emerald-400 rounded-full p-4 bg-gray-900 text-emerald-600 hover:text-emerald-400 transition-colors duration-300"
+                >
+                  <Github />
                 </motion.div>
               </Link>
             </div>
