@@ -21,12 +21,12 @@ const Page = () => {
   const categoryCols: Record<string, number> = {
     web: 3,
     programming: 3,
+    os: 2,
     languages: 1,
-    os: 2
   };
 
   return (
-    <div className="flex flex-wrap xl:flex-nowrap flex-col gap-8 lg:flex-row justify-evenly items-start py-8 xl:py-32">
+    <div className="flex flex-wrap xl:flex-wrap flex-col gap-8 lg:flex-row justify-evenly items-start py-8 xl:pt-32">
       {categories.map((cat) => (
         <SkillsGrid
           key={cat}
