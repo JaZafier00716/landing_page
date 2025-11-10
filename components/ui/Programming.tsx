@@ -32,6 +32,13 @@ const Programming = ({ lang }: { lang: Lang }) => {
         "text-5xl text-extrabold xs:col-span-2 sm:col-span-1 h-full flex justify-center items-center col-span-2",
       active: false,
     },
+    {
+      id: 4,
+      title: "JAVA",
+      class:
+         "devicon-java-plain",
+      active: false,
+    },
   ]);
 
   const setActiveHandler = (id: number) => {
