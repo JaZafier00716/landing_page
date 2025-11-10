@@ -11,7 +11,7 @@ export type SkillItem = {
 
 export const ICONS: SkillItem[] = [
   // Web
-  { id: 0, title: "NextJS", iconClass: "devicon-nextjs-plain", category: "web" },
+  { id: 0, title: "NextJS", iconClass: "devicon-nextjs-original-wordmark", category: "web" },
   { id: 1, title: "ReactJS", iconClass: "devicon-react-original", category: "web" },
   { id: 2, title: "Tailwindcss", iconClass: "devicon-tailwindcss-original", category: "web" },
   { id: 3, title: "TypeScript", iconClass: "devicon-typescript-plain", category: "web" },
