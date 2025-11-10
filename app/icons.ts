@@ -19,15 +19,17 @@ export const ICONS: SkillItem[] = [
   { id: 5, title: "HTML5", iconClass: "devicon-html5-plain", category: "web" },
   { id: 6, title: "JavaScript", iconClass: "devicon-javascript-plain", category: "web" },
   { id: 7, title: "PHP", iconClass: "devicon-php-plain", category: "web" },
+  { id: 8, title: "MySQL", iconClass: "devicon-mysql-plain-wordmark", category: "web" },
 
   // Programming
-  { id: 8, title: "C", iconClass: "devicon-c-plain", category: "programming" },
-  { id: 9, title: "C++", iconClass: "devicon-cplusplus-plain", category: "programming" },
-  { id: 10, title: "JAVA", iconClass: "devicon-java-plain", category: "programming" },
-  { id: 11, title: "VHDL", category: "programming" },  // text-only
-  { id: 12, title: "NASM", category: "programming" },  // text-only
+  { id: 9, title: "C", iconClass: "devicon-c-plain", category: "programming" },
+  { id: 10, title: "C++", iconClass: "devicon-cplusplus-plain", category: "programming" },
+  { id: 11, title: "JAVA", iconClass: "devicon-java-plain", category: "programming" },
+  { id: 14, title: "Haskell", iconClass: "devicon-haskell-plain", category: "programming" },
+  { id: 12, title: "VHDL", category: "programming" },  // text-only
+  { id: 13, title: "NASM", category: "programming" },  // text-only
 
   // Example Languages (with optional flags)
-  { id: 13, title: "Czech", category: "languages" },
-  { id: 14, title: "English", subTitle: "C2", category: "languages" },
+  { id: 14, title: "Czech", category: "languages" },
+  { id: 15, title: "English", subTitle: "C2", category: "languages" },
 ];
