@@ -25,19 +25,19 @@ export const ICONS: SkillItem[] = [
   { id: 9, title: "C", iconClass: "devicon-c-plain", category: "programming" },
   { id: 10, title: "C++", iconClass: "devicon-cplusplus-plain", category: "programming" },
   { id: 11, title: "JAVA", iconClass: "devicon-java-plain", category: "programming" },
-  { id: 14, title: "Haskell", iconClass: "devicon-haskell-plain", category: "programming" },
-  { id: 12, title: "VHDL", category: "programming" },  // text-only
-  { id: 13, title: "NASM", category: "programming" },  // text-only
+  { id: 12, title: "Haskell", iconClass: "devicon-haskell-plain", category: "programming" },
+  { id: 13, title: "VHDL", category: "programming" },  // text-only
+  { id: 14, title: "NASM", category: "programming" },  // text-only
 
   // Example Languages (with optional flags)
-  { id: 14, title: "Czech", category: "languages" },
-  { id: 15, title: "English", subTitle: "C2", category: "languages" },
+  { id: 15, title: "Czech", category: "languages" },
+  { id: 16, title: "English", subTitle: "C2", category: "languages" },
 
   // Operating systems
-  { id: 16, title: "Arch Linux", iconClass: "devicon-archlinux-plain", category: "os" },
-  { id: 17, title: "Debian Linux", iconClass: "devicon-debian-plain", category: "os" },
-  { id: 18, title: "Fedora Linux", iconClass: "devicon-fedora-plain", category: "os" },
-  { id: 19, title: "Linux Mint", iconClass: "devicon-linuxmint-plain", category: "os" },
-  { id: 20, title: "Ubuntu Linux", iconClass: "devicon-ubuntu-plain", category: "os" },
-  { id: 21, title: "Kali Linux", iconClass: "devicon-kalilinux-plain", category: "os" },
+  { id: 17, title: "Arch Linux", iconClass: "devicon-archlinux-plain", category: "os" },
+  { id: 18, title: "Debian Linux", iconClass: "devicon-debian-plain", category: "os" },
+  { id: 19, title: "Fedora Linux", iconClass: "devicon-fedora-plain", category: "os" },
+  { id: 20, title: "Linux Mint", iconClass: "devicon-linuxmint-plain", category: "os" },
+  { id: 21, title: "Ubuntu Linux", iconClass: "devicon-ubuntu-plain", category: "os" },
+  { id: 22, title: "Kali Linux", iconClass: "devicon-kalilinux-plain", category: "os" },
 ];
