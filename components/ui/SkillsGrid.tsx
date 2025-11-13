@@ -1,15 +1,10 @@
 "use client";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import type { LucideIcon } from "lucide-react";
+import { SkillItem } from "@/app/skills/skills";
+import { Button } from "./button";
 
-export type SkillItem = {
-  id: number;
-  title: string; // main text
-  subTitle?: string; // optional second line
-  iconClass?: string; // devicon or similar, optional
-  Flag?: LucideIcon; // optional flag icon
-};
+
 
 type SkillsProps = {
   items: SkillItem[];
@@ -68,7 +63,6 @@ const SkillsGrid = ({ items, colAmount, title }: SkillsProps) => {
       >
         {items.map((item) => {
           const isActive = activeIds.includes(item.id);
-          const hasIcon = !!item.iconClass || !!item.Flag;
 
           return (
             <motion.div
@@ -81,29 +75,36 @@ const SkillsGrid = ({ items, colAmount, title }: SkillsProps) => {
               }}
               className="flex items-center justify-center"
             >
-              <div
+              <Button
                 className={`${parent} ${squareSize} ${isActive ? "text-emerald-600" : "text-white"} flex flex-col items-center justify-center text-center`}
                 onClick={() => toggleActive(item.id)}
               >
-                {item.iconClass ? (
-                  <i className={`${item.iconClass} text-[3rem] sm:text-[4rem] lg:text-[5rem] xxl:text-[6rem]`}></i>
-                ) : item.Flag ? (
-                  <item.Flag className="w-8 h-8 sm:w-12 sm:h-16 lg:w-16 lg:h-16 xxl:w-20 xxl:h-20" />
-                ) : (
-                  <div className="flex flex-col items-center justify-center h-full w-full px-2 text-center">
-                    <span className="font-extrabold text-xl sm:text-2xl lg:text-3xl xxl:text-4xl">
-                      {item.title}
-                    </span>
-                    {item.subTitle && (
-                      <span className="text-base sm:text-lg">{item.subTitle}</span>
-                    )}
-                  </div>
-                )}
-
+                {(() => {
+                  if (item.iconClass) {
+                    return (
+                      <i className={`${item.iconClass} text-[3rem] sm:text-[4rem] lg:text-[5rem] xxl:text-[6rem]`}></i>
+                    );
+                  } else if (item.Flag) {
+                    return (
+                      <item.Flag className="w-8 h-8 sm:w-12 sm:h-16 lg:w-16 lg:h-16 xxl:w-20 xxl:h-20" />
+                    );
+                  } else {
+                    return (
+                      <div className="flex flex-col items-center justify-center h-full w-full px-2 text-center">
+                        <span className="font-extrabold text-xl sm:text-2xl lg:text-3xl xxl:text-4xl">
+                          {item.title}
+                        </span>
+                        {item.subTitle && (
+                          <span className="text-base sm:text-lg">{item.subTitle}</span>
+                        )}
+                      </div>
+                    );
+                  }
+                })()}
                 <span className={`${isActive ? "opacity-100" : "opacity-0"} ${child}`}>
                   {item.title}
                 </span>
-              </div>
+              </Button>
             </motion.div>
           );
         })}

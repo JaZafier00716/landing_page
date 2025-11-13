@@ -105,11 +105,12 @@ const web = () => {
               },
             }}
           >
-            <i
+            <button
               className={`${item.class} ${parent} ${
                 item.active ? "text-emerald-600 " : "text-white"
               }`}
               onClick={() => setActiveHandler(item.id)}
+              aria-pressed={item.active}
             >
               <span
                 className={`${
@@ -118,7 +119,7 @@ const web = () => {
               >
                 {item.title}
               </span>
-            </i>
+            </button>
           </motion.div>
         ))}
       </div>

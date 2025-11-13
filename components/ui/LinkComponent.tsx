@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Button } from "./button";
 
 type LinkType = {
   href: string;
@@ -7,7 +6,7 @@ type LinkType = {
   path: () => string;
 };
 
-const link = ({ href, title, path }: LinkType) => {
+const LinkComponent = ({ href, title, path }: LinkType) => {
   return (
     <Link
       href={href}
@@ -22,4 +21,4 @@ const link = ({ href, title, path }: LinkType) => {
   );
 };
 
-export default link;
+export default LinkComponent;

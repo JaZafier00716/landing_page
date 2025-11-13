@@ -1,0 +1,227 @@
+"use client";
+import { Download, Phone, Mail, Linkedin } from "lucide-react";
+import { SiGithub } from "react-icons/si";
+import { motion } from "framer-motion";
+import Picture from "@/components/ui/picture";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import Clipboard from "@/components/ui/clipboard";
+import { useState } from "react";
+
+export default function PageClient({ lang }: { readonly lang: "en" | "cs" }) {
+  const [showClipboard, setShowClipboard] = useState(false);
+  const PhoneClickHandler = () => {
+    setShowClipboard(true);
+    navigator.clipboard.writeText("+420603762712");
+  };
+  const MailClickHandler = () => {
+    setShowClipboard(true);
+    navigator.clipboard.writeText("jan.zamostny04@gmail.com");
+  };
+  return (
+    <section>
+      <div
+        className={`box-border flex xl:px-24 xxl:px-52 xs:px-8 xs:flex-col lg:flex-row ${showClipboard ? "cursor-pointer" : "cursor-default"}`}
+        onClick={() => (showClipboard ? setShowClipboard(false) : null)}
+      >
+        {showClipboard && <Clipboard setClipboard={setShowClipboard} />}
+        <main className="z-20 flex flex-col justify-center xs:items-center lg:items-start h-full lg:py-32 text-white xs:text-center lg:text-start lg:w-1/2 xs:order-2 lg:order-1">
+          <motion.div
+            initial={{ opacity: 0, translateX: "-100%" }}
+            animate={{
+              opacity: 1,
+              translateX: 0,
+              transition: {
+                delay: 0.2,
+                duration: 0.5,
+                ease: "easeOut",
+              },
+            }}
+          >
+            <h1 className="xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-wrap">
+              {lang === "en" ? "Welcome to my landing page" : "Vítejte na mé osobní stránce"}
+            </h1>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, translateX: "-100%" }}
+            animate={{
+              opacity: 1,
+              translateX: 0,
+              transition: {
+                delay: 0.8,
+                duration: 0.5,
+                ease: "easeOut",
+              },
+            }}
+          >
+            <h3 className="xs:text-xl sm:text-2xl md:text-3xl xl:text-4xl mt-4">
+              {lang === "en" ? (<>
+                My name is <span className="text-emerald-400">Jan Zamostny</span>
+              </>
+              ) : (
+                <>
+                  Jmenuji se <span className="text-emerald-400">Jan Zámostný</span>
+                </>
+              )}
+            </h3>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, translateX: "-100%" }}
+            animate={{
+              opacity: 1,
+              translateX: 0,
+              transition: {
+                delay: 1.4,
+                duration: 0.5,
+                ease: "easeOut",
+              },
+            }}
+          >
+            <p className="xs:text-md sm:text-lg md:text-xl lg:text-2xl mt-8">
+              {lang === "en" ? (<>
+                Motivated Software developer with a solid background in Web apps development and keen interest in C/C++ engeneering.
+              </>
+              ) : (
+                <>
+                  Jsem motivovaný Software Developer se silnými základy ve vývoji webových aplikací a programování v C/C++.
+                </>
+              )}
+            </p>
+          </motion.div>
+          <div className="flex xs:flex-col sm:flex-row xs:justify-center lg:justify-start xs:gap-8 xl:gap-16 items-center w-full mt-8">
+            <div className="flex xs:gap-8 lg:gap-4 xl:gap-8 h-full items-center justify-start">
+              <motion.div
+                initial={{ opacity: 0, rotateZ: 360 }}
+                animate={{
+                  opacity: 1,
+                  rotateZ: 0,
+                  transition: {
+                    delay: 1.4,
+                    duration: 0.5,
+                    ease: "easeOut",
+                  },
+                }}
+              >
+                <Button
+                  className="relative group w-min h-full aspect-square border-2 border-emerald-600 hover:border-emerald-400 rounded-full p-4 bg-gray-900 text-emerald-600 hover:text-emerald-400 transition-colors duration-300"
+                  onClick={() => PhoneClickHandler()}
+                >
+                  <div className="opacity-0 group-hover:opacity-100 absolute text-base font-bold text-white -top-12 left-1/2 -translate-x-1/2 bg-gray-800 bg-opacity-90 p-2 rounded-full transition-all duration-300 delay-200">
+                    +420 603 762 712
+                  </div>
+                  <Phone />
+                </Button>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, rotateZ: 360 }}
+                animate={{
+                  opacity: 1,
+                  rotateZ: 0,
+                  transition: {
+                    delay: 1.7,
+                    duration: 0.5,
+                    ease: "easeOut",
+                  },
+                }}
+              >
+                <Button
+                  className="relative group w-min h-full aspect-square border-2 border-emerald-600 hover:border-emerald-400 rounded-full p-4 bg-gray-900 text-emerald-600 hover:text-emerald-400 transition-colors duration-300"
+                  onClick={() => MailClickHandler()}
+                >
+                  <div className="opacity-0 group-hover:opacity-100 absolute text-base font-bold text-white -top-12 left-1/2 -translate-x-1/2 bg-gray-800 bg-opacity-90 p-2 rounded-full transition-all duration-300 delay-200">
+                    jan.zamostny04@gmail.com
+                  </div>
+                  <Mail />
+                </Button>
+              </motion.div>
+              <Link
+                href="https://www.linkedin.com/in/zamostny-jan"
+                target="_blank"
+                passHref
+                rel="noopener noreferrer"
+              >
+                <motion.div
+                  initial={{ opacity: 0, rotateZ: 360 }}
+                  animate={{
+                    opacity: 1,
+                    rotateZ: 0,
+                    transition: {
+                      delay: 2,
+                      duration: 0.5,
+                      ease: "easeOut",
+                    },
+                  }}
+                  className="w-min h-full aspect-square border-2 border-emerald-600 hover:border-emerald-400 rounded-full p-4 bg-gray-900 text-emerald-600 hover:text-emerald-400 transition-colors duration-300"
+                >
+                  <Linkedin />
+                </motion.div>
+              </Link>
+              <Link
+                href="https://github.com/JaZafier00716"
+                target="_blank"
+                passHref
+                rel="noopener noreferrer"
+              >
+                <motion.div
+                  initial={{ opacity: 0, rotateZ: 360 }}
+                  animate={{
+                    opacity: 1,
+                    rotateZ: 0,
+                    transition: {
+                      delay: 2.3,
+                      duration: 0.5,
+                      ease: "easeOut",
+                    },
+                  }}
+                  className="w-min h-full aspect-square border-2 border-emerald-600 hover:border-emerald-400 rounded-full p-4 bg-gray-900 text-emerald-600 hover:text-emerald-400 transition-colors duration-300"
+                >
+                  <SiGithub />
+                </motion.div>
+              </Link>
+            </div>
+            <motion.div
+              initial={{ opacity: 0, translateY: "200%" }}
+              animate={{
+                opacity: 1,
+                translateY: 0,
+                transition: {
+                  delay: 2.3,
+                  duration: 0.5,
+                  ease: "easeOut",
+                },
+              }}
+            >
+              {lang === "en" ? (
+                <Link
+                  target="_blank"
+                  href="/cv_en.pdf"
+                  rel="noopener noreferrer"
+                  download
+                  className="xs:mb-24 sm:mb-0 bg-gray-900 border-emerald-600 hover:border-emerald-400 border-2 border-dashed flex py-5 px-4 text-lg gap-4 rounded-xl text-emerald-600 hover:text-emerald-400 transition-colors duration-300"
+                >
+                  <span className="text-white">Download CV</span>
+                  <Download className="animate-bounce duration-[3000ms]" />
+                </Link>
+              ) : (
+                <Link
+                  target="_blank"
+                  href="/cv_cz.pdf"
+                  rel="noopener noreferrer"
+                  download
+                  className="xs:mb-24 sm:mb-0 bg-gray-900 border-emerald-600 hover:border-emerald-400 border-2 border-dashed flex py-5 px-4 text-lg gap-4 rounded-xl text-emerald-600 hover:text-emerald-400 transition-colors duration-300"
+                >
+                  <span className="text-white">Stáhnout CV</span>
+                  <Download className="animate-bounce duration-[3000ms]" />
+                </Link>
+              )}
+
+            </motion.div>
+          </div>
+        </main>
+        <aside className="z-20 lg:w-1/2 flex lg:justify-end xs:items-center xs:justify-center xs:order-1 lg:order-2 xs:py-8 lg:py-0">
+          <Picture />
+        </aside>
+      </div>
+    </section>
+  );
+};

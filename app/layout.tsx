@@ -3,8 +3,7 @@ import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import { SpeedInsights } from "@vercel/speed-insights/next"
-import { LanguageProvider } from "@/components/ui/LanguageProvider";
-
+import { getLang } from "./utils/getLang";
 
 const jetbrainsMono = JetBrains_Mono({ 
   subsets: ["latin"], 
@@ -23,16 +22,18 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  
+  const lang = getLang()
   return (
-    <LanguageProvider>
+    <html lang={lang}>
       <head>
       <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" /> 
       </head>
       <body className={`h-full ${jetbrainsMono.variable}`}>
-        <Header />
+        <Header lang={lang} />
         {children}
-        <SpeedInsights/>
-        </body>
-    </LanguageProvider>
+        <SpeedInsights />
+      </body>
+    </html>
   );
 }

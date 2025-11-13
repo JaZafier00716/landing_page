@@ -1,5 +1,14 @@
 {
-    "cSpell.language": "en,cs",
-    "WillLuke.nextjs.addTypesOnSave": true,
-    "WillLuke.nextjs.hasPrompted": true
+  "cSpell.language": "en,cs",
+  "WillLuke.nextjs.addTypesOnSave": true,
+  "WillLuke.nextjs.hasPrompted": true,
+  "cSpell.words": [
+    "archlinux",
+    "cplusplus",
+    "kalilinux",
+    "linuxmint",
+    "NASM",
+    "VHDL",
+    "wordmark"
+  ]
 }

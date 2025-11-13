@@ -1,42 +1,14 @@
-"use client";
-import SkillsGrid from "@/components/ui/SkillsGrid";
-import { useLanguage } from "@/components/ui/LanguageProvider";
-import { ICONS } from "@/app/icons";
+import { getLang } from "../utils/getLang";
+import { getSkillsCategories } from "./skills";
+import SkillsClient from "./client";
 
-const Page = () => {
-  const { lang } = useLanguage();
+export default async function Page() {
+  const lang = getLang();
+  const skillsCategories = await getSkillsCategories(lang); // server-side
+  const categories = skillsCategories.map((category) => ({
+    ...category,
+    title: category.name.charAt(0).toUpperCase() + category.name.slice(1), // Example title generation
+  }));
 
-  // Extract unique categories
-  const categories = Array.from(new Set(ICONS.map((i) => i.category)));
-
-  // Map category to user-friendly title
-  const categoryTitles: Record<string, string> = {
-    web: lang === "cs" ? "Webový Vývoj" : "Web Development",
-    programming: lang === "cs" ? "Programovací Jazyky" : "Programming Languages",
-    languages: lang === "cs" ? "Jazyky" : "Languages",
-    os: lang === "cs" ? "Linux Distribuce" : "Linux Distributions",
-  };
-
-  // Column counts per category
-  const categoryCols: Record<string, number> = {
-    web: 3,
-    programming: 3,
-    os: 3,
-    languages: 2,
-  };
-
-  return (
-    <div className="flex flex-wrap xl:flex-wrap flex-col gap-8 lg:flex-row justify-evenly items-start py-8 xl:pt-32">
-      {categories.map((cat) => (
-        <SkillsGrid
-          key={cat}
-          items={ICONS.filter((i) => i.category === cat)}
-          colAmount={categoryCols[cat] || 2}
-          title={categoryTitles[cat] || cat}
-        />
-      ))}
-    </div>
-  );
-};
-
-export default Page;
+  return <SkillsClient data={categories} />;
+}

@@ -6,14 +6,45 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-model Icon {
-  id String @id @default(uuid())
-  title String
-  class String
-  active Boolean
+model SkillCategory {
+  id       Int       @id @default(autoincrement())
+  name     String @unique
+  colNum   Int
+  items    String
+  translations SkillCategoryTranslation[]
 }
 
+model SkillCategoryTranslation {
+  id         Int           @id @default(autoincrement())
+  categoryId Int
+  lang       String
+  title      String
+
+  category   SkillCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@unique([categoryId, lang])
+}
+
+model Experience {
+  id           Int                      @id @default(autoincrement())
+  company      String
+  sortOrder    Int                      @default(0)
+  translations ExperienceTranslation[]
+}
+
+model ExperienceTranslation {
+  id           Int         @id @default(autoincrement())
+  experienceId Int
+  lang         String
+  time         String
+  position     String
+  skills       String      // JSON string of [{ id, title }]
+
+  experience   Experience  @relation(fields: [experienceId], references: [id], onDelete: Cascade)
+
+  @@unique([experienceId, lang])
+}
