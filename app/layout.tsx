@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
+import React from "react";
 import "./globals.css";
 import Header from "@/components/Header";
 import { SpeedInsights } from "@vercel/speed-insights/next"
@@ -23,7 +24,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   
-  const lang = getLang()
+  const [lang, setLang] = React.useState<"en" | "cs">("en");
+
+  React.useEffect(() => {
+    getLang().then((resolvedLang) => setLang(resolvedLang));
+  }, []);
+
   return (
     <html lang={lang}>
       <head>
