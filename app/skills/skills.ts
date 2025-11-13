@@ -13,6 +13,7 @@ export type Category = {
   colNum?: number;
   items: SkillItem[];
   title: string;
+  id: number;
 };
 
 export async function getSkillsCategories(
@@ -30,19 +31,21 @@ export async function getSkillsCategories(
     interface SkillCategoryRow {
       name: string;
       colNum?: number;
-      items: {
       id: number;
-      title: string;
-      subTitle?: string | null;
-      iconClass?: string | null;
+      items: {
+        id: number;
+        title: string;
+        subTitle?: string | null;
+        iconClass?: string | null;
       }[];
       translations: {
-      lang: string;
-      title: string;
+        lang: string;
+        title: string;
       }[];
     }
 
     return rows.map((row: SkillCategoryRow) => ({
+      id: row.id,
       name: row.name as Category["name"],
       colNum: row.colNum,
       items: row.items.map((it: SkillItem) => ({

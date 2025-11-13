@@ -8,9 +8,10 @@ type SkillsProps = {
   items: SkillItem[];
   colAmount: number;
   title: string;
+  catId: number;
 };
 
-const SkillsGrid = ({ items, colAmount, title }: SkillsProps) => {
+const SkillsGrid = ({ items, colAmount, title, catId }: SkillsProps) => {
   const [activeIds, setActiveIds] = useState<number[]>([]);
 
   const toggleActive = (id: number) => {
@@ -69,7 +70,7 @@ const SkillsGrid = ({ items, colAmount, title }: SkillsProps) => {
               animate={{
                 opacity: 1,
                 translateX: 0,
-                transition: { delay: 0.2 + item.id / 4, duration: 0.3, ease: "easeOut" },
+                transition: { delay: 0.2 + (item.id - (10*catId)) / 4, duration: 0.3, ease: "easeOut" },
               }}
               className="flex items-center justify-center"
             >

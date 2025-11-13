@@ -13,6 +13,7 @@ export default function SkillsClient({ data, loadingMessage = "Loading skills...
             items={[...cat.items].sort((a, b) => a.id - b.id)}
             colAmount={cat.colNum || 2}
             title={cat.title}
+            catId={cat.id}
           />
         ))
       ) : (
