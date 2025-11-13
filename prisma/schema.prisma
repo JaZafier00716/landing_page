@@ -14,8 +14,18 @@ model SkillCategory {
   id       Int       @id @default(autoincrement())
   name     String @unique
   colNum   Int
-  items    String
+  items    SkillsItems[]
   translations SkillCategoryTranslation[]
+}
+
+model SkillsItems {
+  id    Int    @id @default(autoincrement())
+  categoryId Int
+  title String
+  iconClass String?
+  subTitle String?
+
+  category   SkillCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 }
 
 model SkillCategoryTranslation {

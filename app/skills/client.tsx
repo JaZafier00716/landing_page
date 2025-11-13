@@ -1,16 +1,11 @@
 "use client";
 import SkillsGrid from "@/components/ui/SkillsGrid";
+import { SkillItem } from "./skills";
 
-type SkillItem = {
-  id: number;
-  title: string;
-  subTitle?: string;
-  iconClass?: string;
-};
 
 type Category = {
   name: "web" | "programming" | "languages" | "os";
-  colNum?: 1 | 2 | 3 | 4 | 5 | 6;
+  colNum?: number;
   items: SkillItem[];
   title: string; // Fetched from db
 };

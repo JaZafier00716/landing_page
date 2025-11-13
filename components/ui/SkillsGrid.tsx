@@ -4,8 +4,6 @@ import { motion } from "framer-motion";
 import { SkillItem } from "@/app/skills/skills";
 import { Button } from "./button";
 
-
-
 type SkillsProps = {
   items: SkillItem[];
   colAmount: number;
@@ -83,10 +81,6 @@ const SkillsGrid = ({ items, colAmount, title }: SkillsProps) => {
                   if (item.iconClass) {
                     return (
                       <i className={`${item.iconClass} text-[3rem] sm:text-[4rem] lg:text-[5rem] xxl:text-[6rem]`}></i>
-                    );
-                  } else if (item.Flag) {
-                    return (
-                      <item.Flag className="w-8 h-8 sm:w-12 sm:h-16 lg:w-16 lg:h-16 xxl:w-20 xxl:h-20" />
                     );
                   } else {
                     return (
