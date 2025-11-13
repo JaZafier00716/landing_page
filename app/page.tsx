@@ -3,7 +3,7 @@ import PageClient from "./client";
 import { getHomePageData } from "./home";
 
 const Page = async () => {
-  const lang = await getLang(); // Ensure this returns the correct language
+  const lang = getLang(); // Ensure this returns the correct language
   const data = await getHomePageData(lang);
 
   return <PageClient data={data} />;
