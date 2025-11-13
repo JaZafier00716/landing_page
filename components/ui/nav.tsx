@@ -2,12 +2,11 @@
 import { twMerge } from "tailwind-merge";
 import Links from "./links";
 import { Menu, X } from "lucide-react";
-import { Lang } from "@/app/types";
 
 type Nav = {
   ShowMobileMenu: boolean
   SetShowMobileMenu: (menu: boolean) => void
-  Lang: Lang;
+  Lang: string;
   ToggleLang: () => void;
   className?: string
 }

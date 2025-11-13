@@ -1,8 +1,8 @@
 "use client"
 import { motion } from "framer-motion";
-import { Lang } from "@/app/types";
 
-const lang = ({lang} : {lang: Lang}) => {
+const lang = ({lang} : {lang: string}) => {
+
   return (
     <div className="flex flex-col items-center justify-center gap-4 xs:w-full lg:w-auto">
       <motion.div

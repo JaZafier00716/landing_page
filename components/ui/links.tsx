@@ -1,11 +1,10 @@
 "use client";
 import LinkComponent from "./LinkComponent";
 import { usePathname } from "next/navigation";
-import { Lang } from "@/app/types";
 
 type Links = {
   className?: string;
-  Lang: Lang;
+  Lang: string;
   ToggleLang: () => void;
 };
 
