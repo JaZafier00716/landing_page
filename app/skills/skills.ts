@@ -25,12 +25,24 @@ export async function getSkillsCategories(
     orderBy: { id: "asc" },
     include: { translations: true },
   });
-  return rows.map((row) => {
+  interface SkillCategoryRow {
+    name: string;
+    colNum?: number;
+    items?: string;
+    translations?: Translation[];
+  }
+
+  interface Translation {
+    lang: string;
+    title: string;
+  }
+
+  return rows.map((row: SkillCategoryRow) => {
     return {
       name: row.name as SkillCategoryWithTitle["name"],
       colNum: (row.colNum as 1 | 2 | 3 | 4 | 5 | 6 | undefined) ?? 2,
       items: row.items ? (JSON.parse(row.items) as SkillItem[]) : [],
-      title: row.translations?.find((t) => t.lang === lang)?.title ?? row.name,
+      title: row.translations?.find((t: Translation) => t.lang === lang)?.title ?? row.name,
     };
   });
 }

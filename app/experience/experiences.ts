@@ -17,8 +17,16 @@ export async function getExperience(
     include: { translations: true },
   });
 
-  return rows.map((row) => {
-    const t =
+  return rows.map((row: {
+    company: string;
+    translations: {
+      lang: string;
+      time?: string;
+      position?: string;
+      skills?: string;
+    }[];
+  }): ExperienceItem => {
+    const t: { time?: string; position?: string; skills?: string } =
       row.translations.find((x) => x.lang === lang) ?? row.translations[0];
     return {
       company: row.company,
