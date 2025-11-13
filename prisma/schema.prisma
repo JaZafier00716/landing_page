@@ -48,3 +48,38 @@ model ExperienceTranslation {
 
   @@unique([experienceId, lang])
 }
+
+model HomePageContent {
+  id    Int    @id @default(autoincrement())
+  imageUrl String
+  translations HomePageTranslation[]
+}
+
+model HomePageTranslation {
+  id              Int              @id @default(autoincrement())
+  title String
+  subtitle String
+  content String
+  lang  String
+  homePageContentId Int
+  personDetailsId Int?
+
+  personDetails  PersonDetails? @relation(fields: [personDetailsId], references: [id], onDelete: Cascade)
+  homePageContent HomePageContent @relation(fields: [homePageContentId], references: [id], onDelete: Cascade)
+
+  @@unique([homePageContentId, lang])
+}
+
+model PersonDetails {
+  id    Int    @id @default(autoincrement())
+  name  String
+  email String
+  phone String
+  linkedin String
+  github String
+  cvLink String
+  cvLinkText String // Added field for CV link text
+  lang String
+
+  homePageTranslations HomePageTranslation[]
+}

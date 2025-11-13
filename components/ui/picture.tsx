@@ -1,9 +1,8 @@
 "use client";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import picture_quality from "@/public/images/picture.png";
 
-const picture = () => {
+const Picture = ({ src }: { src: string }) => {
   return (
     <div className="w-[300px] h-[300px] md:w-[362px] md:h-[362px] xl:w-[506px] xl:h-[506px] relative">
       <motion.div
@@ -23,7 +22,7 @@ const picture = () => {
           className="w-[298px] h-[298px] md:w-[358px] md:h-[358px] xl:w-[498px] xl:h-[498px] mix-blend-lighten absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
         >
           <Image
-            src={picture_quality}
+            src={src}
             alt="My Picture"
             className="object-contain rounded-full radial"
             priority
@@ -62,4 +61,4 @@ const picture = () => {
   );
 };
 
-export default picture;
+export default Picture;

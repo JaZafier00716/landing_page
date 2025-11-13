@@ -20,19 +20,17 @@ export type SkillCategoryWithTitle = SkillCategory & { title: string };
 
 export async function getSkillsCategories(
   lang: "en" | "cs" = "en"
-): Promise<SkillCategory[]> {
+): Promise<SkillCategoryWithTitle[]> {
   const rows = await prisma.skillCategory.findMany({
     orderBy: { id: "asc" },
     include: { translations: true },
   });
-  return rows.map((row: any) => {
-    const title =
-      row.translations?.find((t: any) => t.lang === lang)?.title ?? row.name;
+  return rows.map((row) => {
     return {
-      name: row.name as SkillCategory["name"],
-      colNum: row.colNum ?? undefined,
+      name: row.name as SkillCategoryWithTitle["name"],
+      colNum: (row.colNum as 1 | 2 | 3 | 4 | 5 | 6 | undefined) ?? 2,
       items: row.items ? (JSON.parse(row.items) as SkillItem[]) : [],
-      title,
+      title: row.translations?.find((t) => t.lang === lang)?.title ?? row.name,
     };
   });
 }
