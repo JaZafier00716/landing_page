@@ -1,14 +1,6 @@
 "use client";
 import SkillsGrid from "@/components/ui/SkillsGrid";
-import { SkillItem } from "./skills";
-
-
-type Category = {
-  name: "web" | "programming" | "languages" | "os";
-  colNum?: number;
-  items: SkillItem[];
-  title: string; // Fetched from db
-};
+import { Category } from "./skills";
 
 export default function SkillsClient({ data, loadingMessage = "Loading skills..." }: Readonly<{ data: Category[]; loadingMessage?: string }>) {
 
