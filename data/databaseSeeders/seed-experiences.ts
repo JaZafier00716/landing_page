@@ -10,18 +10,42 @@ const experiences = [
       time: "june 2024 - october 2024",
       position: "Frontend Web Apps Developer",
       skills: [
-        { id: 0, title: "Developed web applications using NextJS, TypeScript, and Tailwindcss, collaborating with tools like Git, Storybook, Vercel, Sanity, and Figma to enhance user experience and streamline development processes." },
-        { id: 1, title: "Contributed significantly to projects for SolidSun and Sype.to, improving user experience and performance." },
-        { id: 3, title: "Collaborated effectively with the team, solving complex problems through research and analysis to achieve project goals." },
+        {
+          id: 0,
+          title:
+            "Developed web applications using NextJS, TypeScript, and Tailwindcss, collaborating with tools like Git, Storybook, Vercel, Sanity, and Figma to enhance user experience and streamline development processes.",
+        },
+        {
+          id: 1,
+          title:
+            "Contributed significantly to projects for SolidSun and Sype.to, improving user experience and performance.",
+        },
+        {
+          id: 3,
+          title:
+            "Collaborated effectively with the team, solving complex problems through research and analysis to achieve project goals.",
+        },
       ],
     },
     cs: {
       time: "červen 2024 - říjen 2024",
       position: "Vývojář webových stránek",
       skills: [
-        { id: 0, title: "Vývoj webových aplikací pomocí NextJS, TypeScriptu a Tailwind CSS." },
-        { id: 1, title: "Významný přínos k projektům pro SolidSun a Sype.to, vylepšení user experience a výkonu." },
-        { id: 3, title: "Efektivní spolupráce v týmu, řešení složitých problémů prostřednictvím výzkumu a analýzy." },
+        {
+          id: 0,
+          title:
+            "Vývoj webových aplikací pomocí NextJS, TypeScriptu a Tailwind CSS.",
+        },
+        {
+          id: 1,
+          title:
+            "Významný přínos k projektům pro SolidSun a Sype.to, vylepšení user experience a výkonu.",
+        },
+        {
+          id: 3,
+          title:
+            "Efektivní spolupráce v týmu, řešení složitých problémů prostřednictvím výzkumu a analýzy.",
+        },
       ],
     },
   },
@@ -32,18 +56,41 @@ const experiences = [
       time: "2023 - 2024",
       position: "Frontend Web Apps Developer",
       skills: [
-        { id: 0, title: "Built web applications using Next.js, TypeScript, and Tailwind CSS, leveraging Git, Storybook, Vercel, Sanity, and Figma for efficient development workflows." },
-        { id: 1, title: "Developed major components of web applications for Czechoslovak Group and Skladon, delivering robust, scalable solutions tailored to client needs." },
-        { id: 2, title: "Fostered team collaboration, applied problem-solving skills, and conducted research to improve project outcomes and efficiency." },
+        {
+          id: 0,
+          title:
+            "Built web applications using Next.js, TypeScript, and Tailwind CSS, leveraging Git, Storybook, Vercel, Sanity, and Figma for efficient development workflows.",
+        },
+        {
+          id: 1,
+          title:
+            "Developed major components of web applications for Czechoslovak Group and Skladon, delivering robust, scalable solutions tailored to client needs.",
+        },
+        {
+          id: 2,
+          title:
+            "Fostered team collaboration, applied problem-solving skills, and conducted research to improve project outcomes and efficiency.",
+        },
       ],
     },
     cs: {
       time: "2023 - 2024",
       position: "Vývojář webových stránek",
       skills: [
-        { id: 0, title: "Vývoj webových aplikací pomocí Next.js, TypeScriptu a Tailwind CSS." },
-        { id: 1, title: "Vývoj hlavních komponent pro Czechoslovak Group a Skladon." },
-        { id: 2, title: "Týmová spolupráce, uplatňování schopnosti řešení problémů a provádění výzkumu ke zlepšení výsledků projektů a efektivity." },
+        {
+          id: 0,
+          title:
+            "Vývoj webových aplikací pomocí Next.js, TypeScriptu a Tailwind CSS.",
+        },
+        {
+          id: 1,
+          title: "Vývoj hlavních komponent pro Czechoslovak Group a Skladon.",
+        },
+        {
+          id: 2,
+          title:
+            "Týmová spolupráce, uplatňování schopnosti řešení problémů a provádění výzkumu ke zlepšení výsledků projektů a efektivity.",
+        },
       ],
     },
   },
@@ -54,18 +101,34 @@ const experiences = [
       time: "april 2023 - may 2023",
       position: "Internship",
       skills: [
-        { id: 0, title: "Diagnosed and repaired computer hardware for stable performance." },
-        { id: 1, title: "Conducted hardware testing and troubleshooting to verify the functionality of electronic components." },
-      ]
+        {
+          id: 0,
+          title:
+            "Diagnosed and repaired computer hardware for stable performance.",
+        },
+        {
+          id: 1,
+          title:
+            "Conducted hardware testing and troubleshooting to verify the functionality of electronic components.",
+        },
+      ],
     },
     cs: {
       time: "duben 2023 - květen 2023",
       position: "Praxe",
       skills: [
-        { id: 0, title: "Diagnóza a následná oprava počítačů a testování jejich stability" },
-        { id: 1, title: "Testování a troubleshooting pro ověření funkčnosti elektroniky." },
-      ]
-    }
+        {
+          id: 0,
+          title:
+            "Diagnóza a následná oprava počítačů a testování jejich stability",
+        },
+        {
+          id: 1,
+          title:
+            "Testování a troubleshooting pro ověření funkčnosti elektroniky.",
+        },
+      ],
+    },
   },
   {
     sortOrder: 4,
@@ -104,8 +167,18 @@ async function main() {
         sortOrder: e.sortOrder,
         translations: {
           create: [
-            { lang: "en", time: e.en.time, position: e.en.position, skills: JSON.stringify(e.en.skills) },
-            { lang: "cs", time: e.cs.time, position: e.cs.position, skills: JSON.stringify(e.cs.skills) },
+            {
+              lang: "en",
+              time: e.en.time,
+              position: e.en.position,
+              skills: JSON.stringify(e.en.skills),
+            },
+            {
+              lang: "cs",
+              time: e.cs.time,
+              position: e.cs.position,
+              skills: JSON.stringify(e.cs.skills),
+            },
           ],
         },
       },
