@@ -11,7 +11,7 @@ type Nav = {
   className?: string
 }
 
-const nav = ({ShowMobileMenu, SetShowMobileMenu, className, Lang, ToggleLang}: Nav) => {
+const nav = ({ ShowMobileMenu, SetShowMobileMenu, className, Lang, ToggleLang }: Nav) => {
 
   return (
     <>
