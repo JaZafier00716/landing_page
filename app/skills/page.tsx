@@ -3,7 +3,7 @@ import { getSkillsCategories } from "./skills";
 import SkillsClient from "./client";
 
 export default async function Page() {
-  const lang = getLang();
+  const lang = await getLang();
   const skillsCategories = await getSkillsCategories(lang); // server-side
 
   return <SkillsClient data={skillsCategories} />;

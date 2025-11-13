@@ -3,7 +3,7 @@ import { getExperience } from "./experiences";
 import { getLang } from "../utils/getLang";
 
 export default async function Page() {
-  const lang = getLang();
+  const lang = await getLang();
   const data = await getExperience(lang);
   return <ExperienceClient data={data} />;
 }
