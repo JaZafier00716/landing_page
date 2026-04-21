@@ -37,11 +37,17 @@
   body {
     @apply h-full;
   }
-  body {
-    @apply bg-no-repeat bg-fixed text-white leading-loose;
-    font-family: var(--font-jetbrainsMono);
-    /* @apply bg-gradient-to-br from-blue-1000 to-[#180022]; */
+  html {
+    background-color: #040340;
     background-image: linear-gradient(to bottom right in lch, #040340, #180022);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  body {
+    @apply text-white leading-loose;
+    font-family: var(--font-jetbrainsMono);
+    background: transparent;
   }
   .radial {
     background: radial-gradient(
@@ -88,6 +94,6 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
   }
 }

@@ -5,6 +5,8 @@ import { getLang } from "../utils/getLang";
 export default async function Page() {
   const lang = await getLang();
   const data = await getProjects(lang);
-  return <ProjectsClient data={data} />;
+  const emptyMessage = lang === "cs" ? "Zadne projekty zatim nejsou." : "No projects yet.";
+
+  return <ProjectsClient data={data} emptyMessage={emptyMessage} />;
 }
 

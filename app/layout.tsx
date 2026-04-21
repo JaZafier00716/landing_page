@@ -26,8 +26,8 @@ export default async function RootLayout({
   
   const lang = await getLang();
   return (
-    <html lang={lang}>
-      <body className={`h-full ${jetbrainsMono.variable}`}>
+    <html lang={lang} suppressHydrationWarning>
+      <body className={`h-full ${jetbrainsMono.variable}`} suppressHydrationWarning>
         <Header lang={lang} />
         {children}
         {process.env.NODE_ENV === "production" ? <SpeedInsights /> : null}
