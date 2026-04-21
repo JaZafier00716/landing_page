@@ -28,6 +28,8 @@ const Picture = ({ src }: { src: string }) => {
             priority
             quality={100}
             fill
+            sizes="(max-width: 768px) 300px, (max-width: 1280px) 362px, 506px"
+            suppressHydrationWarning
           />
         </motion.div>
         <motion.svg
@@ -35,6 +37,7 @@ const Picture = ({ src }: { src: string }) => {
           fill="transparent"
           viewBox="0 0 506 506"
           xmlns="https://www.w3.org/2000/svg"
+          suppressHydrationWarning
         >
           <motion.circle
             cx="253"
@@ -44,6 +47,7 @@ const Picture = ({ src }: { src: string }) => {
             strokeWidth="4"
             strokeLinecap="round"
             strokeLinejoin="round"
+            suppressHydrationWarning
             initial={{ strokeDasharray: "24 10 0 0" }}
             animate={{
               strokeDasharray: ["15 120 25", "16 25 92 72", "4 250 22 22"],

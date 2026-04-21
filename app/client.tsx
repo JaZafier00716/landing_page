@@ -102,7 +102,7 @@ export default function PageClient({ data }: Readonly<{ data: HomePageData }>) {
                   <div className="opacity-0 group-hover:opacity-100 absolute text-base font-bold text-white -top-12 left-1/2 -translate-x-1/2 bg-gray-800 bg-opacity-90 p-2 rounded-full transition-all duration-300 delay-200">
                     {data.phone}
                   </div>
-                  <Phone />
+                  <Phone suppressHydrationWarning />
                 </Button>
               </motion.div>
               <motion.div
@@ -124,7 +124,7 @@ export default function PageClient({ data }: Readonly<{ data: HomePageData }>) {
                   <div className="opacity-0 group-hover:opacity-100 absolute text-base font-bold text-white -top-12 left-1/2 -translate-x-1/2 bg-gray-800 bg-opacity-90 p-2 rounded-full transition-all duration-300 delay-200">
                     {data.email}
                   </div>
-                  <Mail />
+                  <Mail suppressHydrationWarning />
                 </Button>
               </motion.div>
               <Link
@@ -146,7 +146,7 @@ export default function PageClient({ data }: Readonly<{ data: HomePageData }>) {
                   }}
                   className="w-min h-full aspect-square border-2 border-emerald-600 hover:border-emerald-400 rounded-full p-4 bg-gray-900 text-emerald-600 hover:text-emerald-400 transition-colors duration-300"
                 >
-                  <FaLinkedinIn />
+                  <FaLinkedinIn suppressHydrationWarning style={{ color: "currentColor" }} />
                 </motion.div>
               </Link>
               <Link
@@ -168,7 +168,7 @@ export default function PageClient({ data }: Readonly<{ data: HomePageData }>) {
                   }}
                   className="w-min h-full aspect-square border-2 border-emerald-600 hover:border-emerald-400 rounded-full p-4 bg-gray-900 text-emerald-600 hover:text-emerald-400 transition-colors duration-300"
                 >
-                  <SiGithub />
+                  <SiGithub suppressHydrationWarning style={{ color: "currentColor" }} />
                 </motion.div>
               </Link>
             </div>
@@ -192,7 +192,7 @@ export default function PageClient({ data }: Readonly<{ data: HomePageData }>) {
                 className="xs:mb-24 sm:mb-0 bg-gray-900 border-emerald-600 hover:border-emerald-400 border-2 border-dashed flex py-5 px-4 text-lg gap-4 rounded-xl text-emerald-600 hover:text-emerald-400 transition-colors duration-300"
               >
                 <span className="text-white">{data.cvLinkText}</span>
-                <Download className="animate-bounce duration-[3000ms]" />
+                <Download className="animate-bounce duration-[3000ms]" suppressHydrationWarning />
               </Link>
             </motion.div>
           </div>
