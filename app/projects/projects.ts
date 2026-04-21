@@ -37,7 +37,7 @@ const projectContent: Record<"en" | "cs", ProjectSectionSeed[]> = {
           href: "https://github.com/JaZafier00716/tetris_clone",
           previewMode: "image",
           description:
-            "Built a real-time Tetris clone in C using SDL2, implementing game loop logic, rendering, input handling, and collision detection.",
+            "I built a real-time Tetris clone in C with SDL2, including the game loop, rendering, controls, and collision logic.",
           thumbnail: "/images/tetris.png",
           stack: [
             { name: "C", iconClass: "devicon-c-plain" },
@@ -49,7 +49,7 @@ const projectContent: Record<"en" | "cs", ProjectSectionSeed[]> = {
           href: "https://github.com/JaZafier00716/school/tree/main/druhak/JAVA/DonkeyKongFX-moduless",
           previewMode: "image",
           description:
-            "Developed a JavaFX platformer with modular structure, persistence layer using Hibernate, and embedded H2 database integration.",
+            "I developed a JavaFX platformer with modular architecture, persistence via Hibernate, and an H2 database.",
           thumbnail: "/images/donkey_kong_game.png",
           stack: [
             { name: "Java", iconClass: "devicon-java-plain" },
@@ -63,7 +63,7 @@ const projectContent: Record<"en" | "cs", ProjectSectionSeed[]> = {
           href: "https://github.com/JaZafier00716/ModalEditor",
           previewMode: "image",
           description:
-            "Built a terminal-based modal text editor in C++ inspired by Vim, focusing on input handling, modes, and ANSI-based rendering.",
+            "I developed a terminal-based modal editor in C++ inspired by Vim, focused on the input system and ANSI rendering.",
           thumbnail: "/images/editor.png",
           stack: [
             { name: "C++", iconClass: "devicon-cplusplus-plain" },
@@ -75,7 +75,7 @@ const projectContent: Record<"en" | "cs", ProjectSectionSeed[]> = {
           href: "https://github.com/JaZafier00716/graph_center",
           previewMode: "image",
           description:
-            "Implemented a C++ tool to compute graph centers using BFS-based eccentricity, including support for disconnected graphs and runtime measurement.",
+            "I implemented a C++ tool for computing graph centers using BFS eccentricity, including support for disconnected graphs and runtime measurement.",
           thumbnail: "/images/graph.png",
           stack: [
             { name: "C++", iconClass: "devicon-cplusplus-plain" },
@@ -85,14 +85,14 @@ const projectContent: Record<"en" | "cs", ProjectSectionSeed[]> = {
       ],
     },
     {
-      title: "Production projects",
+      title: "Professional Projects",
       items: [
         {
           name: "CSG Website",
           href: "https://csg.com/",
           previewMode: "website",
           description:
-            "Frontend developer on a production corporate website — built reusable components and pages, improved UX, and participated in alpha testing and release preparation.",
+            "I contributed to frontend development of a production corporate website: building components and pages, improving UX, migrating content, and testing before release.",
           thumbnail: "/images/csg.png",
           stack: [
             { name: "Next.js", iconClass: "devicon-nextjs-plain" },
@@ -108,7 +108,7 @@ const projectContent: Record<"en" | "cs", ProjectSectionSeed[]> = {
           href: "https://www.skladon.com/",
           previewMode: "website",
           description:
-            "Frontend developer contributing to UI components and page sections, while also handling content migration and pre-release testing.",
+            "I contributed to frontend development of a logistics platform, including components, content migration, and pre-release testing.",
           thumbnail: "/images/skladon.png",
           stack: [
             { name: "Next.js", iconClass: "devicon-nextjs-plain" },
@@ -124,7 +124,7 @@ const projectContent: Record<"en" | "cs", ProjectSectionSeed[]> = {
           href: "https://www.solidsun.cz/",
           previewMode: "website",
           description:
-            "Frontend contributor working on UI components, page sections, and integration tasks within a Next.js application.",
+            "I contributed to frontend development of UI components, sections, and integration tasks in a Next.js application.",
           thumbnail: "/images/solidsun.png",
           stack: [
             { name: "Next.js", iconClass: "devicon-nextjs-plain" },
@@ -141,14 +141,14 @@ const projectContent: Record<"en" | "cs", ProjectSectionSeed[]> = {
   ],
   cs: [
     {
-      title: "Skolni projekty",
+      title: "Školní projekty",
       items: [
         {
           name: "Tetris",
           href: "https://github.com/JaZafier00716/tetris_clone",
           previewMode: "image",
           description:
-            "Vytvoril jsem real-time Tetris v C se SDL2, vcetne herni smycky, renderingu, ovladani a kolizni logiky.",
+            "Vytvořil jsem real-time Tetris v C se SDL2, včetně herní smyčky, renderingu, ovládání a kolizní logiky.",
           thumbnail: "/images/tetris.png",
           stack: [
             { name: "C", iconClass: "devicon-c-plain" },
@@ -160,7 +160,7 @@ const projectContent: Record<"en" | "cs", ProjectSectionSeed[]> = {
           href: "https://github.com/JaZafier00716/school/tree/main/druhak/JAVA/DonkeyKongFX-moduless",
           previewMode: "image",
           description:
-            "Vyvinul jsem JavaFX platformovku s modularni architekturou, perzistenci pres Hibernate a H2 databazi.",
+            "Vyvinul jsem JavaFX plošinovku s modulární architekturou, perzistencí přes Hibernate a databází H2.",
           thumbnail: "/images/donkey_kong_game.png",
           stack: [
             { name: "Java", iconClass: "devicon-java-plain" },
@@ -174,7 +174,7 @@ const projectContent: Record<"en" | "cs", ProjectSectionSeed[]> = {
           href: "https://github.com/JaZafier00716/ModalEditor",
           previewMode: "image",
           description:
-            "Vyvinul jsem terminalovy modalni editor v C++ inspirovany Vimem se zamerem na vstupni system a ANSI renderovani.",
+            "Vyvinul jsem terminálový modální editor v C++ inspirovaný Vimem se zaměřením na vstupní systém a ANSI renderování.",
           thumbnail: "/images/editor.png",
           stack: [
             { name: "C++", iconClass: "devicon-cplusplus-plain" },
@@ -186,7 +186,7 @@ const projectContent: Record<"en" | "cs", ProjectSectionSeed[]> = {
           href: "https://github.com/JaZafier00716/graph_center",
           previewMode: "image",
           description:
-            "Implementoval jsem C++ nastroj pro vypocet stredu grafu pomoci BFS excentricity vcetne podpory nesouvislych grafu.",
+            "Implementoval jsem C++ nástroj pro výpočet středu grafu pomocí BFS excentricity včetně podpory nesouvislých grafů a měření běhu.",
           thumbnail: "/images/graph.png",
           stack: [
             { name: "C++", iconClass: "devicon-cplusplus-plain" },
@@ -196,14 +196,14 @@ const projectContent: Record<"en" | "cs", ProjectSectionSeed[]> = {
       ],
     },
     {
-      title: "Produkční projekty",
+      title: "Profesionální projekty",
       items: [
         {
           name: "CSG Web",
           href: "https://csg.com/",
           previewMode: "website",
           description:
-            "Frontend vyvoj pro produkcni firemni web — tvorba komponent, zlepsovani UX a testovani alpha verze v tymu.",
+            "Podílel jsem se na frontendovém vývoji produkčního firemního webu: tvorba komponent a stránek, zlepšování UX, migrace obsahu a testování před vydáním.",
           thumbnail: "/images/csg.png",
           stack: [
             { name: "Next.js", iconClass: "devicon-nextjs-plain" },
@@ -219,7 +219,7 @@ const projectContent: Record<"en" | "cs", ProjectSectionSeed[]> = {
           href: "https://www.skladon.com/",
           previewMode: "website",
           description:
-            "Frontend vyvoj pro logistickou platformu vcetne komponent, migrace obsahu a testovani pred vydanim.",
+            "Podílel jsem se na frontendovém vývoji logistické platformy, včetně komponent, migrace obsahu a testování před vydáním.",
           thumbnail: "/images/skladon.png",
           stack: [
             { name: "Next.js", iconClass: "devicon-nextjs-plain" },
@@ -235,7 +235,7 @@ const projectContent: Record<"en" | "cs", ProjectSectionSeed[]> = {
           href: "https://www.solidsun.cz/",
           previewMode: "website",
           description:
-            "Frontend prispevek na UI komponentach, sekcich a integracnich ulohach v Next.js aplikaci.",
+            "Podílel jsem se na frontendovém vývoji UI komponent, sekcí a integračních úloh v Next.js aplikaci.",
           thumbnail: "/images/solidsun.png",
           stack: [
             { name: "Next.js", iconClass: "devicon-nextjs-plain" },
@@ -272,8 +272,11 @@ export async function getProjects(lang: "en" | "cs" = "en"): Promise<ProjectSect
     }))
     .sort((a, b) => {
       const rank = (title: string) => {
-        const normalized = title.toLowerCase();
-        if (normalized.includes("production") || normalized.includes("produk")) return 0;
+        const normalized = title
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "");
+        if (normalized.includes("professional") || normalized.includes("profes")) return 0;
         if (normalized.includes("school") || normalized.includes("skolni")) return 1;
         return 2;
       };

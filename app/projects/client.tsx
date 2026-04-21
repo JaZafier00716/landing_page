@@ -12,7 +12,11 @@ export default function ProjectsClient({ data, emptyMessage }: Readonly<Projects
       {data.length > 0 ? (
         data.map((section) => (
           <div key={section.title}>
-            <ProjectSection title={section.title} projects={section.projects} />
+            <ProjectSection
+              title={section.title}
+              projects={section.projects}
+              isProduction={/professional|profes/i.test(section.title)}
+            />
           </div>
         ))
       ) : (
