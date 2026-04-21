@@ -40,7 +40,7 @@ export async function getHomePageData(
     throw new Error("Home page data not found");
   }
 
-  const translation = row.translations.find((t) => t.lang === lang) ?? null;
+  const translation = row.translations.find((t: { lang: string; }) => t.lang === lang) ?? null;
 
   return {
     imageUrl: row.imageUrl,

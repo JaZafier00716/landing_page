@@ -1,7 +1,7 @@
 import type { Config } from "tailwindcss"
 
 const config = {
-  darkMode: ["class"],
+  darkMode: "class",
   content: [
     './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
@@ -23,7 +23,7 @@ const config = {
       xxl: '1500px',
     },
     fontFamily: {
-      primary: 'var(--font-jetbrainsMono)'
+      primary: ['var(--font-jetbrainsMono)']
     },
     extend: {
       colors: {

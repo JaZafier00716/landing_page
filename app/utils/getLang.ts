@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
 
-export function getLang(): "en" | "cs" {
-  return (cookies().get("lang")?.value as "en" | "cs") ?? "en";
+export async function getLang(): Promise<"en" | "cs"> {
+  return ((await cookies()).get("lang")?.value as "en" | "cs") ?? "en";
 }
