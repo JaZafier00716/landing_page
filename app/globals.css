@@ -1,6 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@config "../tailwind.config.ts";
+@import "tailwindcss";
 
 @layer base {
   :root {
@@ -39,7 +38,8 @@
     @apply h-full;
   }
   body {
-    @apply font-primary bg-no-repeat bg-fixed text-white leading-loose;
+    @apply bg-no-repeat bg-fixed text-white leading-loose;
+    font-family: var(--font-jetbrainsMono);
     /* @apply bg-gradient-to-br from-blue-1000 to-[#180022]; */
     background-image: linear-gradient(to bottom right in lch, #040340, #180022);
   }

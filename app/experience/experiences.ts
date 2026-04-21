@@ -17,9 +17,9 @@ export async function getExperience(
     include: { translations: true },
   });
 
-  return rows.map((row) => {
+  return rows.map((row: (typeof rows)[number]) => {
     const t =
-      row.translations.find((x) => x.lang === lang) ?? row.translations[0];
+      row.translations.find((x: (typeof row.translations)[number]) => x.lang === lang) ?? row.translations[0];
     return {
       company: row.company,
       time: t?.time ?? "",

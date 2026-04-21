@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import "devicon/devicon.min.css";
 import Header from "@/components/Header";
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { getLang } from "./utils/getLang";
 
 const jetbrainsMono = JetBrains_Mono({ 
@@ -17,22 +18,19 @@ export const metadata: Metadata = {
   description: "Landing page",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   
-  const lang = getLang()
+  const lang = await getLang();
   return (
     <html lang={lang}>
-      <head>
-      <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" /> 
-      </head>
       <body className={`h-full ${jetbrainsMono.variable}`}>
         <Header lang={lang} />
         {children}
-        <SpeedInsights />
+        {process.env.NODE_ENV === "production" ? <SpeedInsights /> : null}
       </body>
     </html>
   );

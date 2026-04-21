@@ -17,7 +17,8 @@ const Links = ({ className, Lang, ToggleLang }: Links) => {
     >
         <LinkComponent href="/" title={Lang === "cs" ? "Domů" : "Home"} path={() => pathname} />
         <LinkComponent href="/skills" title={Lang === "cs" ? "Dovednosti" : "Skills"} path={() => pathname} />
-        <LinkComponent href="/experience" title={Lang === "cs" ? "Zkušenosti" : "Experience"} path={() => pathname} />        
+        <LinkComponent href="/experience" title={Lang === "cs" ? "Zkušenosti" : "Experience"} path={() => pathname} />
+        <LinkComponent href="/projects" title={Lang === "cs" ? "Projekty" : "Projects"} path={() => pathname} />
     </nav>
   );
 };

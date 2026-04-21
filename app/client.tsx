@@ -1,5 +1,6 @@
 "use client";
-import { Download, Phone, Mail, Linkedin } from "lucide-react";
+import { Download, Phone, Mail } from "lucide-react";
+import { FaLinkedinIn } from "react-icons/fa";
 import { SiGithub } from "react-icons/si";
 import { motion } from "framer-motion";
 import Picture from "@/components/ui/picture";
@@ -145,7 +146,7 @@ export default function PageClient({ data }: Readonly<{ data: HomePageData }>) {
                   }}
                   className="w-min h-full aspect-square border-2 border-emerald-600 hover:border-emerald-400 rounded-full p-4 bg-gray-900 text-emerald-600 hover:text-emerald-400 transition-colors duration-300"
                 >
-                  <Linkedin />
+                  <FaLinkedinIn />
                 </motion.div>
               </Link>
               <Link
