@@ -17,6 +17,7 @@ const en = {
   darkTheme: "Dark theme",
   newTab: "(opens in new tab)",
   home: {
+    title: "Jan Zámostný, computer science student",
     eyebrow: "Student · VŠB-TUO · Ostrava",
     role: "Computer science student and QA automation intern at FUTTEC. I write software from C and OpenGL up to Next.js.",
     contact: "Contact",
@@ -87,6 +88,7 @@ const cs: Dict = {
   darkTheme: "Tmavý režim",
   newTab: "(otevře se v novém panelu)",
   home: {
+    title: "Jan Zámostný, student informatiky",
     eyebrow: "Student · VŠB-TUO · Ostrava",
     role: "Student informatiky a stážista v QA automatizaci ve společnosti FUTTEC. Programuji od C a OpenGL až po Next.js.",
     contact: "Kontakt",

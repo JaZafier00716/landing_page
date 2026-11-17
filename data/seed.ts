@@ -16,6 +16,8 @@ type ExperienceSeed = {
   end: string | null;
   url?: string;
   stack?: string;
+  stackCs?: string;
+  companyCs?: string;
   related?: string[];
   position: T<string>;
   bullets: T<string[]>;
@@ -48,6 +50,7 @@ const experiences: ExperienceSeed[] = [
     start: "2026-05",
     end: "2026-10",
     stack: "CVAT, computer vision",
+    stackCs: "CVAT, počítačové vidění",
     position: { en: "CVAT Annotation Specialist", cs: "Specialista anotací v CVAT" },
     bullets: {
       en: [
@@ -128,6 +131,7 @@ const experiences: ExperienceSeed[] = [
   {
     slug: "vsb",
     company: "VŠB – Technical University of Ostrava, FEI",
+    companyCs: "VŠB – Technická univerzita Ostrava, FEI",
     kind: "education",
     start: "2024-09",
     end: null,
@@ -192,6 +196,8 @@ type ProjectSeed = {
   language?: string;
   libraries?: string;
   platform?: string;
+  platformCs?: string;
+  librariesCs?: string;
   client?: string;
   t: T<{ name: string; summary: string; description: string[]; role?: string; thumbnailAlt?: string }>;
 };
@@ -299,6 +305,7 @@ const projects: ProjectSeed[] = [
     language: "Java 21, Oracle SQL",
     libraries: "JavaFX, JDK HttpServer, JDBC, Apache PDFBox, JUnit 5",
     platform: "Desktop and web, Oracle 19c",
+    platformCs: "Desktop a web, Oracle 19c",
     t: {
       en: {
         name: "Catering information system",
@@ -355,10 +362,12 @@ const projects: ProjectSeed[] = [
     featured: true,
     thumbnail: "/images/projects/editor.webp",
     sourceUrl: "https://github.com/JaZafier00716/ModalEditor",
-    stack: ["C++23", "CMake", "POSIX terminal"],
+    stack: ["C++23", "CMake", "termios"],
     language: "C++23",
     libraries: "termios, ANSI escape sequences",
+    librariesCs: "termios, ANSI escape sekvence",
     platform: "Linux terminal, CMake",
+    platformCs: "Terminál v Linuxu, CMake",
     t: {
       en: {
         name: "Modal text editor",
@@ -414,6 +423,7 @@ const projects: ProjectSeed[] = [
     stack: ["C", "C++", "POSIX", "Make"],
     language: "C, C++",
     libraries: "POSIX: processes, threads, semaphores, shared memory, message queues, sockets",
+    librariesCs: "POSIX: procesy, vlákna, semafory, sdílená paměť, fronty zpráv, sockety",
     platform: "Linux, GNU Make",
     t: {
       en: {
@@ -467,6 +477,7 @@ const projects: ProjectSeed[] = [
     stack: ["C++", "CLI"],
     language: "C++",
     platform: "Command line",
+    platformCs: "Příkazová řádka",
     t: {
       en: {
         name: "Graph center",
@@ -650,7 +661,13 @@ async function seedExperiences() {
         time: `${cvDate(e.start, lang)} – ${e.end ? cvDate(e.end, lang) : lang === "en" ? "present" : "současnost"}`,
         skills: JSON.stringify(e.bullets[lang].map((title, id) => ({ id, title }))),
       };
-      const t = { position: e.position[lang], bullets: e.bullets[lang], ...legacy };
+      const t = {
+        position: e.position[lang],
+        bullets: e.bullets[lang],
+        company: lang === "cs" ? (e.companyCs ?? null) : null,
+        stack: lang === "cs" ? (e.stackCs ?? null) : null,
+        ...legacy,
+      };
       await prisma.experienceTranslation.upsert({
         where: { experienceId_lang: { experienceId: row.id, lang } },
         update: t,
@@ -662,7 +679,7 @@ async function seedExperiences() {
 
 async function seedProjects() {
   for (const [i, p] of projects.entries()) {
-    const { t, ...rest } = p;
+    const { t, platformCs, librariesCs, ...rest } = p;
     const data = {
       ...rest,
       sortOrder: i + 1,
@@ -677,7 +694,13 @@ async function seedProjects() {
     };
     const row = await prisma.project.upsert({ where: { slug: p.slug }, update: data, create: data });
     for (const lang of ["en", "cs"] as const) {
-      const tr = { ...t[lang], role: t[lang].role ?? null, thumbnailAlt: t[lang].thumbnailAlt ?? null };
+      const tr = {
+        ...t[lang],
+        role: t[lang].role ?? null,
+        thumbnailAlt: t[lang].thumbnailAlt ?? null,
+        platform: lang === "cs" ? (platformCs ?? null) : null,
+        libraries: lang === "cs" ? (librariesCs ?? null) : null,
+      };
       await prisma.projectTranslation.upsert({
         where: { projectId_lang: { projectId: row.id, lang } },
         update: tr,

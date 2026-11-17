@@ -35,7 +35,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
       <body className="flex min-h-dvh flex-col">
         <a
           href="#main"
-          className="sr-only z-50 border-2 border-accent bg-surface px-4 py-3 focus:not-sr-only focus:fixed focus:top-2 focus:left-2"
+          className="sr-only z-50 border-2 border-accent bg-surface focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:flex focus:min-h-11 focus:items-center focus:px-4"
         >
           {dict.skip}
         </a>

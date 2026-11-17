@@ -11,7 +11,8 @@ import portrait from "@/public/images/picture.png";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]">) {
   const lang = (await params).lang as Lang;
-  return pageMeta(lang, "", undefined, getDict(lang).home.description);
+  const d = getDict(lang).home;
+  return pageMeta(lang, "", d.title, d.description, true);
 }
 
 export default async function Home({ params }: PageProps<"/[lang]">) {

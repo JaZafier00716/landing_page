@@ -65,6 +65,8 @@ export async function getProjects(lang: Lang): Promise<Project[]> {
       description: t.description,
       role: t.role,
       thumbnailAlt: t.thumbnailAlt ?? "",
+      platform: t.platform ?? p.platform,
+      libraries: t.libraries ?? p.libraries,
     };
   });
 }
@@ -85,11 +87,11 @@ export async function getExperience(lang: Lang): Promise<ExperienceEntry[]> {
     return {
       slug: r.slug ?? String(r.id),
       kind: r.kind as ExperienceEntry["kind"],
-      company: r.company,
+      company: t.company ?? r.company,
       url: r.url,
       start: r.startDate,
       end: r.endDate,
-      stack: r.stack,
+      stack: t.stack ?? r.stack,
       position: t.position,
       bullets: t.bullets,
       related: r.related.flatMap((s) => projects.filter((p) => p.slug === s).map((p) => ({ slug: s, name: p.name }))),
