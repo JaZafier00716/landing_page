@@ -14,7 +14,7 @@ const en = {
   skip: "Skip to content",
   nav: { label: "Main", home: "Home", experience: "Experience", projects: "Projects", skills: "Skills" },
   menu: "Menu",
-  darkTheme: "Dark theme",
+  theme: { toDark: "Switch to dark theme", toLight: "Switch to light theme", toggle: "Switch theme" },
   newTab: "(opens in new tab)",
   home: {
     title: "Jan Zámostný, computer science student",
@@ -68,6 +68,7 @@ const en = {
     intro: "Grouped by area, with the projects and jobs where each one was used.",
     skill: "Skill",
     usedIn: "Where used",
+    none: "none",
     description: "Programming languages, graphics, web, data and tools Jan Zámostný has used, with links to projects.",
   },
   footer: { updated: "Last updated", copyright: "Jan Zámostný" },
@@ -85,7 +86,7 @@ const cs: Dict = {
   skip: "Přeskočit na obsah",
   nav: { label: "Hlavní navigace", home: "Úvod", experience: "Zkušenosti", projects: "Projekty", skills: "Dovednosti" },
   menu: "Menu",
-  darkTheme: "Tmavý režim",
+  theme: { toDark: "Přepnout na tmavý režim", toLight: "Přepnout na světlý režim", toggle: "Přepnout režim" },
   newTab: "(otevře se v novém panelu)",
   home: {
     title: "Jan Zámostný, student informatiky",
@@ -139,6 +140,7 @@ const cs: Dict = {
     intro: "Rozdělené podle oblastí, s odkazy na projekty a práci, kde jsem je použil.",
     skill: "Dovednost",
     usedIn: "Použito v",
+    none: "nic",
     description: "Programovací jazyky, grafika, web, data a nástroje, se kterými Jan Zámostný pracoval, s odkazy na projekty.",
   },
   footer: { updated: "Naposledy aktualizováno", copyright: "Jan Zámostný" },
@@ -151,14 +153,17 @@ const cs: Dict = {
 
 export const getDict = (lang: Lang): Dict => (lang === "cs" ? cs : en);
 
-/** "Jun – Oct 2024", "Sep 2026 – present"; courses show the year only. */
+/**
+ * "Jun – Dec 2023" / "čvn – pro 2023", "Sep 2026 – present" / "zář 2026 – současnost"; courses show the year only.
+ * Built from month-only parts because Czech CLDR data spells months out in full whenever a year is included.
+ */
 export function formatPeriod(lang: Lang, start: Date | null, end: Date | null, yearOnly = false) {
   if (!start) return "";
-  const fmt = new Intl.DateTimeFormat(lang, {
-    ...(yearOnly ? {} : { month: "short" }),
-    year: "numeric",
-    timeZone: "UTC",
-  });
-  if (!end) return `${fmt.format(start)} – ${getDict(lang).experience.present}`;
-  return fmt.formatRange(start, end);
+  const year = (d: Date) => String(d.getUTCFullYear());
+  const month = new Intl.DateTimeFormat(lang, { month: "short", timeZone: "UTC" }).format;
+  const full = (d: Date) => (yearOnly ? year(d) : `${month(d)} ${year(d)}`);
+  if (!end) return `${full(start)} – ${getDict(lang).experience.present}`;
+  if (full(start) === full(end)) return full(end);
+  if (!yearOnly && year(start) === year(end)) return `${month(start)} – ${full(end)}`;
+  return `${full(start)} – ${full(end)}`;
 }

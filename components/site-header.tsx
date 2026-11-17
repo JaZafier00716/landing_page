@@ -10,7 +10,7 @@ export default function SiteHeader({ lang }: { lang: Lang }) {
       <SiteNav
         lang={lang}
         links={links}
-        labels={{ nav: dict.nav.label, menu: dict.menu, darkTheme: dict.darkTheme }}
+        labels={{ nav: dict.nav.label, menu: dict.menu, theme: dict.theme }}
         wordmark={
           <Link href={`/${lang}`} className="flex min-h-11 items-center text-lg font-bold">
             Jan Zámostný

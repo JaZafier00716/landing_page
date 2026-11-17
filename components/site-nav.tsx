@@ -11,7 +11,7 @@ import type { Lang } from "@/lib/i18n";
 type Props = {
   lang: Lang;
   links: { href: string; label: string }[];
-  labels: { nav: string; menu: string; darkTheme: string };
+  labels: { nav: string; menu: string; theme: { toDark: string; toLight: string; toggle: string } };
   wordmark: ReactNode;
 };
 
@@ -51,7 +51,7 @@ export default function SiteNav({ lang, links, labels, wordmark }: Props) {
   const tools = (
     <>
       <LangLink lang={lang} className={linkClass} />
-      <ThemeToggle label={labels.darkTheme} />
+      <ThemeToggle labels={labels.theme} />
     </>
   );
 

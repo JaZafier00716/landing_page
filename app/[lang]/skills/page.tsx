@@ -41,6 +41,12 @@ export default async function SkillsPage({ params }: PageProps<"/[lang]/skills">
                     {s.name}
                   </th>
                   <td className="text-muted sm:py-3">
+                    {s.usedIn.length === 0 && (
+                      <>
+                        <span aria-hidden>–</span>
+                        <span className="sr-only">{d.none}</span>
+                      </>
+                    )}
                     {s.usedIn.map((u, i) => (
                       <span key={u.href}>
                         {i > 0 && ", "}
