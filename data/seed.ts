@@ -36,7 +36,7 @@ const experiences: ExperienceSeed[] = [
         "Using AI-assisted tooling to enhance the QA workflow.",
       ],
       cs: [
-        "Práce na dálku na automatizaci testů v Pytestu a sledování chyb.",
+        "Práce na dálku: automatizace testů v Pytestu a evidence chyb.",
         "Využívání nástrojů podporovaných umělou inteligencí ke zlepšení QA procesů.",
       ],
     },
@@ -79,7 +79,7 @@ const experiences: ExperienceSeed[] = [
       cs: [
         "Vývoj webových aplikací v Next.js, TypeScriptu a Tailwind CSS, s nástroji Git, Storybook, Vercel, Sanity a Figma.",
         "Práce na klientských projektech pro SolidSun a Sype.to, zlepšení uživatelského zážitku a výkonu.",
-        "Řešení složitých problémů v týmu prostřednictvím výzkumu a analýzy.",
+        "Týmové řešení složitých problémů na základě rešerše a analýzy.",
       ],
     },
   },
@@ -92,7 +92,7 @@ const experiences: ExperienceSeed[] = [
     end: "2023-12",
     stack: "Next.js, TypeScript, Tailwind CSS, Storybook, Sanity, Vercel",
     related: ["csg-website", "skladon-website"],
-    position: { en: "Frontend Web Developer (contract)", cs: "Frontend vývojář (smlouva)" },
+    position: { en: "Frontend Web Developer (contract)", cs: "Frontend vývojář (externě)" },
     bullets: {
       en: [
         "Built web applications using Next.js, TypeScript and Tailwind CSS.",
@@ -113,7 +113,7 @@ const experiences: ExperienceSeed[] = [
     kind: "work",
     start: "2023-04",
     end: "2023-05",
-    position: { en: "IT & Hardware Intern", cs: "IT a hardwarový stážista" },
+    position: { en: "IT & Hardware Intern", cs: "Stážista v oblasti IT a hardwaru" },
     bullets: {
       en: [
         "Diagnosed, repaired and assembled computer hardware and server components.",
@@ -155,7 +155,7 @@ const experiences: ExperienceSeed[] = [
         "Maturita: Hardware and Networks, practical IT exam, Czech language.",
       ],
       cs: [
-        "Absolvoval jsem s vyznamenáním jako nejlepší student ročníku.",
+        "Maturoval jsem s vyznamenáním jako nejlepší student ročníku.",
         "Maturita: Hardware a sítě, praktická zkouška z IT, český jazyk.",
       ],
     },
@@ -315,7 +315,7 @@ const projects: ProjectSeed[] = [
         summary: "Informační systém pro cateringové firmy: jídelníčky s revizemi, sdílení se zákazníky, export do PDF.",
         thumbnailAlt: "Hlavní okno desktopového klienta s jídelníčky projektu",
         description: [
-          "Semestrální projekt pro dva předměty na VŠB (VIS a TDS-I): informační systém pro zaměstnance cateringové firmy. Obsahuje složky projektů a dokumenty, jídelníčky s revizemi, sdílení jídelníčku se zákazníkem odkazem, komentáře zákazníků, export do PDF a správu uživatelů.",
+          "Semestrální projekt pro dva předměty na VŠB (VIS a TDS-I): informační systém pro zaměstnance cateringové firmy. Obsahuje složky projektů a dokumenty, jídelníčky s revizemi, sdílení jídelníčku se zákazníkem pomocí odkazu, komentáře zákazníků, export do PDF a správu uživatelů.",
           "Desktopový klient je v JavaFX. Zákaznická stránka a přehled pro manažery běží na JDK HttpServer. Data jsou v Oracle přes vlastní JDBC mappery, bez frameworků a ORM, jak zadání vyžaduje.",
           "Databázová část má znovu spustitelné DDL schéma s omezeními, triggery a indexy, testovací data, kontroly integrity a katalog dotazů, modelované v Oracle SQL Developer Data Modeler.",
         ],
@@ -512,7 +512,7 @@ const projects: ProjectSeed[] = [
         role: "Přispěvatel",
         description: [
           "Týmový repozitář pro výběrové řízení na stáž ve firmě Raynet. Dashboard v Reactu a TypeScriptu zobrazuje žebříček s pódiem, tabulku pořadí, filtry, vyhledávání a graf vývoje.",
-          "Rozdělil jsem UI do komponent, napsal příběhy pro Storybook a vytvořil sekci filtrů.",
+          "Rozdělil jsem UI do komponent, napsal stories pro Storybook a vytvořil sekci filtrů.",
         ],
       },
     },
@@ -620,6 +620,12 @@ const skillGroups: GroupSeed[] = [
 
 const month = (ym: string) => new Date(`${ym}-01T00:00:00Z`);
 
+// Legacy `time` column, shown only by the pre-redesign site. CV format: "9/2026 – současnost", "Sep 2026 – present".
+const cvDate = (ym: string, lang: "en" | "cs") =>
+  lang === "cs"
+    ? `${Number(ym.slice(5))}/${ym.slice(0, 4)}`
+    : new Intl.DateTimeFormat("en", { month: "short", year: "numeric", timeZone: "UTC" }).format(month(ym));
+
 async function seedExperiences() {
   for (const [i, e] of experiences.entries()) {
     const existing = await prisma.experience.findFirst({
@@ -641,7 +647,7 @@ async function seedExperiences() {
       : await prisma.experience.create({ data });
     for (const lang of ["en", "cs"] as const) {
       const legacy = {
-        time: `${e.start.replace("-", "/")} – ${e.end?.replace("-", "/") ?? (lang === "en" ? "present" : "současnost")}`,
+        time: `${cvDate(e.start, lang)} – ${e.end ? cvDate(e.end, lang) : lang === "en" ? "present" : "současnost"}`,
         skills: JSON.stringify(e.bullets[lang].map((title, id) => ({ id, title }))),
       };
       const t = { position: e.position[lang], bullets: e.bullets[lang], ...legacy };
