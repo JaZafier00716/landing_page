@@ -48,3 +48,6 @@ dev.db*
 *.synctex.gz
 *.xdv
 .env*
+
+.idea/
+/lib/generated/
