@@ -1,99 +1,230 @@
-@config "../tailwind.config.ts";
 @import "tailwindcss";
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
-@layer base {
-  :root {
-    --background: #ffffff;
-    --foreground: #010816;
+@theme {
+  /* light "paper" (default) */
+  --color-bg: #f3f4f0;
+  --color-surface: #ffffff;
+  --color-text: #14171a;
+  --color-muted: #596067;
+  --color-border: #c5cbc4; /* hairlines, decorative only */
+  --color-border-strong: #7a827b; /* outlines of buttons/inputs, >=3:1 */
+  --color-accent: #0a6b47;
+  --color-accent-contrast: #ffffff;
+  --color-accent-hover: #085a3b;
+  --color-accent-active: #064a31;
+  --color-focus: var(--color-accent);
 
-    --card: #ffffff;
-    --card-foreground: #010816;
+  --font-sans: var(--font-archivo), system-ui, sans-serif;
+  --font-mono: var(--font-redhatmono), ui-monospace, monospace;
 
-    --popover: #ffffff;
-    --popover-foreground: #010816;
-
-    --primary: #0f172a;
-    --primary-foreground: #f7f9fb;
-
-    --secondary: #f1f5f9;
-    --secondary-foreground: #0f172a;
-
-    --muted: #f1f5f9;
-    --muted-foreground: #64748b;
-
-    --accent: #f1f5f9;
-    --accent-foreground: #0f172a;
-
-    --destructive: #ee4444;
-    --destructive-foreground: #f7f9fb;
-
-    --border: #e2e8f0;
-    --input: #e2e8f0;
-    --ring: #010816;
-
-    --radius: 0.5rem;
-  }
-  html,
-  body {
-    @apply h-full;
-  }
-  html {
-    background-color: #040340;
-    background-image: linear-gradient(to bottom right in lch, #040340, #180022);
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
-  body {
-    @apply text-white leading-loose;
-    font-family: var(--font-jetbrainsMono);
-    background: transparent;
-  }
-  .radial {
-    background: radial-gradient(
-      circle,
-      rgba(255, 255, 255, 1) 20%,
-      rgba(200, 200, 230, 0.6) 45%,
-      rgba(172, 172, 168, 0) 70%
-    );
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-  }
+  --breakpoint-sm: 40rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+  --breakpoint-2xl: 96rem;
 }
 
 @layer base {
-  * {
-    @apply border-border;
+  :root {
+    color-scheme: light;
   }
   body {
-    @apply text-foreground;
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  @media (min-width: 64rem) {
+    body {
+      font-size: 1.0625rem;
+    }
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  a:not([class]) {
+    color: var(--color-text);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: 1px;
+  }
+  a:not([class]):hover {
+    color: var(--color-accent);
+    text-decoration-thickness: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      animation: none !important;
+      transition: none !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* dark: OS preference unless the user forced light */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --color-bg: #0f1d17;
+    --color-surface: #16291f;
+    --color-text: #e9efe9;
+    --color-muted: #9db2a6;
+    --color-border: #2e4a3b;
+    --color-border-strong: #5f8572;
+    --color-accent: #d9b44a;
+    --color-accent-contrast: #1a1405;
+    --color-accent-hover: #e6c566;
+    --color-accent-active: #c29f38;
+  }
+}
+/* dark: explicit user choice (identical values, keep in sync) */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --color-bg: #0f1d17;
+  --color-surface: #16291f;
+  --color-text: #e9efe9;
+  --color-muted: #9db2a6;
+  --color-border: #2e4a3b;
+  --color-border-strong: #5f8572;
+  --color-accent: #d9b44a;
+  --color-accent-contrast: #1a1405;
+  --color-accent-hover: #e6c566;
+  --color-accent-active: #c29f38;
+}
+
+@layer components {
+  .container-page {
+    margin-inline: auto;
+    width: 100%;
+    max-width: 72rem;
+    padding-inline: 1rem;
+  }
+  @media (min-width: 40rem) {
+    .container-page {
+      padding-inline: 1.5rem;
+    }
+  }
+  @media (min-width: 64rem) {
+    .container-page {
+      padding-inline: 2rem;
+    }
+  }
+
+  .link {
+    color: var(--color-text);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: 1px;
+  }
+  .link:hover {
+    color: var(--color-accent);
+    text-decoration-thickness: 2px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    padding: 0.625rem 1.125rem;
+    border-radius: 2px;
+    font-weight: 600;
+    transition:
+      background-color 0.12s,
+      color 0.12s,
+      border-color 0.12s;
+  }
+  .btn svg {
+    width: 1.125rem;
+    height: 1.125rem;
+    flex: none;
+  }
+  .btn-primary {
+    background: var(--color-accent);
+    color: var(--color-accent-contrast);
+    border: 1px solid var(--color-accent);
+  }
+  .btn-primary:hover {
+    background: var(--color-accent-hover);
+    border-color: var(--color-accent-hover);
+  }
+  .btn-primary:active {
+    background: var(--color-accent-active);
+    transform: translateY(1px);
+  }
+  .btn-secondary {
+    background: transparent;
+    color: var(--color-text);
+    border: 1px solid var(--color-border-strong);
+  }
+  .btn-secondary:hover {
+    border-color: var(--color-text);
+    background: var(--color-surface);
+  }
+  .btn-secondary:active {
+    background: var(--color-border);
+    transform: translateY(1px);
+  }
+
+  .mono-meta {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    letter-spacing: 0.04em;
+  }
+  @media (min-width: 64rem) {
+    .mono-meta {
+      font-size: 0.875rem;
+    }
+  }
+
+  .h1-inner {
+    font-size: 2rem;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    font-weight: 700;
+    font-stretch: 112.5%;
+  }
+  .h2 {
+    font-size: 1.5rem;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    font-weight: 700;
+    font-stretch: 112.5%;
+  }
+  .h3 {
+    font-size: 1.125rem;
+    line-height: 1.3;
+    font-weight: 650;
+  }
+  @media (min-width: 64rem) {
+    .h1-inner {
+      font-size: 3rem;
+    }
+    .h2 {
+      font-size: 2rem;
+    }
+    .h3 {
+      font-size: 1.25rem;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes name-in {
+    from {
+      opacity: 0.6;
+    }
+  }
+  .name-in {
+    animation: name-in 300ms ease-out;
   }
 }
