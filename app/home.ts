@@ -1,5 +1,5 @@
 import "server-only";
-import { prisma } from "./db";
+import { prisma } from "@/lib/db";
 
 export type HomePageData = {
   imageUrl: string;

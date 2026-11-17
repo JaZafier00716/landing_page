@@ -1,6 +1,7 @@
 import nextCoreWebVitals from "eslint-config-next/core-web-vitals";
 
 const config = [
+  { ignores: ["lib/generated/**"] },
   ...nextCoreWebVitals,
   {
     rules: {

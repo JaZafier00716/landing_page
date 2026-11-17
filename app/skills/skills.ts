@@ -1,5 +1,5 @@
 import "server-only";
-import { prisma } from "@/app/db";
+import { prisma } from "@/lib/db";
 
 export type SkillItem = {
   id: number;

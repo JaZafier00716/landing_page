@@ -1,6 +1,7 @@
-import { PrismaClient } from "@prisma/client";
+import "dotenv/config";
+import { PrismaClient } from "../../lib/generated/prisma/client";
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({ accelerateUrl: process.env.DATABASE_URL! });
 
 const data = [
   {
