@@ -7,6 +7,9 @@ import { getProject, getProjects } from "@/lib/content";
 import { Characteristics } from "@/components/projects";
 import { pageMeta } from "../../meta";
 
+// First request for an unlisted slug waits for the full render, so notFound() sends a real 404.
+export const ensureStatic = "navigation";
+
 export async function generateStaticParams() {
   const projects = await getProjects("en");
   return langs.flatMap((lang) => projects.map((p) => ({ lang, slug: p.slug })));
