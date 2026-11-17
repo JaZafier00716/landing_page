@@ -1,0 +1,52 @@
+% Shared style for Jan Zamostny's CV (build with lualatex or xelatex).
+\ProvidesPackage{cv}[2026/11/17 CV style]
+\RequirePackage[a4paper,margin=2cm]{geometry}
+\RequirePackage{fontspec}   % default font: Latin Modern (same look as the original CM/cm-super)
+\RequirePackage{enumitem}
+\RequirePackage{xcolor}
+\RequirePackage{titlesec}
+\RequirePackage[hidelinks]{hyperref}
+
+% Font Awesome (Free 6.x TTFs bundled in cv/fonts; fontawesome5.sty is not installed)
+\newfontfamily\FAsolid[Path=./fonts/,Extension=.ttf]{fa-solid-900}
+\newfontfamily\FAbrands[Path=./fonts/,Extension=.ttf]{fa-brands-400}
+\newcommand{\faicon}[1]{{\FAsolid\symbol{"#1}}}
+\newcommand{\bricon}[1]{{\FAbrands\symbol{"#1}}}
+\newcommand{\iconPhone}{\faicon{F095}}
+\newcommand{\iconMail}{\faicon{F0E0}}
+\newcommand{\iconLinkedin}{\bricon{F08C}}
+\newcommand{\iconUser}{\faicon{F007}}
+\newcommand{\iconEdu}{\faicon{F549}}
+\newcommand{\iconWork}{\faicon{F0B1}}
+\newcommand{\iconBrain}{\faicon{F5DC}}
+\newcommand{\iconLang}{\faicon{F1AB}}
+\newcommand{\iconCal}{\faicon{F073}}
+
+\setlength{\parindent}{0pt}
+\pagestyle{plain}
+\hypersetup{urlcolor=cyan,linkbordercolor=cyan,pdfborder={0 0 0.5}}
+
+% Section heading: icon + bold title
+\titleformat{\section}{\Large\bfseries}{}{0pt}{}
+\titlespacing*{\section}{0pt}{16pt}{8pt}
+\newcommand{\cvsection}[2]{\section{#1\hspace{1.1em}#2}}
+
+% Name + contact line
+\newcommand{\cvheader}[4]{%
+  \begin{center}
+    {\Huge\bfseries #1}\\[7pt]
+    \iconPhone\ #2 \quad
+    \iconMail\ \href{mailto:#3}{#3} \quad
+    \iconLinkedin\ \href{https://www.#4}{#4}
+  \end{center}\vspace{6pt}}
+
+% Entry: left (bold) title with right-aligned date
+\newcommand{\cvdate}[1]{\iconCal\ #1}
+\newcommand{\cventry}[2]{%
+  \hspace*{7pt}\begin{tabular*}{\dimexpr\textwidth-12pt\relax}{@{}p{0.745\dimexpr\textwidth-12pt\relax}@{\extracolsep{\fill}}r@{}}
+    \textbf{#1} & \textbf{\cvdate{#2}}
+  \end{tabular*}\par}
+
+\newenvironment{cvlist}{\begin{itemize}[leftmargin=2.2em,itemsep=7.5pt,topsep=11pt,parsep=0pt]}{\end{itemize}}
+\newenvironment{cvedu}{\begin{itemize}[leftmargin=2.2em,itemsep=6pt,topsep=8pt,parsep=0pt]}{\end{itemize}}
+\newenvironment{cvsub}{\begin{itemize}[label=\textendash,leftmargin=2.5em,labelsep=.5em,itemsep=4pt,topsep=6pt,parsep=0pt]}{\end{itemize}}
