@@ -1,37 +1,41 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# jan-zamostny.vercel.app
 
-## Getting Started
+Personal site of Jan Zámostný: projects, experience, skills and CV, in English and Czech.
+Next.js 16 (App Router, Cache Components), React 19, Tailwind CSS 4, Prisma 7 on Postgres, deployed on Vercel.
 
-First, run the development server:
+## Setup
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm ci                     # also runs `prisma generate` into lib/generated/prisma
+npx vercel env pull .env   # DATABASE_URL (prisma+postgres:// or postgres://)
+npm run dev                # http://localhost:3000 redirects to /en or /cs
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+`npm run build` prerenders every page, so it needs a reachable database.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Content
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Content lives in the database and is written by `data/seed.ts`:
 
-## Learn More
+- `Project` + `ProjectTranslation`: project pages (`kind` is `work`, `school` or `other`; `featured` puts it on the home page)
+- `Experience` + `ExperienceTranslation`: work, education (`kind: education`) and courses (`kind: course`)
+- `SkillGroup` + `Skill`: the skills tables; `usedIn` lists project or experience slugs
+- `PersonDetails`: name, email, phone, LinkedIn, GitHub
 
-To learn more about Next.js, take a look at the following resources:
+To change content, edit `data/seed.ts` and run:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npx prisma migrate deploy   # apply pending migrations
+npx prisma db seed          # upserts by slug/key, never deletes rows
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Pages cache database reads for a day (`cacheLife("days")`); redeploy to publish changes immediately.
+UI strings (nav, buttons, headings, the home intro) are in `lib/i18n.ts`.
+Screenshots go to `public/images/projects/` (16:10, WebP). The CV PDFs are built from `cv/` (`make install`).
 
-## Deploy on Vercel
+## Layout
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-# landing_page
+- `app/[lang]/`: pages; `proxy.ts` sends un-prefixed URLs to `/en` or `/cs`
+- `lib/content.ts`: all database reads; `lib/i18n.ts`: languages, dictionary, date formatting
+- `components/`: server components, except `site-nav`, `theme-toggle`, `lang-link` and `copy-button`
+- `DESIGN.md`: the design system (tokens, components, accessibility checklist)

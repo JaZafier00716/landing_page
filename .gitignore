@@ -38,3 +38,16 @@ next-env.d.ts
 .env
 
 dev.db*
+# LaTeX (cv/)
+/cv/build/
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.xdv
+.env*
+
+.idea/
+/lib/generated/
