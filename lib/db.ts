@@ -1,10 +1,8 @@
 import "server-only";
-import { PrismaClient } from "@/lib/generated/prisma/client";
+import { createPrisma } from "@/lib/prisma";
 
-// DATABASE_URL is a prisma+postgres:// (Accelerate) URL, so no driver adapter.
-const globalForPrisma = globalThis as unknown as { prisma?: PrismaClient };
+const globalForPrisma = globalThis as unknown as { prisma?: ReturnType<typeof createPrisma> };
 
-export const prisma =
-  globalForPrisma.prisma ?? new PrismaClient({ accelerateUrl: process.env.DATABASE_URL! });
+export const prisma = globalForPrisma.prisma ?? createPrisma();
 
 if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;

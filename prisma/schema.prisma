@@ -43,6 +43,13 @@ model Experience {
   id           Int                      @id @default(autoincrement())
   company      String
   sortOrder    Int                      @default(0)
+  slug         String?                  @unique
+  kind         String                   @default("work") // work | education | course
+  startDate    DateTime?
+  endDate      DateTime? // null = ongoing
+  url          String?
+  stack        String                   @default("")
+  related      String[]                 @default([]) // project slugs
   translations ExperienceTranslation[]
 }
 
@@ -52,7 +59,8 @@ model ExperienceTranslation {
   lang         String
   time         String
   position     String
-  skills       String      // JSON string of [{ id, title }]
+  skills       String      // legacy: JSON string of [{ id, title }], read by the pre-redesign site
+  bullets      String[]    @default([])
 
   experience   Experience  @relation(fields: [experienceId], references: [id], onDelete: Cascade)
 
@@ -92,4 +100,58 @@ model PersonDetails {
   lang String
 
   homePageTranslations HomePageTranslation[]
+}
+
+model Project {
+  id           Int                  @id @default(autoincrement())
+  slug         String               @unique
+  kind         String // work | school | other
+  sortOrder    Int                  @default(0)
+  featured     Boolean              @default(false)
+  thumbnail    String?
+  sourceUrl    String?
+  liveUrl      String?
+  stack        String[]
+  language     String?
+  libraries    String?
+  platform     String?
+  client       String?
+  translations ProjectTranslation[]
+}
+
+model ProjectTranslation {
+  id           Int     @id @default(autoincrement())
+  projectId    Int
+  lang         String
+  name         String
+  summary      String
+  description  String[] // paragraphs
+  role         String?
+  thumbnailAlt String?
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, lang])
+}
+
+model SkillGroup {
+  id        Int      @id @default(autoincrement())
+  key       String   @unique
+  sortOrder Int      @default(0)
+  titleEn   String
+  titleCs   String
+  skills    Skill[]
+}
+
+model Skill {
+  id        Int      @id @default(autoincrement())
+  groupId   Int
+  sortOrder Int      @default(0)
+  nameEn    String
+  nameCs    String
+  usedIn    String[] // project slugs or experience slugs
+
+  group SkillGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+
+  @@unique([groupId, nameEn])
 }
