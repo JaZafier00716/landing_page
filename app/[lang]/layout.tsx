@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import "../globals.css";
 import { archivo, redHatMono } from "../fonts";
 import { getDict, isLang, langs, siteUrl } from "@/lib/i18n";
@@ -44,7 +43,6 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
           {children}
         </main>
         <SiteFooter lang={lang} />
-        {process.env.NODE_ENV === "production" ? <SpeedInsights /> : null}
       </body>
     </html>
   );
