@@ -159,7 +159,7 @@ export default function SiteNav({ links, labels, wordmark, cv, trigger, prefs }:
       <div id="site-menu" ref={panel} hidden={!open} className="menu-panel lg:hidden">
         <nav aria-label={labels.nav} className="container-page py-2">
           <ul>{items(true)}</ul>
-          <div className="menu-item mt-2 border-t border-border pt-1" style={{ "--i": links.length } as React.CSSProperties}>
+          <div className="menu-item mt-2 border-t border-border px-3 pt-1" style={{ "--i": links.length } as React.CSSProperties}>
             {prefs}
           </div>
         </nav>
