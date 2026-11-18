@@ -4,15 +4,7 @@ import { headers } from "next/headers";
 import { Resend } from "resend";
 import { checkBotId } from "botid/server";
 import { checkRateLimit } from "@vercel/firewall";
-
-export type FieldError = "name" | "email" | "empty" | "tooLong";
-export type ContactState = {
-  status: "idle" | "success" | "invalid" | "failed";
-  errors: { name?: FieldError; email?: FieldError; message?: FieldError };
-  values: { name: string; email: string; message: string };
-};
-
-export const initialContactState: ContactState = { status: "idle", errors: {}, values: { name: "", email: "", message: "" } };
+import { initialContactState, type ContactState } from "@/lib/contact";
 
 const str = (fd: FormData, k: string) => String(fd.get(k) ?? "").trim();
 
