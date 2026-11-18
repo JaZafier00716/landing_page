@@ -256,7 +256,8 @@ const localize = <T,>(v: T, lang: Lang): T =>
     : (Object.fromEntries(Object.entries(v as object).map(([k, x]) => [k, localize(x, lang)])) as T);
 const dicts = { en: localize(en, "en"), cs: localize(cs, "cs") };
 
-export const getDict = (lang: Lang): Dict => dicts[lang];
+// Falls back to English for non-language segments (e.g. /_next/... misses), so metadata never throws before the layout's 404.
+export const getDict = (lang: Lang): Dict => dicts[lang] ?? dicts.en;
 
 /**
  * "Jun – Dec 2023" / "čvn – pro 2023", "Sep 2026 – present" / "zář 2026 – současnost"; courses show the year only.

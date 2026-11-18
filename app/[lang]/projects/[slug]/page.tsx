@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { permanentRedirect } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { getDict, isLang, langs, type Lang } from "@/lib/i18n";
 import { getProject, getProjects } from "@/lib/content";
@@ -29,6 +29,7 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/projects/[
 
 export default async function ProjectPage({ params }: PageProps<"/[lang]/projects/[slug]">) {
   const { lang, slug } = (await params) as { lang: Lang; slug: string };
+  if (!isLang(lang)) notFound(); // non-language first segment, e.g. /images
   const p = await getProject(lang, slug);
   if (!p) {
     if (retiredSlugs.includes(slug)) permanentRedirect(`/${lang}/projects`);

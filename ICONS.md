@@ -49,7 +49,7 @@ Sources: Simple Icons 16.38.0 (CC0-1.0), devicon 2.18.0 (MIT, (c) Konpa), lucide
 
 | Used for | File | Why |
 |---|---|---|
-| Java | java/java-plain.svg | Java is not in Simple Icons (removed upstream). Multi-colour original not used; the plain variant is monochrome. |
+| Java | java/java-plain.svg | Java is not in Simple Icons: it was removed at Oracle's request under its trademark policy. devicon's MIT licence covers the drawing, not the trademark; it is used here only to name the language next to the word "Java" (nominative use). Multi-colour original not used; the plain variant is monochrome. |
 
 ## lucide (ISC)
 

@@ -40,11 +40,11 @@ export const techKey = (n: string) => {
 };
 
 /** Inline mark, sized in em, decorative: the name is always printed next to it. */
-export default function TechIcon({ name, className = "size-[1.1em] flex-none" }: { name: string; className?: string }) {
+export default function TechIcon({ name, className = "size-[1.1em] flex-none", stroke = 1.5 }: { name: string; className?: string; stroke?: number }) {
   const key = techKey(name);
   if (!key) return null;
   const L = lucide[key];
-  if (L) return <L aria-hidden strokeWidth={1.5} className={className} />;
+  if (L) return <L aria-hidden strokeWidth={stroke} className={className} />;
   const m = marks[key];
   return (
     <svg aria-hidden viewBox={`0 0 ${m.vb} ${m.vb}`} fill="currentColor" className={className}>
@@ -54,10 +54,10 @@ export default function TechIcon({ name, className = "size-[1.1em] flex-none" }:
 }
 
 /** Text with a mark per technology: "Next.js, React" gets two. Unknown parts stay plain text, so any value can be passed. */
-export function TechLabel({ name }: { name: string }) {
+export function TechLabel({ name, stroke }: { name: string; stroke?: number }) {
   const parts = techKey(name) ? [name] : name.split(", ");
   return parts.map((p, i) => {
-    const icon = <TechIcon name={p.split(":")[0]} />;
+    const icon = <TechIcon name={p.split(":")[0]} stroke={stroke} />;
     return (
       <Fragment key={i}>
         {i > 0 && " "}

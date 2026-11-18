@@ -12,9 +12,9 @@ export default function ProjectImage({ project: p, sizes, priority, className = 
     );
   const icons = p.stack.filter((s) => techKey(s)).slice(0, 4);
   return (
-    <div aria-hidden className={`img-frame bg-surface-2 ${className}`}>
+    <div aria-hidden className={`img-frame bg-surface-2 [container-type:inline-size] ${className}`}>
       <div className="dot-grid absolute inset-0" />
-      <div className="relative flex aspect-[16/10] w-full flex-col items-center justify-center gap-[4cqi] px-[8cqi] text-center [container-type:inline-size]">
+      <div className="relative flex aspect-[16/10] w-full flex-col items-center justify-center gap-[4cqi] px-[8cqi] text-center">
         <span translate="no" className="text-[clamp(1.25rem,7cqi,2.5rem)] leading-tight font-semibold [font-stretch:125%] text-balance">
           {p.name}
         </span>

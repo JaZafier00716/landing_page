@@ -1,6 +1,7 @@
+import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { getDict, type Lang } from "@/lib/i18n";
+import { getDict, isLang, type Lang } from "@/lib/i18n";
 import { getExperience, getPerson, getProjects } from "@/lib/content";
 import CaseCard from "@/components/case-card";
 import ContactForm from "@/components/contact-form";
@@ -30,6 +31,7 @@ function Kv({ k, children, translate }: { k: string; children: React.ReactNode; 
 
 export default async function Home({ params }: PageProps<"/[lang]">) {
   const lang = (await params).lang as Lang;
+  if (!isLang(lang)) notFound(); // non-language first segment, e.g. /images
   const dict = getDict(lang);
   const h = dict.home;
   const [person, projects, experience] = await Promise.all([getPerson(lang), getProjects(lang), getExperience(lang)]);

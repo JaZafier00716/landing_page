@@ -1,5 +1,6 @@
+import { notFound } from "next/navigation";
 import Link from "next/link";
-import { getDict, type Lang } from "@/lib/i18n";
+import { getDict, isLang, type Lang } from "@/lib/i18n";
 import { getSkills } from "@/lib/content";
 import { TechLabel } from "@/components/tech-icon";
 import { pageMeta } from "../meta";
@@ -12,6 +13,7 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/skills">) 
 
 export default async function SkillsPage({ params }: PageProps<"/[lang]/skills">) {
   const lang = (await params).lang as Lang;
+  if (!isLang(lang)) notFound(); // non-language first segment, e.g. /images
   const d = getDict(lang).skills;
   const groups = await getSkills(lang);
 
@@ -37,7 +39,7 @@ export default async function SkillsPage({ params }: PageProps<"/[lang]/skills">
               {g.skills.map((s) => (
                 <tr key={s.name} className="flex flex-col border-b border-border py-3 sm:table-row">
                   <th scope="row" translate="no" className="pr-6 font-semibold sm:py-3 sm:align-top">
-                    <TechLabel name={s.name} />
+                    <TechLabel name={s.name} stroke={2} />
                   </th>
                   <td lang={lang} className="text-muted narrow hyphens-auto hit-list sm:py-3">
                     {s.detail && s.detail}

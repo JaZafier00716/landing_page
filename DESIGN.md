@@ -7,7 +7,7 @@ Not in scope: chip/IC imagery, fake part numbers, skill bars or levels, icon fon
 1. **A spec readout, not a costume.** Facts are shown as key/value rows (now, study, based, stack, before, want), as chips and as a timeline. Structure carries information; there are no decorative icons on headings or in the nav.
 2. **Recruiter first** (§Recruiter-first content). At 375×812, within 10 s and above the fold: name, role, current position, location, stack, what Jan is looking for, and Download CV. Projects read as case studies (Decision, Result), and skills are shown through projects.
 3. **One of everything.** One CV download visible at a time, one contact block (home only), one hover language for text links and one for containers (§5.2). Each piece of content appears once per page.
-4. **Rich but cheap motion.** At most three ambient loops, the backdrop grid on every page, the other two on the home hero. They use transform/opacity only, pause off-screen, in hidden tabs and on request, and are off under reduced motion. Everything else moves only when the user acts.
+4. **Rich but cheap motion.** At most three ambient loops, all on home: the backdrop grid drift (the grid itself is on every page, static off home), the status dot and the marquee. They use transform/opacity only, pause off-screen, in hidden tabs and on request, and are off under reduced motion. Everything else moves only when the user acts.
 5. **Content works with no JS and no animation.** Server components by default. The client components are `site-nav.tsx`, `theme-toggle.tsx`, `lang-link.tsx`, `copy-button.tsx` and `contact-form.tsx` (§5.9).
 
 ## 2. Color (OKLCH)
@@ -167,7 +167,7 @@ Buttons: `<a>`/`<Link>` for navigation and downloads, `<button>` for actions. A 
 - Mobile order (375×812): name row, title, status, statement, CV, readout, marquee, and the next section's heading peeks. Desktop: two columns top-aligned, marquee below. No hero `min-height`.
 
 ### 5.6 Chip
-`.chip`: `inline-flex; gap: .4em; min-height: 1.75rem; padding-inline: .5rem; border: 1px solid var(--color-border-strong); border-radius: var(--radius-xs); white-space: nowrap`, mono `text-meta`, devicon mark + name, `translate="no"`. Not interactive (no hover, no cursor). Used in the marquee, cards, the project detail and experience entries (stack). Lists use `<ul aria-label="Stack">`.
+`.chip`: `inline-flex; gap: .4em; min-height: 1.75rem; padding-inline: .5rem; border: 1px solid var(--color-border-strong); border-radius: var(--radius-xs); white-space: nowrap`, mono `text-meta`, icon + name (Simple Icons / devicon / lucide, see ICONS.md), `translate="no"`. Not interactive (no hover, no cursor). Used in the marquee, cards, the project detail and experience entries (stack). Lists use `<ul aria-label="Stack">`.
 
 ### 5.7 Project case-study card (`components/case-card.tsx`, server)
 Home "Selected projects" (featured, 2×2 from `md`, 1 column below) and `/projects` (all visible projects, same grid, grouped). `<article class="box card">` is a level-1 panel (`--box-bg: var(--color-surface)`, `radius-md`, `overflow: clip`, `container-type: inline-size`). It is a flex column (subgrid was dropped: every card now has an image row, so subgrid is not needed), with the footer pushed down by `mt-auto`:
@@ -198,7 +198,7 @@ One line on every page: `<footer>` with a hairline top, `py-6`, mono `text-meta`
 ### 5.11 Other pages
 - **`/projects`:** h1 + intro; "Work projects" and "School projects" h2 (text only), each a grid of case cards (§5.7). Hidden projects are filtered in `lib/content.ts`.
 - **`/projects/[slug]`:** back `.link` (`ArrowLeft`) → h1 (125%) → lead summary → stack chips → `<ProjectImage>` 16:10 (screenshot or the placeholder of §5.7; `radius-md`, inner outline, `priority`) → `<dl>` Decision / Result (/ Quality) in the card's label style → characteristics table (`th scope="row"`, mono muted 8rem column, hairline rows, empty rows omitted; Source only for public repos) → description prose (65ch) → actions: "View source" / "Open live site" (`.btn-secondary`, only when public) → "Next project" `.link` (`ArrowRight`). Unknown slug returns 404; a hidden slug redirects to `/{lang}/projects`.
-- **`/skills`:** h1, then one `<section>` per group with a text-only h2 and a hairline `<table>`: Skill (devicon mark where one exists + name, 600, `translate="no"`) | Where used (project `.link`s, `hyphens: auto`, "—" when none). No chips, bars or levels. "Where used" drops under the skill below `sm`.
+- **`/skills`:** h1, then one `<section>` per group with a text-only h2 and a hairline `<table>`: Skill (icon + name, 600, `translate="no"`; every skill has an icon, see ICONS.md) | Where used (project `.link`s, `hyphens: auto`, "—" when none). No chips, bars or levels. "Where used" drops under the skill below `sm`.
 - **404:** h1 "Page not found" / cs, one sentence naming what was missing, then "All projects" and "Home" as `.link`s. No icons.
 
 ## 6. Page layouts
@@ -275,7 +275,7 @@ All motion is CSS, except the single View Transition call in `site-nav.tsx`. Con
 - [ ] Contrast per §2 in both themes, including hover tints and text over the dot grid.
 - [ ] State is never color-only: current nav = underline + weight + `aria-current`; status = dot + text; field errors = text + `aria-invalid` + thicker border; copy = icon + live text.
 - [ ] Underlines clear g/y/p at rest and on hover (both fonts, both sizes).
-- [ ] Icon-only controls (menu, theme, copy, preferences, pause, CV pill full name) have an `aria-label`; all icons and devicon marks are `aria-hidden`; external links announce "opens in new tab".
+- [ ] Icon-only controls (menu, theme, copy, preferences, pause, CV pill full name) have an `aria-label`; all icons and technology marks are `aria-hidden`; external links announce "opens in new tab".
 - [ ] Popover: Esc and light dismiss close it and focus returns to the trigger. Mobile menu: focus moves in, is trapped, Esc closes it, focus returns; `overscroll-behavior: contain`.
 - [ ] Contact form: visible labels, `autocomplete`, errors linked by `aria-describedby`, `aria-live` status, focus to the first error; works with JS disabled.
 - [ ] Moving content: a pause control exists (WCAG 2.2.2); loops stop off-screen, in hidden tabs and under reduced motion; the marquee is `aria-hidden` (its facts are in the readout).

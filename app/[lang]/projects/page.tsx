@@ -1,4 +1,5 @@
-import { getDict, type Lang } from "@/lib/i18n";
+import { notFound } from "next/navigation";
+import { getDict, isLang, type Lang } from "@/lib/i18n";
 import { getProjects } from "@/lib/content";
 import CaseCard from "@/components/case-card";
 import { pageMeta } from "../meta";
@@ -11,6 +12,7 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/projects">
 
 export default async function ProjectsPage({ params }: PageProps<"/[lang]/projects">) {
   const lang = (await params).lang as Lang;
+  if (!isLang(lang)) notFound(); // non-language first segment, e.g. /images
   const d = getDict(lang).projects;
   const projects = await getProjects(lang);
   const groups = [

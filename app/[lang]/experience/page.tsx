@@ -1,5 +1,6 @@
+import { notFound } from "next/navigation";
 import Link from "next/link";
-import { formatPeriod, getDict, type Lang } from "@/lib/i18n";
+import { formatPeriod, getDict, isLang, type Lang } from "@/lib/i18n";
 import { getExperience, type ExperienceEntry } from "@/lib/content";
 import StackChips from "@/components/stack-chips";
 import { pageMeta } from "../meta";
@@ -56,6 +57,7 @@ function Entry({ e, lang }: { e: ExperienceEntry; lang: Lang }) {
 
 export default async function ExperiencePage({ params }: PageProps<"/[lang]/experience">) {
   const lang = (await params).lang as Lang;
+  if (!isLang(lang)) notFound(); // non-language first segment, e.g. /images
   const d = getDict(lang).experience;
   const entries = await getExperience(lang);
   const sections = [

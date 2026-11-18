@@ -36,13 +36,14 @@ export default function SiteNav({ links, labels, wordmark, cv, trigger, prefs }:
       io.observe(section);
       observers.push(io);
     }
-    if (hero) {
+    let cvIo: IntersectionObserver | undefined;
+    const mq = matchMedia("(min-width: 64rem)");
+    const watchCv = () => {
+      if (!hero) return;
+      cvIo?.disconnect();
+      // The header is taller from 64rem, so the hand-off line moves: rebuild the observer when it crosses.
       const headerH = document.querySelector(".site-header")?.getBoundingClientRect().height ?? 64;
-      root.setAttribute("data-cv-js", "");
-      if ("startViewTransition" in document) root.setAttribute("data-cv-vt", "");
-      let running: ViewTransition | undefined;
-      let first = true;
-      const io = new IntersectionObserver(
+      cvIo = new IntersectionObserver(
         (entries) => {
           const e = entries[entries.length - 1]; // newest: a fast scroll can queue several
           // Hysteresis: dock only when fully under the header, undock only when fully clear of it; in between keep the state.
@@ -61,12 +62,21 @@ export default function SiteNav({ links, labels, wordmark, cv, trigger, prefs }:
         },
         { rootMargin: `-${headerH}px 0px 0px 0px`, threshold: [0, 0.98] },
       );
-      io.observe(hero);
-      observers.push(io);
+      cvIo.observe(hero);
+    };
+    let running: ViewTransition | undefined;
+    let first = true;
+    if (hero) {
+      root.setAttribute("data-cv-js", "");
+      if ("startViewTransition" in document) root.setAttribute("data-cv-vt", "");
+      watchCv();
+      mq.addEventListener("change", watchCv);
     }
     return () => {
       document.removeEventListener("visibilitychange", onVisibility);
       observers.forEach((o) => o.disconnect());
+      cvIo?.disconnect();
+      mq.removeEventListener("change", watchCv);
       ["data-cv-js", "data-cv-vt", "data-cv-docked", "data-hero-off"].forEach((a) => root.removeAttribute(a));
     };
   }, [pathname]);
