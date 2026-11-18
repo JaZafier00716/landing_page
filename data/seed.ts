@@ -54,11 +54,11 @@ const experiences: ExperienceSeed[] = [
     position: { en: "CVAT Annotation Specialist", cs: "Specialista anotací v CVAT" },
     bullets: {
       en: [
-        "Annotated about 20 minutes of dashcam footage in CVAT: road defects (potholes, cracks), road markings, lanes, guardrails and delineator posts.",
+        "Annotated over 500 dashcam frames in CVAT: road defects (potholes, cracks), road markings, lanes, guardrails and delineator posts.",
         "Delivered precise, consistent annotations for computer vision and machine learning datasets, in cooperation with FUTTEC.",
       ],
       cs: [
-        "V CVAT jsem anotoval zhruba 20 minut záznamu z palubních kamer: poruchy vozovky (výtluky, trhliny), dopravní značení, jízdní pruhy, svodidla a směrové sloupky.",
+        "V CVAT jsem anotoval přes 500 snímků z palubních kamer: poruchy vozovky (výtluky, trhliny), dopravní značení, jízdní pruhy, svodidla a směrové sloupky.",
         "Dodával jsem přesné a konzistentní anotace pro datové sady počítačového vidění a strojového učení, ve spolupráci se společností FUTTEC.",
       ],
     },

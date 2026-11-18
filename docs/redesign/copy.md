@@ -179,7 +179,7 @@ Courses (CAE, Udemy) keep their title line only. One bullet each is given below 
 - Used Claude as a coding assistant while writing the tests.
 
 **VŠB-TUO**, CVAT Annotation Specialist, May–Oct 2026
-- Annotated about 20 minutes of dashcam footage in CVAT: road defects (potholes, cracks), road markings, lanes, guardrails and delineator posts. 
+- Annotated over 500 dashcam frames in CVAT: road defects (potholes, cracks), road markings, lanes, guardrails and delineator posts. 
 - Delivered precise, consistent annotations for computer vision and machine learning datasets, in cooperation with FUTTEC.
 
 **SHOWMORE s.r.o.**, Frontend Web Developer, Jul–Oct 2024
@@ -218,7 +218,7 @@ Note: "Migrated content into Sanity" combines two seed facts (CSG content is man
 - Při psaní testů jsem využíval AI asistenta Claude. (new CS)
 
 **VŠB-TUO**, Specialista anotací v CVAT, kvě – říj 2026
-- V CVAT jsem anotoval zhruba 20 minut záznamu z palubních kamer: poruchy vozovky (výtluky, trhliny), dopravní značení, jízdní pruhy, svodidla a směrové sloupky. (new CS)
+- V CVAT jsem anotoval přes 500 snímků z palubních kamer: poruchy vozovky (výtluky, trhliny), dopravní značení, jízdní pruhy, svodidla a směrové sloupky. (new CS)
 - Dodával jsem přesné a konzistentní anotace pro datové sady počítačového vidění a strojového učení, ve spolupráci se společností FUTTEC.
 
 **SHOWMORE s.r.o.**, Frontend vývojář, čvc – říj 2024
@@ -332,7 +332,7 @@ The language names stay in their own language in both versions.
 | Visible | CV | CV |
 | aria-label | Download CV (PDF) | Stáhnout CV (PDF) |
 
-Answered by Jan on 2026-11-18: FUTTEC 1,200+ tests with Claude as coding assistant; CVAT about 20 minutes; no measured SHOWMORE change; Blackfish migrated all blog posts into Sanity; master’s at VŠB in Informatics from Sep 2027 (no bachelor’s graduation date stated); roles: software developer, QA, full-stack; no reply time; catering, editor and Tetris solo; skj-projekt, ZPG featured instead of Tetris; skj benchmark and 49 tests as above. Still open: questions 13 (done), 14, 15, 16 and the ZPG role and screenshots.
+Answered by Jan on 2026-11-18: FUTTEC 1,200+ tests with Claude as coding assistant; CVAT over 500 frames (changed from "about 20 minutes" later the same day); no measured SHOWMORE change; Blackfish migrated all blog posts into Sanity; master’s at VŠB in Informatics from Sep 2027 (no bachelor’s graduation date stated); roles: software developer, QA, full-stack; no reply time; catering, editor and Tetris solo; skj-projekt, ZPG featured instead of Tetris; skj benchmark and 49 tests as above. Still open: questions 13 (done), 14, 15, 16 and the ZPG role and screenshots.
 
 ---
 
