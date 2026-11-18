@@ -383,6 +383,7 @@ const projects: ProjectSeed[] = [
     platform: "CMake",
     t: {
       en: {
+        role: "Solo coursework",
         decision: "The programmable pipeline: GLSL shaders with GLM transforms. Trade-off: more setup before the first frame, in exchange for control over every vertex and pixel.",
         result: "Basic rendering of various scenes, built to learn how rendering works: individual lighting models, shaders and textures.",
         name: "ZPG: OpenGL graphics",
@@ -393,6 +394,7 @@ const projects: ProjectSeed[] = [
         ],
       },
       cs: {
+        role: "Samostatná práce",
         decision: "Programovatelná pipeline: shadery v GLSL a transformace z GLM. Kompromis: víc přípravy před prvním snímkem, zato kontrola nad každým vrcholem a pixelem.",
         result: "Základní vykreslení různých scén, na kterých jsem se učil, jak vykreslování funguje: jednotlivé modely osvětlení, shadery a textury.",
         name: "ZPG: grafika v OpenGL",
