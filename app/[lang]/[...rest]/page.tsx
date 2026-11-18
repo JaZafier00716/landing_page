@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getDict, isLang, langs } from "@/lib/i18n";
-import NotFoundView from "@/components/not-found-view";
+import { NotFoundPage } from "@/components/not-found-view";
 
-// Unknown paths under /en or /cs: proxy.ts rewrites them to /{lang}/404 with status 404.
-// The page renders the 404 itself instead of calling notFound(): under cacheComponents a
-// notFound() response is an empty error shell filled in by the client, without <html lang> or an h1.
+// Unknown paths under /en or /cs: a real 404 with the localized page (see NotFoundPage).
+// Wait for the full render on first request, so the 404 status is decided before anything streams.
+export const ensureStatic = "navigation";
+
 export function generateStaticParams() {
   return langs.map((lang) => ({ lang, rest: ["404"] }));
 }
@@ -20,5 +21,5 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/[...rest]"
 export default async function CatchAll({ params }: PageProps<"/[lang]/[...rest]">) {
   const { lang } = await params;
   if (!isLang(lang)) notFound();
-  return <NotFoundView lang={lang} />;
+  return <NotFoundPage lang={lang} />;
 }

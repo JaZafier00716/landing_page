@@ -9,7 +9,7 @@ type Props = {
   links: { href: string; label: string; exact?: boolean }[];
   labels: { nav: string; menu: string };
   wordmark: ReactNode;
-  cv: ReactNode; // header CV pill (server)
+  cv: ReactNode; // header CV button (server)
   trigger: ReactNode; // preferences popover trigger (server)
   prefs: ReactNode; // language + theme rows for the mobile menu (server)
 };
@@ -22,62 +22,42 @@ export default function SiteNav({ links, labels, wordmark, cv, trigger, prefs }:
   const button = useRef<HTMLButtonElement>(null);
   const panel = useRef<HTMLDivElement>(null);
 
-  // CV morph (hero button <-> header pill) and the pause flags for the ambient loops. Without JS the CSS fallback in globals.css applies.
+  // Header CV: hidden while the hero CV is in view (home only). The hero button never moves; this only toggles a data attribute.
+  const isHome = /^\/(en|cs)\/?$/.test(pathname);
+  const [heroCvOutOn, setHeroCvOutOn] = useState<string | null>(null); // per path, like the menu
+  const headerCvOff = isHome && heroCvOutOn !== pathname;
+
+  // Pause flags for the ambient loops, and the hero-CV observer.
   useEffect(() => {
     const root = document.documentElement;
-    const hero = document.querySelector<HTMLElement>("[data-hero-cv] .btn"); // the button itself: its size line must not hold the pill back
-    const section = document.querySelector<HTMLElement>("[data-hero]");
     const onVisibility = () => root.toggleAttribute("data-hidden", document.hidden);
     document.addEventListener("visibilitychange", onVisibility);
     onVisibility();
-    const observers: IntersectionObserver[] = [];
-    if (section) {
-      const io = new IntersectionObserver(([e]) => root.toggleAttribute("data-hero-off", !e.isIntersecting));
-      io.observe(section);
-      observers.push(io);
-    }
-    let cvIo: IntersectionObserver | undefined;
+    const section = document.querySelector<HTMLElement>("[data-hero]");
+    const sectionIo = new IntersectionObserver(([e]) => root.toggleAttribute("data-hero-off", !e.isIntersecting));
+    if (section) sectionIo.observe(section);
+
+    const hero = document.querySelector<HTMLElement>("[data-hero-cv] .btn");
     const mq = matchMedia("(min-width: 64rem)");
+    let cvIo: IntersectionObserver | undefined;
+    // "Behind the header" counts as out of view; the header is taller from 64rem, so rebuild when that changes.
     const watchCv = () => {
       if (!hero) return;
       cvIo?.disconnect();
-      // The header is taller from 64rem, so the hand-off line moves: rebuild the observer when it crosses.
       const headerH = document.querySelector(".site-header")?.getBoundingClientRect().height ?? 64;
-      cvIo = new IntersectionObserver(
-        (entries) => {
-          const e = entries[entries.length - 1]; // newest: a fast scroll can queue several
-          // Hysteresis: dock only when fully under the header, undock only when fully clear of it; in between keep the state.
-          const was = root.hasAttribute("data-cv-docked");
-          const above = e.boundingClientRect.top < headerH;
-          const docked = e.intersectionRatio === 0 ? above : e.intersectionRatio >= 0.98 ? false : first ? above : was;
-          const initial = first;
-          first = false;
-          const update = () => root.toggleAttribute("data-cv-docked", docked);
-          if (was === docked) return;
-          if (initial || !("startViewTransition" in document)) update();
-          else {
-            running?.skipTransition();
-            running = document.startViewTransition({ update, types: ["cv"] });
-          }
-        },
-        { rootMargin: `-${headerH}px 0px 0px 0px`, threshold: [0, 0.98] },
-      );
+      cvIo = new IntersectionObserver((entries) => setHeroCvOutOn(entries[entries.length - 1].isIntersecting ? null : pathname), {
+        rootMargin: `-${headerH}px 0px 0px 0px`,
+      });
       cvIo.observe(hero);
     };
-    let running: ViewTransition | undefined;
-    let first = true;
-    if (hero) {
-      root.setAttribute("data-cv-js", "");
-      if ("startViewTransition" in document) root.setAttribute("data-cv-vt", "");
-      watchCv();
-      mq.addEventListener("change", watchCv);
-    }
+    watchCv();
+    mq.addEventListener("change", watchCv);
     return () => {
       document.removeEventListener("visibilitychange", onVisibility);
-      observers.forEach((o) => o.disconnect());
+      sectionIo.disconnect();
       cvIo?.disconnect();
       mq.removeEventListener("change", watchCv);
-      ["data-cv-js", "data-cv-vt", "data-cv-docked", "data-hero-off"].forEach((a) => root.removeAttribute(a));
+      root.removeAttribute("data-hero-off");
     };
   }, [pathname]);
 
@@ -148,9 +128,11 @@ export default function SiteNav({ links, labels, wordmark, cv, trigger, prefs }:
         <nav aria-label={labels.nav} className="ms-4 hidden lg:block">
           <ul className="flex items-center">{items(false)}</ul>
         </nav>
-        {/* CV pill sits out of flow just left of the utilities, so there is no empty slot before it docks. */}
-        <div className="relative ms-auto flex items-center gap-1">
-          {cv}
+        <div className="ms-auto flex items-center gap-1">
+          {/* Slot always reserved (no layout shift); hidden and inert while the hero CV is in view. */}
+          <div className="cv-slot me-1" data-off={headerCvOff ? "" : undefined} inert={headerCvOff} aria-hidden={headerCvOff || undefined}>
+            {cv}
+          </div>
           {trigger}
           <button
             ref={button}

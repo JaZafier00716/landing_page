@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@property --cv-docked { syntax: "<integer>"; inherits: true; initial-value: 0; }
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 :root {
@@ -154,7 +153,6 @@
     text-size-adjust: 100%;
     scrollbar-gutter: stable;
     scroll-padding-top: calc(var(--header-h) + env(safe-area-inset-top) + 1rem);
-    timeline-scope: --hero-cv;
   }
   body {
     background: var(--color-bg);
@@ -505,75 +503,18 @@
   .pref-lang [aria-current] { font-weight: 600; text-decoration: underline 2px var(--color-accent); text-underline-offset: 0.5em; text-decoration-skip-ink: none; }
   .pref-lang a, .pref-lang [aria-current] { display: inline-flex; min-height: 2.75rem; align-items: center; padding-inline: 0.25rem; }
 
-  /* ---- CV: hero button <-> header pill (one visible at a time) ---- */
-  .cv-pill {
-    position: absolute;
-    inset-inline-end: calc(100% + 0.5rem);
-    white-space: nowrap;
-    transition:
-      opacity var(--duration-4) var(--ease-out),
-      translate var(--duration-4) var(--ease-out),
-      scale var(--duration-4) var(--ease-out),
-      filter var(--duration-4) var(--ease-out),
-      visibility 0s linear var(--duration-4);
+  /* ---- CV: the hero button is static content; the header button shows once it is out of view (site-nav.tsx) ---- */
+  .cv-pill { white-space: nowrap; }
+  .cv-slot {
+    transition: opacity var(--duration-1) var(--ease-out), translate var(--duration-1) var(--ease-out), visibility 0s;
   }
-  /* home: hidden until the hero CV docks; other pages: always visible */
-  :root:has([data-hero-cv]) .cv-pill {
+  .cv-slot[data-off] {
     opacity: 0;
     visibility: hidden;
-    translate: 0 6px;
-    scale: 0.9;
-    filter: blur(2px);
+    translate: 0 4px;
+    transition-duration: 120ms, 120ms, 0s;
+    transition-delay: 0s, 0s, 120ms;
   }
-  .cv-hero { view-timeline: --hero-cv block; view-timeline-inset: var(--header-h) 0; }
-  .cv-hero > * {
-    transition:
-      opacity var(--duration-4) var(--ease-out),
-      translate var(--duration-4) var(--ease-out),
-      scale var(--duration-4) var(--ease-out),
-      visibility 0s;
-  }
-  /* docked state, driven by site-nav.tsx (data-cv-docked) */
-  :root[data-cv-docked] .cv-hero > * {
-    opacity: 0;
-    visibility: hidden;
-    translate: 12px -8px;
-    scale: 0.9;
-    transition-delay: 0s, 0s, 0s, var(--duration-4);
-  }
-  :root[data-cv-docked] .cv-pill {
-    opacity: 1;
-    visibility: visible;
-    translate: 0 0;
-    scale: 1;
-    filter: none;
-    transition-delay: 0s;
-  }
-  /* fallback without JS: the scroll only flips --cv-docked, the swap is a time-based transition */
-  @container style(--cv-docked: 1) {
-    :root:not([data-cv-js]) .cv-hero > * {
-      opacity: 0;
-      visibility: hidden;
-      translate: 12px -8px;
-      scale: 0.9;
-      transition-delay: 0s, 0s, 0s, var(--duration-4);
-    }
-    :root:not([data-cv-js]) .cv-pill {
-      opacity: 1;
-      visibility: visible;
-      translate: 0 0;
-      scale: 1;
-      filter: none;
-      transition-delay: 0s;
-    }
-  }
-  /* with View Transitions the browser does the motion: no competing CSS transitions */
-  :root[data-cv-vt] .cv-hero > *, :root[data-cv-vt] .cv-pill { transition: none; }
-  :root:not([data-cv-docked]) [data-hero-cv] .btn { view-transition-name: cv; }
-  :root[data-cv-docked] .cv-pill { view-transition-name: cv; }
-  :root:active-view-transition-type(cv),
-  :root:active-view-transition-type(cv) .site-header { view-transition-name: none; }
-  ::view-transition-group(cv) { animation-duration: var(--duration-4); animation-timing-function: var(--ease-out); }
 
   /* ---- hero ---- */
   .hero-item {
@@ -730,31 +671,13 @@ main { display: flex; flex: 1; flex-direction: column; outline: none; }
   html { scroll-behavior: smooth; }
 }
 
-/* CSS scroll flag (no-JS fallback for the CV swap): the scroll only flips --cv-docked */
-@supports (animation-timeline: view()) {
-  :root:not([data-cv-js]) body {
-    animation: cv-flag linear both;
-    animation-timeline: --hero-cv;
-    animation-range: exit 50% exit 50.2%;
-  }
-}
-@keyframes cv-flag { from { --cv-docked: 0; } to { --cv-docked: 1; } }
 
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after {
     transition-property: color, background-color, border-color, text-decoration-color, opacity, visibility !important;
     animation: none !important;
   }
-  /* the flag must survive the reset */
-  @supports (animation-timeline: view()) {
-    :root:not([data-cv-js]) body {
-      animation: cv-flag linear both !important;
-      animation-timeline: --hero-cv !important;
-      animation-range: exit 50% exit 50.2% !important;
-    }
-  }
-  .cv-hero > *, .cv-pill { transition-duration: var(--duration-1) !important; transition-delay: 0s !important; }
-  :root[data-cv-docked] .cv-hero > * { translate: none; scale: 1; }
+  .cv-slot { transition: none !important; }
   ::view-transition-group(*) { animation: none !important; }
   ::view-transition-old(*), ::view-transition-new(*) { animation-duration: var(--duration-1) !important; }
   .marquee { mask-image: none; }
