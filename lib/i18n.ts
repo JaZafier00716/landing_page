@@ -1,3 +1,5 @@
+import { nbsp } from "@/lib/typography";
+
 export const langs = ["en", "cs"] as const;
 export type Lang = (typeof langs)[number];
 
@@ -27,7 +29,7 @@ const en = {
   },
   cv: { download: "Download CV", meta: "PDF" },
   contact: { title: "Contact", email: "Email", phone: "Phone", linkedin: "LinkedIn", github: "GitHub" },
-  copy: { label: "Copy", done: "Copied", failed: "Copy failed" },
+  copy: { email: "Copy email", phone: "Copy phone", done: "Copied", failed: "Copy failed" },
   experience: {
     title: "Experience",
     intro: "Work, school and courses, newest first.",
@@ -36,20 +38,21 @@ const en = {
     courses: "Courses and certificates",
     present: "present",
     related: "Related projects",
+    contact: "Get in touch",
     description: "Work experience, education and courses of Jan Zámostný.",
   },
   projects: {
     title: "Projects",
-    intro: "Client work, school projects and other code. Each project has a detail page.",
+    intro: "Client work and school projects. Each project has a detail page.",
     work: "Work projects",
     school: "School projects",
-    other: "Other projects",
     source: "Source",
     live: "Live site",
     viewSource: "View source",
     openLive: "Open live site",
     all: "All projects",
     back: "Back to projects",
+    next: "Next project",
     about: "Description",
     description: "Work and school projects by Jan Zámostný: C, C++, OpenGL, Java and Next.js.",
   },
@@ -99,7 +102,7 @@ const cs: Dict = {
   },
   cv: { download: "Stáhnout CV", meta: "PDF" },
   contact: { title: "Kontakt", email: "E-mail", phone: "Telefon", linkedin: "LinkedIn", github: "GitHub" },
-  copy: { label: "Kopírovat", done: "Zkopírováno", failed: "Kopírování selhalo" },
+  copy: { email: "Kopírovat e-mail", phone: "Kopírovat telefon", done: "Zkopírováno", failed: "Kopírování selhalo" },
   experience: {
     title: "Zkušenosti",
     intro: "Práce, škola a kurzy, od nejnovějších.",
@@ -108,20 +111,21 @@ const cs: Dict = {
     courses: "Kurzy a certifikáty",
     present: "současnost",
     related: "Související projekty",
+    contact: "Napište mi",
     description: "Pracovní zkušenosti, vzdělání a kurzy Jana Zámostného.",
   },
   projects: {
     title: "Projekty",
-    intro: "Práce pro klienty, školní projekty a další kód. Každý projekt má vlastní stránku.",
+    intro: "Práce pro klienty a školní projekty. Každý projekt má vlastní stránku.",
     work: "Pracovní projekty",
     school: "Školní projekty",
-    other: "Další projekty",
     source: "Zdrojový kód",
     live: "Web",
     viewSource: "Zdrojový kód",
     openLive: "Otevřít web",
     all: "Všechny projekty",
     back: "Zpět na projekty",
+    next: "Další projekt",
     about: "Popis",
     description: "Pracovní a školní projekty Jana Zámostného: C, C++, OpenGL, Java a Next.js.",
   },
@@ -151,7 +155,14 @@ const cs: Dict = {
   },
 };
 
-export const getDict = (lang: Lang): Dict => (lang === "cs" ? cs : en);
+// Typography is applied once here: every dictionary string goes through nbsp(); content text does it in lib/content.ts.
+const localize = <T,>(v: T, lang: Lang): T =>
+  typeof v === "string"
+    ? (nbsp(v, lang) as T)
+    : (Object.fromEntries(Object.entries(v as object).map(([k, x]) => [k, localize(x, lang)])) as T);
+const dicts = { en: localize(en, "en"), cs: localize(cs, "cs") };
+
+export const getDict = (lang: Lang): Dict => dicts[lang];
 
 /**
  * "Jun – Dec 2023" / "čvn – pro 2023", "Sep 2026 – present" / "zář 2026 – současnost"; courses show the year only.
@@ -162,8 +173,10 @@ export function formatPeriod(lang: Lang, start: Date | null, end: Date | null, y
   const year = (d: Date) => String(d.getUTCFullYear());
   const month = new Intl.DateTimeFormat(lang, { month: "short", timeZone: "UTC" }).format;
   const full = (d: Date) => (yearOnly ? year(d) : `${month(d)} ${year(d)}`);
-  if (!end) return `${full(start)} – ${getDict(lang).experience.present}`;
+  // en: closed en dash "2023–2024"; cs: spaced, with a no-break space so the dash never starts a line.
+  const sep = lang === "cs" ? "\u00A0– " : "–";
+  if (!end) return `${full(start)}${sep}${getDict(lang).experience.present}`;
   if (full(start) === full(end)) return full(end);
-  if (!yearOnly && year(start) === year(end)) return `${month(start)} – ${full(end)}`;
-  return `${full(start)} – ${full(end)}`;
+  if (!yearOnly && year(start) === year(end)) return `${month(start)}${sep}${full(end)}`;
+  return `${full(start)}${sep}${full(end)}`;
 }

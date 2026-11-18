@@ -2,12 +2,13 @@ import "server-only";
 import { cacheLife } from "next/cache";
 import { prisma } from "@/lib/db";
 import type { Lang } from "@/lib/i18n";
+import { nbsp } from "@/lib/typography";
 
 export type Person = { name: string; email: string; phone: string; linkedin: string; github: string };
 
 export type Project = {
   slug: string;
-  kind: "work" | "school" | "other";
+  kind: "work" | "school" | "hidden";
   featured: boolean;
   thumbnail: string | null;
   thumbnailAlt: string;
@@ -37,7 +38,7 @@ export type ExperienceEntry = {
   related: { slug: string; name: string }[];
 };
 
-export type SkillGroup = { key: string; title: string; skills: { name: string; usedIn: UsedIn[] }[] };
+export type SkillGroup = { key: string; title: string; skills: { name: string; detail: string | null; usedIn: UsedIn[] }[] };
 export type UsedIn = { name: string; href: string };
 
 const pick = <T extends { lang: string }>(rows: T[], lang: Lang) => rows.find((r) => r.lang === lang) ?? rows[0];
@@ -54,19 +55,23 @@ export async function getPerson(lang: Lang): Promise<Person> {
 export async function getProjects(lang: Lang): Promise<Project[]> {
   "use cache";
   cacheLife("days");
-  const rows = await prisma.project.findMany({ orderBy: { sortOrder: "asc" }, include: { translations: true } });
+  const rows = await prisma.project.findMany({
+    where: { kind: { in: ["work", "school"] } }, // allow-list: rows still "other" in the DB stay hidden
+    orderBy: { sortOrder: "asc" },
+    include: { translations: true },
+  });
   return rows.map(({ translations, id: _id, sortOrder: _s, ...p }) => {
     const t = pick(translations, lang);
     return {
       ...p,
       kind: p.kind as Project["kind"],
-      name: t.name,
-      summary: t.summary,
-      description: t.description,
-      role: t.role,
-      thumbnailAlt: t.thumbnailAlt ?? "",
-      platform: t.platform ?? p.platform,
-      libraries: t.libraries ?? p.libraries,
+      name: nbsp(t.name, lang),
+      summary: nbsp(t.summary, lang),
+      description: t.description.map((d) => nbsp(d, lang)),
+      role: t.role && nbsp(t.role, lang),
+      thumbnailAlt: nbsp(t.thumbnailAlt ?? "", lang),
+      platform: nbsp(t.platform ?? p.platform ?? "", lang) || null,
+      libraries: nbsp(t.libraries ?? p.libraries ?? "", lang) || null,
     };
   });
 }
@@ -87,13 +92,13 @@ export async function getExperience(lang: Lang): Promise<ExperienceEntry[]> {
     return {
       slug: r.slug ?? String(r.id),
       kind: r.kind as ExperienceEntry["kind"],
-      company: t.company ?? r.company,
+      company: nbsp(t.company ?? r.company, lang),
       url: r.url,
       start: r.startDate,
       end: r.endDate,
       stack: t.stack ?? r.stack,
-      position: t.position,
-      bullets: t.bullets,
+      position: nbsp(t.position, lang),
+      bullets: t.bullets.map((b) => nbsp(b, lang)),
       related: r.related.flatMap((s) => projects.filter((p) => p.slug === s).map((p) => ({ slug: s, name: p.name }))),
     };
   });
@@ -114,9 +119,10 @@ export async function getSkills(lang: Lang): Promise<SkillGroup[]> {
   ]);
   return groups.map((g) => ({
     key: g.key,
-    title: lang === "cs" ? g.titleCs : g.titleEn,
+    title: nbsp(lang === "cs" ? g.titleCs : g.titleEn, lang),
     skills: g.skills.map((s) => ({
-      name: lang === "cs" ? s.nameCs : s.nameEn,
+      name: nbsp(lang === "cs" ? s.nameCs : s.nameEn, lang),
+      detail: (lang === "cs" ? s.detailCs : s.detailEn) && nbsp((lang === "cs" ? s.detailCs : s.detailEn)!, lang),
       usedIn: s.usedIn.flatMap((slug) => targets.get(slug) ?? []),
     })),
   }));

@@ -2,6 +2,7 @@
 
 import { useSyncExternalStore } from "react";
 import { Moon, Sun } from "lucide-react";
+import { themeColors } from "@/app/theme";
 
 const media = "(prefers-color-scheme: dark)";
 const isDark = () =>
@@ -22,23 +23,26 @@ function subscribe(cb: () => void) {
 type Labels = { toDark: string; toLight: string; toggle: string };
 
 // The label names the action and changes with the state, so there is no aria-pressed.
+// The icon swap is pure CSS (--is-dark), so it needs no state and cannot mismatch on hydration.
 export default function ThemeToggle({ labels }: { labels: Labels }) {
   const dark = useSyncExternalStore(subscribe, isDark, () => null);
   return (
     <button
       type="button"
-      className="flex size-11 shrink-0 items-center justify-center hover:text-accent"
+      className="icon-btn swap"
+      aria-label={dark === null ? labels.toggle : dark ? labels.toLight : labels.toDark}
       onClick={() => {
         const next = isDark() ? "light" : "dark";
         document.documentElement.dataset.theme = next;
+        document.querySelectorAll<HTMLMetaElement>("meta[name=theme-color]").forEach((m) => (m.content = themeColors[next]));
         try {
           localStorage.setItem("theme", next);
         } catch {}
         window.dispatchEvent(new Event("themechange"));
       }}
     >
-      {dark ? <Sun aria-hidden className="size-5" /> : <Moon aria-hidden className="size-5" />}
-      <span className="sr-only">{dark === null ? labels.toggle : dark ? labels.toLight : labels.toDark}</span>
+      <Sun aria-hidden className="theme-sun size-5" />
+      <Moon aria-hidden className="theme-moon size-5" />
     </button>
   );
 }

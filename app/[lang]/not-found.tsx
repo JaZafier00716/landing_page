@@ -5,7 +5,7 @@ import { getDict } from "@/lib/i18n";
 export default function NotFound() {
   const en = getDict("en"), cs = getDict("cs");
   return (
-    <div className="container-page py-12 lg:py-20">
+    <div className="container-page section">
       <h1 className="h1-inner">{en.notFound.title}</h1>
       <p className="mt-4 max-w-prose">{en.notFound.text}</p>
       <p lang="cs" className="mt-2 max-w-prose text-muted">
