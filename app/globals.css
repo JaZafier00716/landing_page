@@ -540,6 +540,8 @@
   @keyframes grid-drift { to { translate: -24px -24px; } }
   /* the drift only runs on home, where the pause control and the off-screen pause exist (WCAG 2.2.2) */
   :root:not(:has([data-hero])) .page-grid > div { animation: none; }
+  /* phones and data savers: a static grid (one less loop keeping frames going); the marquee keeps its pause control */
+  @media (pointer: coarse), (prefers-reduced-data: reduce) { .page-grid > div { animation: none; } }
 
   .status-dot { position: relative; display: inline-block; flex: none; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--color-accent); }
   .status-dot::after {
