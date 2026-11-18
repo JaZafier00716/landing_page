@@ -65,12 +65,13 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
             className="hero-item panel mono-meta divide-y divide-border px-4 py-2 lg:col-span-5"
             style={{ ...item(2), "--k": lang === "cs" ? "6.5rem" : "4.5rem" } as React.CSSProperties}
           >
+            {/* "want" first: at 375×812 the last rows fall below the fold (recruiter-first). */}
+            <Kv k={h.readout.want}>{h.readout.wantValue}</Kv>
             <Kv k={h.readout.now}>{h.readout.nowValue}</Kv>
             <Kv k={h.readout.study}>{h.readout.studyValue}</Kv>
             <Kv k={h.readout.based}>{h.readout.basedValue}</Kv>
             <Kv k={h.readout.stack} translate="no">{h.readout.stackValue}</Kv>
             <Kv k={h.readout.before}>{h.readout.beforeValue}</Kv>
-            <Kv k={h.readout.want}>{h.readout.wantValue}</Kv>
           </dl>
           <div className="lg:col-span-12">
             <TechMarquee lang={lang} />
@@ -81,7 +82,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
       <div className="container-page">
         <section aria-labelledby="featured" className="py-10">
           <h2 id="featured" className="h2 mb-6">{h.featured}</h2>
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="grid items-start gap-6 md:grid-cols-2">
             {featured.map((p) => (
               <CaseCard key={p.slug} project={p} lang={lang} />
             ))}

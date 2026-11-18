@@ -25,7 +25,7 @@ export default function SiteNav({ links, labels, wordmark, cv, trigger, prefs }:
   // CV morph (hero button <-> header pill) and the pause flags for the ambient loops. Without JS the CSS fallback in globals.css applies.
   useEffect(() => {
     const root = document.documentElement;
-    const hero = document.querySelector<HTMLElement>("[data-hero-cv]");
+    const hero = document.querySelector<HTMLElement>("[data-hero-cv] .btn"); // the button itself: its size line must not hold the pill back
     const section = document.querySelector<HTMLElement>("[data-hero]");
     const onVisibility = () => root.toggleAttribute("data-hidden", document.hidden);
     document.addEventListener("visibilitychange", onVisibility);

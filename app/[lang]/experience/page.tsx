@@ -20,7 +20,7 @@ function Entry({ e, lang }: { e: ExperienceEntry; lang: Lang }) {
       </div>
       <p className="font-semibold" translate="no">
         {e.url ? (
-          <a href={e.url} target="_blank" rel="noopener" className="link">
+          <a href={e.url} target="_blank" rel="noopener" className="link hit">
             {e.company}
             <span className="sr-only"> {dict.newTab}</span>
           </a>

@@ -314,7 +314,7 @@ const projects: ProjectSeed[] = [
       en: {
         role: "Solo project",
         decision: "Hand-written JDBC data mappers, no ORM, as the assignment required. Trade-off: full control over SQL, but more mapping code to write and test.",
-        result: "330 automated tests, `mvn clean test` with 0 failures, plus a re-runnable Oracle schema with constraints and triggers.",
+        result: "330 automated tests, mvn clean test with 0 failures, plus a re-runnable Oracle schema with constraints and triggers.",
         name: "Catering information system",
         summary: "Information system for catering companies: menus with revisions, sharing with customers, PDF export.",
         thumbnailAlt: "Main window of the desktop client with a project’s menus",
@@ -327,7 +327,7 @@ const projects: ProjectSeed[] = [
       cs: {
         role: "Samostatný projekt",
         decision: "Vlastní JDBC mappery bez frameworku a ORM, jak vyžadovalo zadání. Kompromis: plná kontrola nad každým SQL dotazem za cenu většího množství mapovacího kódu, který je třeba napsat a otestovat.",
-        result: "330 automatizovaných testů, `mvn clean test` bez chyb. Znovu spustitelné schéma v Oracle s omezeními, triggery a kontrolami integrity.",
+        result: "330 automatizovaných testů, mvn clean test bez chyb. Znovu spustitelné schéma v Oracle s omezeními, triggery a kontrolami integrity.",
         name: "Informační systém pro catering",
         summary: "Informační systém pro cateringové firmy: jídelníčky s revizemi, sdílení se zákazníky, export do PDF.",
         thumbnailAlt: "Hlavní okno desktopového klienta s jídelníčky projektu",

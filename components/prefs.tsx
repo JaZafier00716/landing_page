@@ -31,7 +31,7 @@ export function PrefsTrigger({ lang }: { lang: Lang }) {
     <button
       type="button"
       popoverTarget="prefs"
-      aria-label={getDict(lang).prefs.trigger}
+      aria-label={`${lang.toUpperCase()}, ${getDict(lang).prefs.trigger}`}
       className="prefs-trigger icon-btn mono-meta max-lg:hidden"
     >
       <span className="flex items-center gap-1.5">

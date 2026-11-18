@@ -121,7 +121,7 @@ const en = {
     none: "none",
     description: "Programming languages, graphics, web, data and tools Jan Zámostný has used, with links to projects.",
   },
-  footer: { built: "Built with Next.js, source on", github: "GitHub" },
+  footer: { built: "Built with Next.js, source on", github: "GitHub", short: "GitHub" },
   notFound: {
     title: "Page not found",
     text: "This page does not exist. It may have moved when the site was rebuilt.",
@@ -184,7 +184,7 @@ const cs: Dict = {
       name: "Vyplňte své jméno.",
       email: "Zadejte platný e-mail, například jmeno@example.com.",
       empty: "Napište zprávu.",
-      tooLong: "Zpráva je příliš dlouhá (nejvýše 2 000 znaků).",
+      tooLong: "Zpráva je příliš dlouhá (nejvýše 2\u00A0000 znaků).",
       summary: "Zkontrolujte prosím označená pole.",
     },
     failed: "Zprávu se nepodařilo odeslat. Napište mi prosím přímo na",
@@ -241,7 +241,7 @@ const cs: Dict = {
     none: "nic",
     description: "Programovací jazyky, grafika, web, data a nástroje, se kterými Jan Zámostný pracoval, s odkazy na projekty.",
   },
-  footer: { built: "Postaveno na Next.js, zdrojový kód na", github: "GitHubu" },
+  footer: { built: "Postaveno na Next.js, zdrojový kód na", github: "GitHubu", short: "GitHub" },
   notFound: {
     title: "Stránka nenalezena",
     text: "Tato stránka neexistuje. Mohla se přesunout při přestavbě webu.",
