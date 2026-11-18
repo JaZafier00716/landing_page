@@ -42,7 +42,7 @@ export default async function SkillsPage({ params }: PageProps<"/[lang]/skills">
                       {s.name}
                     </span>
                   </th>
-                  <td lang={lang} className="text-muted narrow hit-list sm:py-3">
+                  <td lang={lang} className="text-muted narrow hyphens-auto hit-list sm:py-3">
                     {s.detail && s.detail}
                     {!s.detail && s.usedIn.length === 0 && (
                       <>
@@ -51,9 +51,10 @@ export default async function SkillsPage({ params }: PageProps<"/[lang]/skills">
                       </>
                     )}
                     {!s.detail && s.usedIn.map((u, i) => (
+                      // Phones: one full-width 44px row per link; from sm: inline comma list.
                       <span key={u.href} className="max-sm:block">
                         {i > 0 && <span className="max-sm:hidden">, </span>}
-                        <Link href={u.href} className="link hit link-row">
+                        <Link href={u.href} className="link hit link-row max-sm:flex max-sm:min-h-11 max-sm:w-full max-sm:items-center">
                           {u.name}
                         </Link>
                       </span>
