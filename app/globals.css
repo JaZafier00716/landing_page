@@ -471,7 +471,7 @@
     right: 1rem;
     margin: 0;
     width: min(18rem, calc(100vw - 2rem));
-    padding: 0.5rem 1rem 0.75rem;
+    padding: 0.25rem 1rem;
     background: var(--color-surface-2);
     color: var(--color-text);
     border: 1px solid var(--color-border);
@@ -501,6 +501,7 @@
     @starting-style { opacity: 0; transform: scale(0.95); }
   }
   .pref-row { display: flex; min-height: 3rem; align-items: center; justify-content: space-between; gap: 1rem; }
+  .pref-row + .pref-row { border-top: 1px solid var(--color-border); }
   .pref-lang [aria-current] { font-weight: 600; text-decoration: underline 2px var(--color-accent); text-underline-offset: 0.5em; text-decoration-skip-ink: none; }
   .pref-lang a, .pref-lang [aria-current] { display: inline-flex; min-height: 2.75rem; align-items: center; padding-inline: 0.25rem; }
 
@@ -580,20 +581,24 @@
     transition-delay: calc(var(--i, 0) * var(--stagger));
     @starting-style { opacity: 0; translate: 0 8px; }
   }
-  .hero-grid {
+  /* page backdrop: the same on every page, anchored under the header, scrolls away with the page top */
+  .page-grid {
     position: absolute;
-    inset: 0;
+    inset: var(--header-h) 0 auto;
+    height: 40rem;
     overflow: clip;
     pointer-events: none;
     mask-image: radial-gradient(ellipse at 30% 40%, #000 30%, transparent 75%);
   }
-  .hero-grid > div {
+  .page-grid > div {
     width: calc(100% + 24px);
     height: calc(100% + 24px);
-    background: radial-gradient(var(--color-grid) 1px, transparent 1.5px) 0 0 / 24px 24px;
     animation: grid-drift 12s linear infinite;
   }
+  .page-grid > div, .dot-grid { background: radial-gradient(var(--color-grid) 1px, transparent 1.5px) 0 0 / 24px 24px; }
   @keyframes grid-drift { to { translate: -24px -24px; } }
+  /* the drift only runs on home, where the pause control and the off-screen pause exist (WCAG 2.2.2) */
+  :root:not(:has([data-hero])) .page-grid > div { animation: none; }
 
   .status-dot { position: relative; display: inline-block; flex: none; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--color-accent); }
   .status-dot::after {
@@ -758,5 +763,5 @@ main { display: flex; flex: 1; flex-direction: column; outline: none; }
   .motion-toggle { display: none; }
 }
 @media (forced-colors: active) {
-  .hero-grid { display: none; }
+  .page-grid { display: none; }
 }

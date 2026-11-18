@@ -1,6 +1,7 @@
+import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { getDict, type Lang } from "@/lib/i18n";
+import { getDict, isLang, type Lang } from "@/lib/i18n";
 import { getExperience, getPerson, getProjects } from "@/lib/content";
 import CaseCard from "@/components/case-card";
 import ContactForm from "@/components/contact-form";
@@ -30,6 +31,7 @@ function Kv({ k, children, translate }: { k: string; children: React.ReactNode; 
 
 export default async function Home({ params }: PageProps<"/[lang]">) {
   const lang = (await params).lang as Lang;
+  if (!isLang(lang)) notFound(); // non-language first segment, e.g. /images
   const dict = getDict(lang);
   const h = dict.home;
   const [person, projects, experience] = await Promise.all([getPerson(lang), getProjects(lang), getExperience(lang)]);
@@ -37,11 +39,8 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
 
   return (
     <div className="w-full">
-      <section data-hero className="relative isolate">
-        <div className="hero-grid -z-10" aria-hidden>
-          <div className="ambient" />
-        </div>
-        <div className="container-page grid grid-cols-1 gap-x-8 gap-y-8 pt-10 pb-8 lg:grid-cols-12 lg:pt-16">
+      <section data-hero>
+        <div className="container-page grid grid-cols-1 gap-x-8 gap-y-8 pt-10 pb-10 lg:grid-cols-12 lg:pt-16">
           <div className="flex flex-col gap-4 lg:col-span-7 lg:gap-5">
             <div className="hero-item flex items-center gap-4" style={item(0)}>
               <div className="portrait w-16 flex-none sm:w-24">
@@ -79,7 +78,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
         </div>
       </section>
 
-      <div className="container-page">
+      <div className="container-page pb-10">
         <section aria-labelledby="featured" className="py-10">
           <h2 id="featured" className="h2 mb-6">{h.featured}</h2>
           <div className="grid gap-6 md:grid-cols-2">
@@ -95,7 +94,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
         <section aria-labelledby="exp" className="py-10">
           <h2 id="exp" className="h2 mb-6">{h.experience}</h2>
           <ExperiencePreview entries={experience} lang={lang} />
-          <p className="mt-4">
+          <p className="mt-6">
             <Link href={`/${lang}/experience`} className="link inline-flex min-h-11 items-center">{h.allExperience}</Link>
           </p>
         </section>
@@ -103,7 +102,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
         <section id="contact" aria-labelledby="contact-h" className="py-10">
           <h2 id="contact-h" className="h2 mb-4">{dict.contact.title}</h2>
           <p className="mb-6 max-w-prose">{dict.contact.intro}</p>
-          <div className="panel grid grid-cols-1 gap-8 p-3 sm:p-6 lg:grid-cols-12">
+          <div className="panel grid grid-cols-1 gap-8 p-6 lg:grid-cols-12">
             <div className="lg:col-span-7">
               <ContactForm lang={lang} email={person.email} />
             </div>

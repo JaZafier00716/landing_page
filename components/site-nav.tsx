@@ -36,32 +36,47 @@ export default function SiteNav({ links, labels, wordmark, cv, trigger, prefs }:
       io.observe(section);
       observers.push(io);
     }
-    if (hero) {
+    let cvIo: IntersectionObserver | undefined;
+    const mq = matchMedia("(min-width: 64rem)");
+    const watchCv = () => {
+      if (!hero) return;
+      cvIo?.disconnect();
+      // The header is taller from 64rem, so the hand-off line moves: rebuild the observer when it crosses.
       const headerH = document.querySelector(".site-header")?.getBoundingClientRect().height ?? 64;
-      root.setAttribute("data-cv-js", "");
-      if ("startViewTransition" in document) root.setAttribute("data-cv-vt", "");
-      let running: ViewTransition | undefined;
-      let first = true;
-      const io = new IntersectionObserver(
-        ([e]) => {
-          const docked = !e.isIntersecting && e.boundingClientRect.top < headerH;
+      cvIo = new IntersectionObserver(
+        (entries) => {
+          const e = entries[entries.length - 1]; // newest: a fast scroll can queue several
+          // Hysteresis: dock only when fully under the header, undock only when fully clear of it; in between keep the state.
+          const was = root.hasAttribute("data-cv-docked");
+          const above = e.boundingClientRect.top < headerH;
+          const docked = e.intersectionRatio === 0 ? above : e.intersectionRatio >= 0.98 ? false : first ? above : was;
+          const initial = first;
+          first = false;
           const update = () => root.toggleAttribute("data-cv-docked", docked);
-          if (root.hasAttribute("data-cv-docked") === docked) return;
-          if (first || !("startViewTransition" in document)) update();
+          if (was === docked) return;
+          if (initial || !("startViewTransition" in document)) update();
           else {
             running?.skipTransition();
             running = document.startViewTransition({ update, types: ["cv"] });
           }
-          first = false;
         },
-        { rootMargin: `-${headerH}px 0px 0px 0px`, threshold: 0 },
+        { rootMargin: `-${headerH}px 0px 0px 0px`, threshold: [0, 0.98] },
       );
-      io.observe(hero);
-      observers.push(io);
+      cvIo.observe(hero);
+    };
+    let running: ViewTransition | undefined;
+    let first = true;
+    if (hero) {
+      root.setAttribute("data-cv-js", "");
+      if ("startViewTransition" in document) root.setAttribute("data-cv-vt", "");
+      watchCv();
+      mq.addEventListener("change", watchCv);
     }
     return () => {
       document.removeEventListener("visibilitychange", onVisibility);
       observers.forEach((o) => o.disconnect());
+      cvIo?.disconnect();
+      mq.removeEventListener("change", watchCv);
       ["data-cv-js", "data-cv-vt", "data-cv-docked", "data-hero-off"].forEach((a) => root.removeAttribute(a));
     };
   }, [pathname]);
@@ -154,7 +169,7 @@ export default function SiteNav({ links, labels, wordmark, cv, trigger, prefs }:
       <div id="site-menu" ref={panel} hidden={!open} className="menu-panel lg:hidden">
         <nav aria-label={labels.nav} className="container-page py-2">
           <ul>{items(true)}</ul>
-          <div className="menu-item mt-2 border-t border-border pt-1" style={{ "--i": links.length } as React.CSSProperties}>
+          <div className="menu-item mt-2 border-t border-border px-3 pt-1" style={{ "--i": links.length } as React.CSSProperties}>
             {prefs}
           </div>
         </nav>

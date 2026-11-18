@@ -1,10 +1,10 @@
-import Image from "next/image";
 import Link from "next/link";
-import { permanentRedirect } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
-import { getDict, langs, type Lang } from "@/lib/i18n";
+import { getDict, isLang, langs, type Lang } from "@/lib/i18n";
 import { getProject, getProjects } from "@/lib/content";
 import { Characteristics } from "@/components/projects";
+import ProjectImage from "@/components/project-image";
 import StackChips from "@/components/stack-chips";
 import NotFoundView from "@/components/not-found-view";
 import { pageMeta } from "../../meta";
@@ -22,12 +22,14 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/projects/[slug]">) {
   const { lang, slug } = (await params) as { lang: Lang; slug: string };
+  if (!isLang(lang)) return {};
   const p = await getProject(lang, slug);
   return p ? pageMeta(lang, `/projects/${slug}`, p.name, p.summary) : { title: getDict(lang).notFound.title, robots: { index: false } };
 }
 
 export default async function ProjectPage({ params }: PageProps<"/[lang]/projects/[slug]">) {
   const { lang, slug } = (await params) as { lang: Lang; slug: string };
+  if (!isLang(lang)) notFound(); // non-language first segment, e.g. /images
   const p = await getProject(lang, slug);
   if (!p) {
     if (retiredSlugs.includes(slug)) permanentRedirect(`/${lang}/projects`);
@@ -47,19 +49,7 @@ export default async function ProjectPage({ params }: PageProps<"/[lang]/project
       <h1 translate="no" className="h1-inner mt-6">{p.name}</h1>
       <p className="text-lead mt-4 max-w-prose text-muted">{p.summary}</p>
       <StackChips stack={p.stack} lang={lang} className="mono-meta mt-4" />
-      {p.thumbnail && (
-        <div className="img-frame mt-8">
-          <Image
-            src={p.thumbnail}
-            alt={p.thumbnailAlt}
-            width={1600}
-            height={1000}
-            priority
-            sizes="(min-width:1024px) 64rem, 100vw"
-            className="aspect-[16/10] w-full object-cover object-left-top"
-          />
-        </div>
-      )}
+      <ProjectImage project={p} priority sizes="(min-width:1024px) 64rem, 100vw" className="mt-8" />
       {(p.decision || p.result || p.next) && (
         <dl className="mt-8 grid max-w-prose gap-x-6 gap-y-3 sm:grid-cols-[6rem_minmax(0,1fr)]">
           {([[d.projects.decision, p.decision], [d.projects.result, p.result], [d.projects.nextStep, p.next]] as const).map(
@@ -76,8 +66,8 @@ export default async function ProjectPage({ params }: PageProps<"/[lang]/project
       <div className="mt-8">
         <Characteristics project={p} lang={lang} omitStack />
       </div>
-      <section aria-labelledby="about" className="mt-10">
-        <h2 id="about" className="h2 mb-4">
+      <section aria-labelledby="about" className="mt-12 lg:mt-16">
+        <h2 id="about" className="h2 mb-6">
           {d.projects.about}
         </h2>
         <div className="max-w-prose space-y-4">
@@ -87,7 +77,7 @@ export default async function ProjectPage({ params }: PageProps<"/[lang]/project
         </div>
       </section>
       {(p.sourceUrl || p.liveUrl) && (
-        <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           {p.sourceUrl && (
             <a href={p.sourceUrl} target="_blank" rel="noopener" className="btn btn-secondary">
               {d.projects.viewSource}

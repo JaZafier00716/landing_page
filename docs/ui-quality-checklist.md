@@ -91,6 +91,8 @@ The bar every component and page must meet. Where a feature is not supported in 
 - Icon swaps (copy → check, sun → moon) crossfade with opacity plus a small scale (0.8 → 1) and a blur (4px → 0), over about 200ms.
 
 ## Layout
+- Proximity ("internal ≤ external"): space inside a group < space between groups < space to the container edge, each level about 1.5–2× the one below, all from the spacing scale. Near-equal gaps are a bug: the eye can't tell what belongs together.
+- A heading has more space above it than below it, so it belongs to the content it introduces.
 - On mobile, use `svh` for hero min-heights (no jump when the URL bar moves) and `dvh` for full-height overlays. Never plain `vh`.
 - Fixed and sticky elements respect `env(safe-area-inset-*)`.
 - `scrollbar-gutter: stable`, so pages with and without a scrollbar don't shift.

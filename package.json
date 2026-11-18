@@ -13,7 +13,8 @@
     "lint": "eslint .",
     "test": "node --test lib/*.test.ts",
     "prisma:generate": "prisma generate",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "check:cv": "node scripts/check-cv-dock.mjs"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.10.1",
@@ -35,6 +36,7 @@
     "dotenv": "^18.0.10",
     "eslint": "^9.39.4",
     "eslint-config-next": "^16.4.6",
+    "playwright": "1.56.1",
     "postcss": "^8.5.10",
     "prisma": "^7.10.1",
     "tailwindcss": "^4.3.5",

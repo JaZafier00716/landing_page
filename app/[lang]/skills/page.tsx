@@ -1,7 +1,8 @@
+import { notFound } from "next/navigation";
 import Link from "next/link";
-import { getDict, type Lang } from "@/lib/i18n";
+import { getDict, isLang, type Lang } from "@/lib/i18n";
 import { getSkills } from "@/lib/content";
-import TechIcon, { techKey } from "@/components/tech-icon";
+import { TechLabel } from "@/components/tech-icon";
 import { pageMeta } from "../meta";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/skills">) {
@@ -12,6 +13,7 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/skills">) 
 
 export default async function SkillsPage({ params }: PageProps<"/[lang]/skills">) {
   const lang = (await params).lang as Lang;
+  if (!isLang(lang)) notFound(); // non-language first segment, e.g. /images
   const d = getDict(lang).skills;
   const groups = await getSkills(lang);
 
@@ -21,7 +23,7 @@ export default async function SkillsPage({ params }: PageProps<"/[lang]/skills">
       <p className="mt-4 max-w-prose text-muted">{d.intro}</p>
       {groups.map((g) => (
         <section key={g.key} id={g.key} aria-labelledby={`h-${g.key}`} className="mt-12 lg:mt-16">
-          <h2 id={`h-${g.key}`} className="h2 mb-4">{g.title}</h2>
+          <h2 id={`h-${g.key}`} className="h2 mb-6">{g.title}</h2>
           <table className="w-full border-collapse text-left">
             <thead className="sr-only sm:not-sr-only">
               <tr className="border-b border-border">
@@ -37,10 +39,7 @@ export default async function SkillsPage({ params }: PageProps<"/[lang]/skills">
               {g.skills.map((s) => (
                 <tr key={s.name} className="flex flex-col border-b border-border py-3 sm:table-row">
                   <th scope="row" translate="no" className="pr-6 font-semibold sm:py-3 sm:align-top">
-                    <span className="inline-flex items-center gap-2">
-                      {techKey(s.name) && <TechIcon name={s.name} className="size-[1.25em] flex-none" />}
-                      {s.name}
-                    </span>
+                    <TechLabel name={s.name} stroke={2} />
                   </th>
                   <td lang={lang} className="text-muted narrow hyphens-auto hit-list sm:py-3">
                     {s.detail && s.detail}
