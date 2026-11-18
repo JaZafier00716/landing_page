@@ -46,7 +46,7 @@ export default async function SkillsPage({ params }: PageProps<"/[lang]/skills">
                   <th scope="row" translate="no" className="pr-6 font-semibold sm:py-3 sm:align-top">
                     {s.name}
                   </th>
-                  <td lang={lang} className="text-muted hyphens-auto sm:py-3">
+                  <td lang={lang} className="hit-list text-muted hyphens-auto sm:py-3">
                     {s.detail && s.detail}
                     {!s.detail && s.usedIn.length === 0 && (
                       <>
@@ -57,7 +57,7 @@ export default async function SkillsPage({ params }: PageProps<"/[lang]/skills">
                     {!s.detail && s.usedIn.map((u, i) => (
                       <span key={u.href}>
                         {i > 0 && ", "}
-                        <Link href={u.href} className="link">
+                        <Link href={u.href} className="link hit">
                           {u.name}
                         </Link>
                       </span>

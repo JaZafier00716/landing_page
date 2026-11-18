@@ -230,6 +230,25 @@
     text-decoration-thickness: 1px;
     text-decoration-skip-ink: auto;
   }
+  /* List-style links (not running prose): 44px tall hit area on touch, no visual change. */
+  @media (pointer: coarse) {
+    .hit {
+      position: relative;
+      display: inline-block; /* one rectangle even when the text wraps, so ::after covers it */
+    }
+    .hit::after {
+      content: "";
+      position: absolute;
+      inset-inline: -2px;
+      top: 50%;
+      height: max(100%, 2.75rem);
+      translate: 0 -50%;
+    }
+    /* Comma lists of links: 44px lines so neighbouring hit areas never overlap when they wrap. */
+    .hit-list {
+      line-height: 2.75rem;
+    }
+  }
   @media (hover: hover) {
     .link:hover {
       color: var(--color-accent);
@@ -609,6 +628,32 @@ main {
 @media (prefers-reduced-motion: no-preference) {
   html {
     scroll-behavior: smooth;
+  }
+}
+
+/* Home: the hero already offers Download CV, so the floating button stays hidden at the top
+   and fades in once the page scrolls. Progressive: without scroll timelines it is always shown. */
+@keyframes fab-reveal {
+  0%, 50% { opacity: 0; visibility: hidden; transform: translateY(0.5rem) scale(0.95); }
+  100% { opacity: 1; visibility: visible; transform: none; }
+}
+@keyframes fab-reveal-fade {
+  0%, 50% { opacity: 0; visibility: hidden; }
+  100% { opacity: 1; visibility: visible; }
+}
+@supports (animation-timeline: scroll()) {
+  main:has([data-hero]) .cv-fab {
+    animation: fab-reveal linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 16rem;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    /* Opacity only; overrides the global animation reset. */
+    main:has([data-hero]) .cv-fab {
+      animation: fab-reveal-fade linear both !important;
+      animation-timeline: scroll(root) !important;
+      animation-range: 0 16rem !important;
+    }
   }
 }
 @media (prefers-reduced-motion: reduce) {

@@ -38,12 +38,12 @@ function Entry({ e, lang }: { e: ExperienceEntry; lang: Lang }) {
       )}
       {e.stack && <p translate="no" className="mono-meta text-muted">{e.stack}</p>}
       {e.related.length > 0 && (
-        <p>
+        <p className="hit-list">
           <span className="mono-meta text-muted">{dict.experience.related}: </span>
           {e.related.map((r, i) => (
             <span key={r.slug}>
               {i > 0 && ", "}
-              <Link href={`/${lang}/projects/${r.slug}`} className="link">
+              <Link href={`/${lang}/projects/${r.slug}`} className="link hit">
                 {r.name}
               </Link>
             </span>
