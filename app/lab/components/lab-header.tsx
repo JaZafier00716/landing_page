@@ -29,13 +29,14 @@ export default function LabHeader() {
             ))}
           </ul>
         </nav>
-        <div className="ms-auto flex items-center gap-1">
-          <PrefsTrigger />
-          {/* Always in layout (no CLS); hidden + unfocusable until the hero CV scrolls under the header. */}
+        <div className="relative ms-auto flex items-center gap-1">
+          {/* Out of flow, left of the utilities: no reserved empty slot and no shift when it appears.
+              Hidden + unfocusable until the hero CV scrolls under the header. */}
           <a href={cvHref("en")} download className="btn btn-primary cv-pill" aria-label="Download CV">
             <Download aria-hidden strokeWidth={2} />
             CV
           </a>
+          <PrefsTrigger />
           <button type="button" {...{ commandfor: "menu", command: "show-modal" }} aria-label="Menu" className="icon-btn md:hidden">
             <Menu aria-hidden className="size-5" />
           </button>
