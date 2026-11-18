@@ -83,42 +83,42 @@ CS: Problém · Moje role · Technologie · Rozhodnutí · Výsledek · Dál.
 **EN** (≤ 90 words)
 
 - **Problem:** Catering staff manage menus with revisions, share them with customers through a link for comments, and export PDFs.
-- **My role:** [FACT? solo project or team?]
+- **My role:** Solo project.
 - **Stack:** Java 21, JavaFX, JDK HttpServer, JDBC, Oracle 19c, Apache PDFBox, JUnit 5, Maven
 - **Decision:** Hand-written JDBC data mappers, no ORM, as the assignment required. Trade-off: full control over SQL, but more mapping code to write and test.
 - **Result:** 330 automated tests, `mvn clean test` with 0 failures, plus a re-runnable Oracle schema with constraints and triggers.
-- **Next:** [FACT? what Jan would do next]
+- **Next:** (none given, row omitted)
 
 **CS** (CS — for Jan to proofread)
 
 - **Problém:** Zaměstnanci cateringu potřebují spravovat dokumenty projektů a jídelníčky s revizemi, sdílet jídelníček se zákazníkem přes odkaz, sbírat komentáře a exportovat PDF.
-- **Moje role:** [FACT? samostatný, nebo týmový projekt?]
+- **Moje role:** Samostatný projekt.
 - **Technologie:** Java 21, JavaFX, JDK HttpServer, JDBC, Oracle 19c, Apache PDFBox, JUnit 5, Maven
 - **Rozhodnutí:** Vlastní JDBC mappery bez frameworku a ORM, jak vyžadovalo zadání. Kompromis: plná kontrola nad každým SQL dotazem za cenu většího množství mapovacího kódu, který je třeba napsat a otestovat.
 - **Výsledek:** 330 automatizovaných testů, `mvn clean test` bez chyb. Znovu spustitelné schéma v Oracle s omezeními, triggery a kontrolami integrity.
-- **Dál:** [FACT? co by Jan udělal dál]
+- **Dál:** (nezadáno, řádek se vynechá)
 
 ### 3.2 S3-compatible object storage (skj-projekt)
 
 **EN** (≤ 90 words)
 
 - **Problem:** Part of an S3-compatible object storage service: buckets, object upload and download, soft delete, and per-bucket billing for storage and traffic.
-- **My role:** One of two developers. [FACT? which parts Jan built]
+- **My role:** One of two developers. My part: the gateway API (file and bucket endpoints, schemas, database and configuration), the image-processing endpoint and worker, and their tests.
 - **Stack:** Python, FastAPI, SQLAlchemy, Alembic, WebSocket, Redis, NumPy, pytest
-- **Decision:** A Haystack-style append-only storage node. Trade-off: simple, sequential writes, but deleted data stays on disk [FACT? is there compaction?].
-- **Result:** Gateway, broker (durable queue, ACKs), storage node and async image worker run together. [NUMBER? pytest test count]
-- **Next:** [FACT? next step]
+- **Decision:** We kept JSON as the default message format. In our broker benchmark (5 publishers × 5 subscribers, 25,000 deliveries on localhost) JSON reached 4,015 msg/s and MessagePack 2,476 msg/s. MessagePack stays an option (?fmt=msgpack) for binary payloads. (The broker was built and benchmarked by Jan’s teammate, hence “we”.)
+- **Result:** Gateway, broker (durable queue, ACKs), storage node and async image worker run together, with 49 pytest tests.
+- **Next:** (none given, row omitted)
 
 No source link: private university repository.
 
 **CS** (CS — for Jan to proofread)
 
 - **Problém:** Část objektového úložiště kompatibilního s S3: buckety, nahrávání a stahování objektů, měkké smazání a účtování úložiště a přenosů pro každý bucket.
-- **Moje role:** Jeden ze dvou vývojářů. [FACT? které části dělal Jan]
+- **Moje role:** Jeden ze dvou vývojářů. Moje část: API brány (endpointy pro soubory a buckety, schémata, databáze a konfigurace), endpoint a worker pro zpracování obrazů a jejich testy. (CS — for Jan to proofread)
 - **Technologie:** Python, FastAPI, SQLAlchemy, Alembic, WebSocket, Redis, NumPy, pytest
-- **Rozhodnutí:** Úložný uzel v duchu Haystacku, kam se data pouze připisují na konec. Kompromis: jednoduché sekvenční zápisy, ale smazaná data zůstávají na disku [FACT? řeší se kompakce?].
-- **Výsledek:** Brána, broker zpráv s trvalou frontou a potvrzováním ACK, úložný uzel a asynchronní worker pro obrazy fungují dohromady. [NUMBER? počet testů v pytestu]
-- **Dál:** [FACT? další krok]
+- **Rozhodnutí:** JSON jsme ponechali jako výchozí formát zpráv. V našem benchmarku brokeru (5 publisherů × 5 subscriberů, 25 000 doručení na localhostu) dosáhl JSON 4 015 zpráv/s a MessagePack 2 476 zpráv/s. MessagePack zůstává volitelný (?fmt=msgpack) pro binární data. (CS — for Jan to proofread)
+- **Výsledek:** Brána, broker zpráv s trvalou frontou a potvrzováním ACK, úložný uzel a asynchronní worker pro obrazy fungují dohromady; projekt má 49 testů v pytestu.
+- **Dál:** (nezadáno, řádek se vynechá)
 
 Bez odkazu na zdrojový kód: soukromý univerzitní repozitář.
 
@@ -127,20 +127,20 @@ Bez odkazu na zdrojový kód: soukromý univerzitní repozitář.
 **EN** (≤ 90 words)
 
 - **Problem:** A Vim-style modal text editor for the Linux terminal, without a UI library.
-- **My role:** [FACT? solo?]
+- **My role:** Solo project.
 - **Stack:** C++23, termios, ANSI escape sequences, CMake
 - **Decision:** Raw ANSI escape sequences instead of a library like ncurses. Trade-off: no dependency and full control over rendering, but terminal differences are mine to handle.
-- **Result:** Normal-mode key bindings are configurable in a motions file. CMake build with optional AddressSanitizer and a Valgrind target. [FACT? clean under Valgrind?]
-- **Next:** [FACT? next step]
+- **Result:** Normal-mode key bindings are configurable in a motions file. CMake build with optional AddressSanitizer and a Valgrind target. (No claim of being clean under Valgrind/ASan: not confirmed.)
+- **Next:** (none given, row omitted)
 
 **CS** (CS — for Jan to proofread)
 
 - **Problém:** Modální textový editor pro terminál v Linuxu inspirovaný Vimem, bez knihovny pro uživatelské rozhraní.
-- **Moje role:** [FACT? samostatně?]
+- **Moje role:** Samostatný projekt.
 - **Technologie:** C++23, termios, ANSI escape sekvence, CMake
 - **Rozhodnutí:** Obrazovku kreslím přímo ANSI escape sekvencemi místo knihovny typu ncurses. Kompromis: žádná závislost a plná kontrola nad vykreslováním, ale rozdíly mezi terminály musím řešit sám.
-- **Výsledek:** Klávesové zkratky normálního režimu se nastavují v konfiguračním souboru. Sestavení přes CMake s volitelným AddressSanitizerem a cílem pro Valgrind. [FACT? např. bez chyb ve Valgrindu?]
-- **Dál:** [FACT? další krok]
+- **Výsledek:** Klávesové zkratky normálního režimu se nastavují v konfiguračním souboru. Sestavení přes CMake s volitelným AddressSanitizerem a cílem pro Valgrind.
+- **Dál:** (nezadáno, řádek se vynechá)
 
 ### 3.4 ZPG: OpenGL graphics
 
@@ -150,10 +150,10 @@ Bez odkazu na zdrojový kód: soukromý univerzitní repozitář.
 - **My role:** [FACT? solo coursework?]
 - **Stack:** C++23, OpenGL, GLSL, GLFW, GLAD, GLM, stb_image, CMake
 - **Decision:** The programmable pipeline: GLSL shaders with GLM transforms. Trade-off: more setup before the first frame, in exchange for control over every vertex and pixel.
-- **Result:** [FACT? what the scenes show, e.g. lighting models, camera, number of scenes]
-- **Next:** [FACT? next step]
+- **Result:** Basic rendering of various scenes, built to learn how rendering works: individual lighting models, shaders and textures.
+- **Next:** (none given, row omitted)
 
-No source link: private university repository. Needs a screenshot.
+No source link: private university repository. No screenshot yet: the card shows no image row.
 
 **CS** (CS — for Jan to proofread)
 
@@ -161,8 +161,8 @@ No source link: private university repository. Needs a screenshot.
 - **Moje role:** [FACT? samostatná práce?]
 - **Technologie:** C++23, OpenGL, GLSL, GLFW, GLAD, GLM, stb_image, CMake
 - **Rozhodnutí:** Programovatelná pipeline: shadery v GLSL a transformace z GLM. Kompromis: víc přípravy před prvním snímkem, zato kontrola nad každým vrcholem a pixelem.
-- **Výsledek:** [FACT? co scény ukazují, např. modely osvětlení, kamera, počet scén]
-- **Dál:** [FACT? další krok]
+- **Výsledek:** Základní vykreslení různých scén, na kterých jsem se učil, jak vykreslování funguje: jednotlivé modely osvětlení, shadery a textury. (CS — for Jan to proofread)
+- **Dál:** (nezadáno, řádek se vynechá)
 
 Bez odkazu na zdrojový kód: soukromý univerzitní repozitář. Chybí snímek obrazovky.
 
@@ -175,22 +175,21 @@ Courses (CAE, Udemy) keep their title line only. One bullet each is given below 
 ### EN
 
 **FUTTEC a.s.**, QA Automation Engineer (internship), Sep 2026–present
-- Automate tests in Pytest and file and track bugs, working remotely. [NUMBER? e.g. how many tests at FUTTEC, or which product area]
-- Use AI-assisted tools in the QA workflow. [FACT? which tools, used for what]
+- Wrote 1,200+ automated tests in Pytest and filed and tracked bugs, working remotely.
+- Used Claude as a coding assistant while writing the tests.
 
 **VŠB-TUO**, CVAT Annotation Specialist, May–Oct 2026
-- Annotated road defects (potholes, cracks), road markings, lanes, guardrails and delineator posts in dashcam footage, using CVAT. [NUMBER? e.g. frames or hours of footage annotated]
+- Annotated about 20 minutes of dashcam footage in CVAT: road defects (potholes, cracks), road markings, lanes, guardrails and delineator posts. 
 - Delivered precise, consistent annotations for computer vision and machine learning datasets, in cooperation with FUTTEC.
 
 **SHOWMORE s.r.o.**, Frontend Web Developer, Jul–Oct 2024
 - Built UI components and page sections for the SolidSun website in Next.js, TypeScript and Tailwind CSS.
-- Improved user experience and performance on client projects for SolidSun and Sype.to. [NUMBER? e.g. Lighthouse or load-time change]
+- Improved user experience and performance on client projects for SolidSun and Sype.to.
 - Shipped through Storybook, Sanity and Vercel, working from Figma designs in a Git-based team workflow.
 
 **Blackfish**, Frontend Web Developer (contract), Jun–Dec 2023
 - Built major components and pages for the Czechoslovak Group and Skladon websites from a Storybook design system, in Next.js, TypeScript and Tailwind CSS.
-- Migrated content into Sanity and tested pages before release.
-- Contributed to application architecture and integration with existing systems. [FACT? which systems]
+- Migrated all the blog posts into Sanity and tested pages before release.
 
 **NAM system a.s.**, IT & Hardware Intern, Apr–May 2023
 - Diagnosed, repaired and assembled computers and server components.
@@ -198,7 +197,7 @@ Courses (CAE, Udemy) keep their title line only. One bullet each is given below 
 
 **VŠB – Technical University of Ostrava, FEI**, Bachelor’s, Computer Science, Sep 2024–present
 - GPA 94.42/100.
-- Plan to continue with a master’s from September 2027. [FACT? at VŠB? which programme?]
+- Master’s at VŠB planned from September 2027, continuing in Informatics (specialisation not decided yet).
 
 **SPŠE Havířov**, Information Technology, 2020–2024
 - Graduated with honors as the top student of my year.
@@ -215,22 +214,21 @@ Note: "Migrated content into Sanity" combines two seed facts (CSG content is man
 ### CS (CS — for Jan to proofread)
 
 **FUTTEC a.s.**, QA Automation Engineer (stáž), září 2026 – současnost
-- Automatizuji testy v Pytestu a eviduji a sleduji chyby, na dálku. [NUMBER? např. počet testů, testovaná oblast produktu]
-- Do QA procesu zapojuji nástroje s umělou inteligencí. [FACT? jaké nástroje a k čemu]
+- Napsal jsem přes 1 200 automatizovaných testů v Pytestu a evidoval a sledoval chyby, na dálku. (new CS)
+- Při psaní testů jsem jako asistenta programování používal Claude. (new CS)
 
 **VŠB-TUO**, Specialista anotací v CVAT, kvě – říj 2026
-- Anotoval jsem v CVAT poruchy vozovky (výtluky, trhliny), dopravní značení, jízdní pruhy, svodidla a směrové sloupky v záznamech z palubních kamer. [NUMBER? např. počet snímků nebo hodin záznamu]
+- V CVAT jsem anotoval zhruba 20 minut záznamu z palubních kamer: poruchy vozovky (výtluky, trhliny), dopravní značení, jízdní pruhy, svodidla a směrové sloupky. (new CS)
 - Dodával jsem přesné a konzistentní anotace pro datové sady počítačového vidění a strojového učení, ve spolupráci se společností FUTTEC.
 
 **SHOWMORE s.r.o.**, Frontend vývojář, čvc – říj 2024
 - Vytvořil jsem UI komponenty a sekce stránek pro web SolidSun v Next.js, TypeScriptu a Tailwind CSS.
-- Zlepšil jsem uživatelský zážitek a výkon klientských projektů pro SolidSun a Sype.to. [NUMBER? např. změna v Lighthouse nebo době načítání]
+- Zlepšil jsem uživatelský zážitek a výkon klientských projektů pro SolidSun a Sype.to.
 - Pracoval jsem se Storybookem, Sanity a Vercelem podle návrhů ve Figmě, v týmu s Gitem.
 
 **Blackfish**, Frontend vývojář (externě), čvn – pro 2023
 - Vytvořil jsem hlavní komponenty a stránky webů Czechoslovak Group a Skladon podle design systému ve Storybooku, v Next.js, TypeScriptu a Tailwind CSS.
-- Migroval jsem obsah do Sanity a testoval stránky před vydáním.
-- Podílel jsem se na architektuře aplikací a jejich integraci do stávajících systémů. [FACT? jakých systémů]
+- Migroval jsem do Sanity všechny příspěvky z blogu a testoval stránky před vydáním. (new CS)
 
 **NAM system a.s.**, Stážista v oblasti IT a hardwaru, dub – kvě 2023
 - Diagnostikoval, opravoval a sestavoval jsem počítače a serverové komponenty.
@@ -238,7 +236,7 @@ Note: "Migrated content into Sanity" combines two seed facts (CSG content is man
 
 **VŠB – Technická univerzita Ostrava, FEI**, Bakalářské studium, Informatika, září 2024 – současnost
 - GPA 94,42/100.
-- Od září 2027 plánuji navázat magisterským studiem. [FACT? na VŠB? jaký obor?]
+- Od září 2027 plánuji navázat magisterským studiem informatiky na VŠB (specializace zatím není určena). (new CS)
 
 **SPŠE Havířov**, Informační technologie, 2020 – 2024
 - Maturoval jsem s vyznamenáním jako nejlepší student ročníku.
@@ -285,9 +283,9 @@ Czech writes the unit as "kB" (lowercase k), with a no-break space after the num
 
 ### Contact section intro
 
-**EN:** Open to part-time or near full-time work, on-site or hybrid in Ostrava, or remote. Send a message here or email me directly. [FACT? which kinds of roles to name, e.g. QA automation, backend, frontend] [NUMBER? typical reply time, e.g. "I reply within two working days"]
+**EN:** Open to part-time or near full-time work as a software developer, in QA or full-stack, on-site or hybrid in Ostrava, or remote. Send a message here or email me directly.
 
-**CS** (CS — for Jan to proofread): Jsem otevřený nabídkám na částečný nebo téměř plný úvazek, na místě či hybridně v Ostravě, nebo na dálku. Napište mi přes formulář nebo rovnou e-mailem. [FACT? jaké typy pozic uvést] [NUMBER? obvyklá doba odpovědi]
+**CS** (CS — for Jan to proofread): Jsem otevřený nabídkám na částečný nebo téměř plný úvazek na pozicích softwarového vývojáře, v QA nebo full-stack, na místě či hybridně v Ostravě, nebo na dálku. Napište mi přes formulář nebo rovnou e-mailem.
 
 ### Contact form
 
@@ -334,9 +332,11 @@ The language names stay in their own language in both versions.
 | Visible | CV | CV |
 | aria-label | Download CV (PDF) | Stáhnout CV (PDF) |
 
+Answered by Jan on 2026-11-18: FUTTEC 1,200+ tests with Claude as coding assistant; CVAT about 20 minutes; no measured SHOWMORE change; Blackfish migrated all blog posts into Sanity; master’s at VŠB in Informatics from Sep 2027 (no bachelor’s graduation date stated); roles: software developer, QA, full-stack; no reply time; catering, editor and Tetris solo; skj-projekt, ZPG featured instead of Tetris; skj benchmark and 49 tests as above. Still open: questions 13 (done), 14, 15, 16 and the ZPG role and screenshots.
+
 ---
 
-## Questions for Jan
+## Questions for Jan (original list)
 
 Facts and numbers:
 1. FUTTEC: how many tests have you written, or which product area do you test? Any number you can share (tests, bugs filed, runtime saved)?

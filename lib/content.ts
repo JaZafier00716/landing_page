@@ -23,6 +23,9 @@ export type Project = {
   summary: string;
   description: string[];
   role: string | null;
+  decision: string | null;
+  result: string | null;
+  next: string | null;
 };
 
 export type ExperienceEntry = {
@@ -69,6 +72,9 @@ export async function getProjects(lang: Lang): Promise<Project[]> {
       summary: nbsp(t.summary, lang),
       description: t.description.map((d) => nbsp(d, lang)),
       role: t.role && nbsp(t.role, lang),
+      decision: t.decision && nbsp(t.decision, lang),
+      result: t.result && nbsp(t.result, lang),
+      next: t.next && nbsp(t.next, lang),
       thumbnailAlt: nbsp(t.thumbnailAlt ?? "", lang),
       platform: nbsp(t.platform ?? p.platform ?? "", lang) || null,
       libraries: nbsp(t.libraries ?? p.libraries ?? "", lang) || null,
