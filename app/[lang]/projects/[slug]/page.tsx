@@ -10,7 +10,7 @@ import { NotFoundPage } from "@/components/not-found-view";
 import { pageMeta } from "../../meta";
 
 // Projects removed from the site; their old URLs send visitors to the list.
-const retiredSlugs = ["raynet-leaderboard", "dev-events"];
+const retiredSlugs = ["raynet-leaderboard", "dev-events", "skladon-website"];
 
 // First request for an unlisted slug waits for the full render (static result, no streaming).
 export const ensureStatic = "navigation";

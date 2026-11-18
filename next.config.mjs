@@ -11,7 +11,7 @@ const nextConfig = {
       // (tetris, csg-website, ...) still exist and go through proxy.ts language detection.
       { source: "/projects/modalni-textovy-editor", destination: "/cs/projects/modal-text-editor", permanent: true },
       { source: "/projects/csg-web", destination: "/cs/projects/csg-website", permanent: true },
-      { source: "/projects/skladon-web", destination: "/cs/projects/skladon-website", permanent: true },
+      { source: "/projects/skladon-web", destination: "/cs/projects", permanent: true },
     ];
   },
 };

@@ -70,15 +70,15 @@ export const experiences: ExperienceSeed[] = [
     start: "2023-06",
     end: "2023-12",
     stack: "Next.js, TypeScript, Tailwind CSS, Storybook, Sanity, Vercel",
-    related: ["csg-website", "skladon-website"],
+    related: ["csg-website"],
     position: { en: "Frontend Web Developer (contract)", cs: "Frontend vývojář (externě)" },
     bullets: {
       en: [
-        "Built major components and pages for the Czechoslovak Group and Skladon websites from a Storybook design system, in Next.js, TypeScript and Tailwind CSS.",
+        "Built major components and pages for the Czechoslovak Group website from a Storybook design system, in Next.js, TypeScript and Tailwind CSS.",
         "Migrated all the blog posts into Sanity and tested pages before release.",
       ],
       cs: [
-        "Vytvořil jsem hlavní komponenty a stránky webů Czechoslovak Group a Skladon podle design systému ve Storybooku, v Next.js, TypeScriptu a Tailwind CSS.",
+        "Vytvořil jsem hlavní komponenty a stránky webu Czechoslovak Group podle design systému ve Storybooku, v Next.js, TypeScriptu a Tailwind CSS.",
         "Migroval jsem do Sanity všechny příspěvky z blogu a testoval stránky před vydáním.",
       ],
     },

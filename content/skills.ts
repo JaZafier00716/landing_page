@@ -30,10 +30,10 @@ export const skillGroups: GroupSeed[] = [
     key: "web",
     title: { en: "Web and backend", cs: "Web a backend" },
     skills: [
-      { en: "Next.js, React", usedIn: ["csg-website", "skladon-website", "solidsun-platform"] },
+      { en: "Next.js, React", usedIn: ["csg-website", "solidsun-platform"] },
       { en: "Tailwind CSS", usedIn: ["csg-website", "solidsun-platform"] },
       { en: "Storybook", usedIn: ["csg-website"] },
-      { en: "Sanity CMS", usedIn: ["csg-website", "skladon-website"] },
+      { en: "Sanity CMS", usedIn: ["csg-website"] },
       { en: "Prisma, PostgreSQL" },
       { en: "PHP, MySQL" },
     ],

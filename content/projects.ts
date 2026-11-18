@@ -35,36 +35,6 @@ export const projects: ProjectSeed[] = [
     },
   },
   {
-    slug: "skladon-website",
-    kind: "work",
-    thumbnail: "/images/projects/skladon.webp",
-    liveUrl: "https://www.skladon.com/",
-    client: "Skladon",
-    stack: webStack,
-    t: {
-      en: {
-        name: "Skladon website",
-        summary: "Website of a logistics platform, built at Blackfish.",
-        role: "Frontend developer (Blackfish)",
-        thumbnailAlt: "Home page of the Skladon website",
-        description: [
-          "Marketing website for a warehousing and logistics platform.",
-          "I built components, migrated content and tested pages before release.",
-        ],
-      },
-      cs: {
-        name: "Web Skladon",
-        summary: "Web logistické platformy, vytvořený ve firmě Blackfish.",
-        role: "Frontend vývojář (Blackfish)",
-        thumbnailAlt: "Úvodní stránka webu Skladon",
-        description: [
-          "Prezentační web platformy pro skladování a logistiku.",
-          "Tvořil jsem komponenty, migroval obsah a testoval stránky před vydáním.",
-        ],
-      },
-    },
-  },
-  {
     slug: "solidsun-platform",
     kind: "work",
     thumbnail: "/images/projects/solidsun.webp",
