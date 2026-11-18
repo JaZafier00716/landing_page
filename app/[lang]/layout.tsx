@@ -29,7 +29,7 @@ export const viewport: Viewport = {
 };
 
 // Applies a forced theme (and its theme-color) before first paint; see ThemeToggle.
-const themeScript = `try{var t=localStorage.getItem("theme");if(t==="dark"||t==="light"){document.documentElement.dataset.theme=t;var c=t==="dark"?"${themeColors.dark}":"${themeColors.light}";document.addEventListener("DOMContentLoaded",function(){document.querySelectorAll('meta[name=theme-color]').forEach(function(m){m.content=c})})}}catch(e){}`;
+const themeScript = `try{var t=localStorage.getItem("theme");if(t==="dark"||t==="light"){document.documentElement.dataset.theme=t;var c=t==="dark"?"${themeColors.dark}":"${themeColors.light}";var f=function(){document.querySelectorAll('meta[name=theme-color]').forEach(function(m){m.content=c})};document.addEventListener("DOMContentLoaded",f);addEventListener("load",f)}}catch(e){}`;
 
 export default async function RootLayout({ children, params }: LayoutProps<"/[lang]">) {
   const { lang } = await params;

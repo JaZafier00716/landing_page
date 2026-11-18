@@ -56,7 +56,7 @@ export async function getProjects(lang: Lang): Promise<Project[]> {
   "use cache";
   cacheLife("days");
   const rows = await prisma.project.findMany({
-    where: { kind: { not: "hidden" } },
+    where: { kind: { in: ["work", "school"] } }, // allow-list: rows still "other" in the DB stay hidden
     orderBy: { sortOrder: "asc" },
     include: { translations: true },
   });

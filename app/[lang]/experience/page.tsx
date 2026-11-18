@@ -36,7 +36,7 @@ function Entry({ e, lang }: { e: ExperienceEntry; lang: Lang }) {
           ))}
         </ul>
       )}
-      {e.stack && <p className="mono-meta text-muted">{e.stack}</p>}
+      {e.stack && <p translate="no" className="mono-meta text-muted">{e.stack}</p>}
       {e.related.length > 0 && (
         <p>
           <span className="mono-meta text-muted">{dict.experience.related}: </span>

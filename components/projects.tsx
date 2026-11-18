@@ -8,7 +8,7 @@ const bare = (url: string) => url.replace(/^https?:\/\/(www\.)?/, "").replace(/\
 
 function ExternalLink({ href, lang }: { href: string; lang: Lang }) {
   return (
-    <a href={href} target="_blank" rel="noopener" className="link [overflow-wrap:anywhere]">
+    <a href={href} target="_blank" rel="noopener" translate="no" className="link [overflow-wrap:anywhere]">
       {bare(href)}
       <ArrowUpRight aria-hidden className="inline size-[1em] align-[-0.1em]" />
       <span className="sr-only"> {getDict(lang).newTab}</span>

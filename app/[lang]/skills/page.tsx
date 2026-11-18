@@ -43,7 +43,7 @@ export default async function SkillsPage({ params }: PageProps<"/[lang]/skills">
             <tbody>
               {g.skills.map((s) => (
                 <tr key={s.name} className="flex flex-col border-b border-border py-3 sm:table-row">
-                  <th scope="row" className="pr-6 font-semibold sm:py-3 sm:align-top">
+                  <th scope="row" translate="no" className="pr-6 font-semibold sm:py-3 sm:align-top">
                     {s.name}
                   </th>
                   <td lang={lang} className="text-muted hyphens-auto sm:py-3">

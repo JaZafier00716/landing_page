@@ -173,8 +173,10 @@ export function formatPeriod(lang: Lang, start: Date | null, end: Date | null, y
   const year = (d: Date) => String(d.getUTCFullYear());
   const month = new Intl.DateTimeFormat(lang, { month: "short", timeZone: "UTC" }).format;
   const full = (d: Date) => (yearOnly ? year(d) : `${month(d)} ${year(d)}`);
-  if (!end) return `${full(start)} – ${getDict(lang).experience.present}`;
+  // en: closed en dash "2023–2024"; cs: spaced, with a no-break space so the dash never starts a line.
+  const sep = lang === "cs" ? "\u00A0– " : "–";
+  if (!end) return `${full(start)}${sep}${getDict(lang).experience.present}`;
   if (full(start) === full(end)) return full(end);
-  if (!yearOnly && year(start) === year(end)) return `${month(start)} – ${full(end)}`;
-  return `${full(start)} – ${full(end)}`;
+  if (!yearOnly && year(start) === year(end)) return `${month(start)}${sep}${full(end)}`;
+  return `${full(start)}${sep}${full(end)}`;
 }

@@ -137,7 +137,7 @@ const experiences: ExperienceSeed[] = [
     end: null,
     url: "https://www.fei.vsb.cz/",
     related: ["catering-is", "zpg", "osy", "tetris", "donkey-kong"],
-    position: { en: "Bachelor's degree, Computer Science", cs: "Bakalářské studium, Informatika" },
+    position: { en: "Bachelor’s degree, Computer Science", cs: "Bakalářské studium, Informatika" },
     bullets: {
       en: ["Current GPA 94.42/100."],
       cs: ["Aktuální GPA 94,42/100."],
@@ -310,7 +310,7 @@ const projects: ProjectSeed[] = [
       en: {
         name: "Catering information system",
         summary: "Information system for catering companies: menus with revisions, sharing with customers, PDF export.",
-        thumbnailAlt: "Main window of the desktop client with a project's menus",
+        thumbnailAlt: "Main window of the desktop client with a project’s menus",
         description: [
           "Semester project for two VŠB courses (VIS and TDS-I): an information system for catering staff. It covers project folders and documents, menus with revisions, sharing a menu with a customer through a link, customer comments, PDF export and user administration.",
           "The desktop client is in JavaFX. The customer page and the manager overview run on the JDK HttpServer. Data are in Oracle through hand-written JDBC data mappers, without frameworks or an ORM, as the assignment requires.",

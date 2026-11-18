@@ -24,7 +24,8 @@ export default function CopyButton({ value, label, labels }: { value: string; la
         type="button"
         className="icon-btn swap"
         aria-label={label}
-        onClick={() => navigator.clipboard.writeText(value).then(() => finish("done"), () => finish("failed"))}
+        // Promise wrapper: a missing navigator.clipboard (plain http, old WebViews) becomes "failed", not a throw.
+        onClick={() => Promise.resolve().then(() => navigator.clipboard.writeText(value)).then(() => finish("done"), () => finish("failed"))}
       >
         <Copy aria-hidden className="size-[1.125em]" strokeWidth={1.5} {...(status === "done" ? { "data-off": "" } : {})} />
         <Check aria-hidden className="size-[1.125em] text-accent" strokeWidth={2} {...(status === "done" ? {} : { "data-off": "" })} />
