@@ -43,7 +43,7 @@ export default function ContactForm({ lang, email }: { lang: Lang; email: string
 
   return (
     <form ref={form} action={action} className="flex flex-col gap-4">
-      <div id="contact-status" ref={status} tabIndex={-1} aria-live="polite" className="outline-none">
+      <div id="contact-status" ref={status} tabIndex={-1} aria-live="polite" className="outline-none empty:absolute">
         {state.status === "success" && <p className="border-l-2 border-accent pl-3">{d.contact.success}</p>}
         {state.status === "invalid" && <p className="border-l-2 border-border-strong pl-3">{d.contact.errors.summary}</p>}
         {state.status === "failed" && (

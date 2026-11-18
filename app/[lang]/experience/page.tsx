@@ -13,21 +13,21 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/experience
 function Entry({ e, lang }: { e: ExperienceEntry; lang: Lang }) {
   const dict = getDict(lang);
   return (
-    <li id={e.slug} data-current={e.end ? undefined : ""} className="flex flex-col gap-2 py-6">
+    <li id={e.slug} data-current={e.end ? undefined : ""} className="flex flex-col gap-3 py-6">
       <div className="flex flex-col gap-1 sm:grid sm:grid-cols-[1fr_auto] sm:items-baseline sm:gap-x-6">
         <h3 className="h3">{e.position}</h3>
         <p className="mono-meta tabular text-muted">{formatPeriod(lang, e.start, e.end, e.kind === "course")}</p>
+        <p className="font-semibold" translate="no">
+          {e.url ? (
+            <a href={e.url} target="_blank" rel="noopener" className="link hit link-row">
+              {e.company}
+              <span className="sr-only"> {dict.newTab}</span>
+            </a>
+          ) : (
+            e.company
+          )}
+        </p>
       </div>
-      <p className="font-semibold" translate="no">
-        {e.url ? (
-          <a href={e.url} target="_blank" rel="noopener" className="link hit link-row">
-            {e.company}
-            <span className="sr-only"> {dict.newTab}</span>
-          </a>
-        ) : (
-          e.company
-        )}
-      </p>
       {e.bullets.length > 0 && (
         <ul className="max-w-prose list-disc space-y-1 pl-5 marker:text-muted">
           {e.bullets.map((b) => (

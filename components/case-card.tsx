@@ -24,7 +24,7 @@ export default function CaseCard({ project: p, lang }: { project: Project; lang:
         </p>
       )}
       {p.result && (
-        <p className="px-5 pt-2">
+        <p className="px-5 pt-1">
           <span className="mono-meta text-muted">{d.projects.result} </span>
           {p.result}
         </p>

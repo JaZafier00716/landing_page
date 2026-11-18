@@ -21,7 +21,7 @@ export default async function SkillsPage({ params }: PageProps<"/[lang]/skills">
       <p className="mt-4 max-w-prose text-muted">{d.intro}</p>
       {groups.map((g) => (
         <section key={g.key} id={g.key} aria-labelledby={`h-${g.key}`} className="mt-12 lg:mt-16">
-          <h2 id={`h-${g.key}`} className="h2 mb-4">{g.title}</h2>
+          <h2 id={`h-${g.key}`} className="h2 mb-6">{g.title}</h2>
           <table className="w-full border-collapse text-left">
             <thead className="sr-only sm:not-sr-only">
               <tr className="border-b border-border">
