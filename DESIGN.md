@@ -239,7 +239,7 @@ All motion is CSS. Content is correct and visible with no JS and if no animation
 
 - **Properties:** motion only on `transform` (`translate`, `scale`), `opacity` and `filter`. State colors (`color`, `background-color`, `border-color`, `text-decoration-color`) may transition at `--duration-1 ease`. Layout properties never animate. Never `transition: all`, never `ease-in`. Use transitions, not keyframes, for anything interactive. Hover effects only inside `@media (hover: hover)`.
 - **Press:** `:active { transform: scale(.97) }` on `.btn`, `.icon-btn` and the CV pill. Containers (`.box`) press to `press` without scaling.
-- **Hero entry** (replaces the original site's 2.3 s slide-ins): the left-column items (name row, title + status, statement, CV) and the readout use `@starting-style { opacity: 0; translate: 0 8px }` → rest over `--duration-2 var(--ease-out)`, with `transition-delay: calc(var(--i) * var(--stagger))` for `--i` 0–2 (readout = 2). The last item finishes at 280 ms, under 300 ms. Nothing else on the page has an entry animation.
+- **Hero entry** (replaces the original site's 2.3 s slide-ins): the left-column items (name row, title + status, statement, CV) and the readout use `@starting-style { translate: 0 8px }` → rest over `--duration-2 var(--ease-out)`, a slide without a fade: the readout or the name is the LCP element, and a fade from `opacity: 0` held LCP back until it finished (measured 2.99 s → 1.36 s on mobile Lighthouse), with `transition-delay: calc(var(--i) * var(--stagger))` for `--i` 0–2 (readout = 2). The last item finishes at 280 ms, under 300 ms. Nothing else on the page has an entry animation.
 - **Popover / menu entry:** `@starting-style { opacity: 0; transform: scale(.95) }`, `transform-origin: top right` (the trigger), `--duration-2`. Menu rows stagger by `--stagger`. Exits are 150 ms (popover) or instant (menu). Never animate from `scale(0)`.
 - **Icon swap** (copy, theme, menu, pause): both icons in one grid cell. The outgoing one goes to `opacity 0; scale(.8); blur(4px)` and the incoming one to rest, over `--duration-2 var(--ease-out)`.
 - **Container arrow:** `.arrow` `translate: 4px 0` on `.box` hover, `--duration-1 var(--ease-out)`.
@@ -258,7 +258,7 @@ All motion is CSS. Content is correct and visible with no JS and if no animation
   .motion-toggle { display: none; }
 }
 ```
-  Under reduced motion all three loops are off, the marquee becomes a static wrapped row, the hero entry is an opacity-only fade, the CV swap is a 150 ms crossfade, and the CSS-flag `body` animation is re-declared with `!important` so the flag still works.
+  Under reduced motion all three loops are off, the marquee becomes a static wrapped row, the hero entry has no movement, and the header CV toggles instantly.
 
 ## 8. Accessibility checklist
 - [ ] Skip link is the first focusable element, visible on focus, and targets `#main`.
