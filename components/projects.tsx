@@ -98,7 +98,7 @@ export function ProjectArticle({ project: p, lang }: { project: Project; lang: L
           />
         </div>
       )}
-      <div className={`col-span-4 flex min-w-0 flex-col gap-4 ${p.thumbnail ? "lg:col-span-7" : "lg:col-span-7 lg:col-start-6"}`}>
+      <div className={`col-span-4 flex min-w-0 flex-col gap-4 ${p.thumbnail ? "lg:col-span-7" : "lg:col-span-8"}`}>
         <h3 translate="no" className="h2 line-clamp-2">
           <Link href={`/${lang}/projects/${p.slug}`} className="link">
             {p.name}

@@ -25,9 +25,10 @@ export default function CvButton({
   );
   if (compact) return button;
   return (
-    <span className="flex flex-col gap-1 sm:inline-flex sm:flex-row sm:items-center sm:gap-3">
+    // Mobile: `contents` lets the meta line drop below sibling buttons instead of splitting them.
+    <span className="contents sm:inline-flex sm:flex-row sm:items-center sm:gap-3">
       {button}
-      <span className="mono-meta tabular text-muted">
+      <span className="mono-meta tabular order-last text-muted sm:order-none">
         {dict.cv.meta}, {cvSizeKb(lang)}&nbsp;KB
       </span>
     </span>
