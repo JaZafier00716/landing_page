@@ -20,7 +20,7 @@ const en = {
   newTab: "(opens in new tab)",
   home: {
     title: "Jan Zámostný, computer science student",
-    titleLine: "Software developer · QA automation · Ostrava",
+    titleLine: "Software developer\u00A0· QA automation\u00A0· Ostrava",
     status: "Open to opportunities",
     statement: "I write software from C and OpenGL up to Next.js.",
     readout: {
@@ -140,7 +140,7 @@ const cs: Dict = {
   newTab: "(otevře se v novém panelu)",
   home: {
     title: "Jan Zámostný, student informatiky",
-    titleLine: "Softwarový vývojář · automatizace testů · Ostrava",
+    titleLine: "Softwarový vývojář\u00A0· automatizace testů\u00A0· Ostrava",
     status: "Otevřený nabídkám",
     statement: "Programuji od C a OpenGL až po Next.js.",
     readout: {
