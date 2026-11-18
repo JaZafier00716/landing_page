@@ -7,7 +7,7 @@ import CvButton from "@/components/cv-button";
 import ContactList from "@/components/contact-list";
 import { ProjectRow } from "@/components/projects";
 import { pageMeta } from "./meta";
-import portrait from "@/public/images/portrait.webp";
+import portrait from "@/public/images/portrait-face.webp";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]">) {
   const lang = (await params).lang as Lang;
