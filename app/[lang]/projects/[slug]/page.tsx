@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { permanentRedirect } from "next/navigation";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
-import { getDict, langs, type Lang } from "@/lib/i18n";
+import { getDict, isLang, langs, type Lang } from "@/lib/i18n";
 import { getProject, getProjects } from "@/lib/content";
 import { Characteristics } from "@/components/projects";
 import ProjectImage from "@/components/project-image";
@@ -22,6 +22,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/projects/[slug]">) {
   const { lang, slug } = (await params) as { lang: Lang; slug: string };
+  if (!isLang(lang)) return {};
   const p = await getProject(lang, slug);
   return p ? pageMeta(lang, `/projects/${slug}`, p.name, p.summary) : { title: getDict(lang).notFound.title, robots: { index: false } };
 }
