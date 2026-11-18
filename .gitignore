@@ -50,4 +50,3 @@ dev.db*
 .env*
 
 .idea/
-/lib/generated/

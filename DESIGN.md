@@ -55,11 +55,11 @@ Container hover background: `color-mix(in oklch, var(--color-text) var(--hover-m
 Rules: body text uses `text`. `muted` is for metadata only (readout keys, dates, sizes, summaries), never on `press` in light. `border` is never the only cue for something the user must see; use `border-strong`. Accent covers about 10% of a screen: the CV button/pill, the current nav underline, the status dot, the current-role timeline dot, link hover and the focus ring. There are no semantic colors: errors use text, an icon and `aria-invalid`, never red.
 
 ## 3. Typography
-Fonts come from `next/font/google` (`app/fonts.ts`): Archivo (variable wght + `wdth`) and Red Hat Mono, both `latin` + `latin-ext`. **Weights 400 and 600 only** (800 is dropped). Mono is 400. Root: `antialiased`, `text-size-adjust: 100%`.
+Fonts are self-hosted static subset instances (`app/fonts/`, built from the Google Fonts variable files by `app/fonts/build.sh`, OFL) loaded with `next/font/local`: Archivo 400 and 600 (`--font-archivo`), Archivo 600 at 125% width (`--font-archivo-wide`, used as `--font-display` for h1/h2), Archivo 600 at 112.5% (`--font-archivo-semiwide`, the phone hero name only, not preloaded) and Red Hat Mono 400 (not preloaded). Each is about 14 KB with Latin + Latin Extended-A (Czech). **Weights 400 and 600 only.** Add an instance to `build.sh` before using a new weight or width. Root: `antialiased`, `text-size-adjust: 100%`.
 
 | Role | Token | Family / width | Weight | Wrap |
 |---|---|---|---|---|
-| Name (h1 on `/`), inner h1 | `text-h1` | Archivo `font-stretch:125%` | 600 | balance |
+| Name (h1 on `/`), inner h1 | `text-h1` | `--font-display` (Archivo 125%) | 600 | balance |
 | h2 (section titles, plain words) | `text-h2` | Archivo 125% | 600 | balance |
 | h3, card titles, timeline roles | `text-lead` (cards/nodes `text-body`) | Archivo 100% | 600 | balance |
 | Hero statement | `text-lead` | Archivo 100% | 400, `max-width: 28ch` | balance |
@@ -67,7 +67,7 @@ Fonts come from `next/font/google` (`app/fonts.ts`): Archivo (variable wght + `w
 | Readout, chips, dates, labels, sizes, footer | `text-meta` | Red Hat Mono | 400 (keys `muted`, values `text`) | pretty |
 
 - `--text-display`, the `.eyebrow` class and all uppercase text are removed. Readout keys are lowercase words, not labels in caps. Section titles carry no numbering; only the timeline shows years, because it is a sequence.
-- No off-scale sizes, no `px` line-heights, letter-spacing in `em` only. Prose `max-width: 65ch`. The name must not clip at 320 px (`overflow-wrap: normal`; below `sm` drop to `font-stretch: 112.5%` if needed).
+- No off-scale sizes, no `px` line-heights, letter-spacing in `em` only. Prose `max-width: 65ch`. The name must not clip at 320 px (`overflow-wrap: normal`; below `sm` it uses `--font-archivo-semiwide`, 112.5%).
 - **Small caps:** not used (the served fonts have no `smcp`).
 - **Numbers:** `.tabular` on dates, ranges, years, sizes and phone numbers. `sub, sup { line-height: 0 }`.
 - **Underlines (links only, never emphasis), §Typography details:** `text-decoration-line: underline; text-underline-offset: var(--underline-offset); text-decoration-thickness: var(--underline-thickness); text-decoration-skip-ink: none`. Hover (inside `@media (hover:hover)`): thickness `var(--underline-thickness-hover)` + `color: var(--color-accent)`. The offset is measured from the baseline and the thickness grows downward, so descenders are never cut, at rest or on hover. Verify with "g y p" links at `text-meta` (13.3 px) and `text-body` (17 px) in both fonts. The current nav item uses `underline-offset: 0.5em` with 2 px accent.
@@ -155,7 +155,7 @@ Buttons: `<a>`/`<Link>` for navigation and downloads, `<button>` for actions. A 
 
 ### 5.5 Home hero ("spec readout")
 `<section data-hero>` (the dot grid is no longer part of the hero, see **Page backdrop** below):
-- **Page backdrop / dot grid** (ambient 1), identical on every page: `<div class="page-grid -z-10" aria-hidden><div class="ambient"/></div>` is the first child of `<body class="relative isolate">` in `app/[lang]/layout.tsx`, `position: absolute; inset: var(--header-h) 0 auto; height: 40rem; overflow: clip; pointer-events: none; mask-image: radial-gradient(ellipse at 30% 40%, #000 30%, transparent 75%)`. Inner: `width/height: calc(100% + 24px); background: radial-gradient(var(--color-grid) 1px, transparent 1.5px) 0 0 / 24px 24px; animation: grid-drift 12s linear infinite` (`translate: -24px -24px`, one cell, seamless).
+- **Page backdrop / dot grid** (ambient 1), identical on every page: `<div class="page-grid -z-10" aria-hidden><div class="ambient"/></div>` is the first child of `<body class="relative isolate">` in `app/[lang]/layout.tsx`, `position: absolute; inset: var(--header-h) 0 auto; height: 40rem; overflow: clip; pointer-events: none; mask-image: radial-gradient(ellipse at 30% 40%, #000 30%, transparent 75%)`. Inner: `width/height: calc(100% + 24px); background: radial-gradient(var(--color-grid) 1px, transparent 1.5px) 0 0 / 24px 24px; animation: grid-drift 12s linear infinite` (`translate: -24px -24px`, one cell, seamless). It drifts only on home and only for fine pointers: under `(pointer: coarse)` or `(prefers-reduced-data: reduce)` it is static. All loops are compositor-only (transform/opacity, no main-thread paint) and pause off-screen (`data-hero-off`) and in hidden tabs (`data-hidden`).
 - **Left column** (`lg`: cols 1–7): row of portrait (§4) + `<h1 translate="no">` name; title line (mono muted, wording **[open: Jan]**); **status line**: `.status-dot` + "Open to opportunities" / "Otevřený novým příležitostem" (text, so the state is not color-only); statement `text-lead` "I write software from C and OpenGL up to Next.js." (seed/i18n); `CvHero` (§5.4).
 - **Readout** (`lg`: cols 8–12; below `lg` full width after the CV): `<dl class="panel mono-meta">`, rows `grid-template-columns: 4.5rem minmax(0,1fr)`, `py-2`, hairline dividers, `px-4`. Keys (muted) and values (text), from seed facts only:
   `now` QA Automation Engineer (internship), FUTTEC a.s., remote, since Sep 2026 · `study` Bachelor's, Computer Science, VŠB – Technical University of Ostrava · `based` Ostrava · `stack` C, C++, OpenGL, Java, Python, Next.js · `before` Frontend Web Developer, SHOWMORE (Jul–Oct 2024); Blackfish (contract, Jun–Dec 2023) · `want` **[open: Jan's "Looking for" line]**. cs keys: `teď`, `studium`, `místo`, `stack`, `dříve`, `hledám` (flag for review). Dates go through `formatPeriod`.
@@ -170,7 +170,7 @@ Home "Selected projects" (featured, 2×2 from `md`, 1 column below) and `/projec
 1. Screenshot, full bleed, 16:10, `object-cover object-left-top`, inner outline, `next/image` `sizes="(min-width:768px) 35vw, 100vw"`, real alt. Always present: `<ProjectImage>` (`components/project-image.tsx`, server) renders the `next/image` when the project has a thumbnail, otherwise a generated placeholder in the same 16:10 slot, radius and inner outline: `surface-2` fill, the `.dot-grid` pattern (the hero's 24 px dots, static), the project name (Archivo 125%, 600, `translate="no"`) and 2–4 stack marks (`TechIcon`, muted), sized with container units so it scales with the card. The placeholder is `aria-hidden` with no alt (the card title names the project), is static, and uses tokens only.
 2. Title h3 (`text-lead` 600, `translate="no"`, `line-clamp-2`), stretched link to `/{lang}/projects/{slug}`.
 3. Summary (muted, `line-clamp-2`, full text on the detail page).
-4. **Decision**: label in mono muted + text from seed.
+4. **Decision**: label in mono muted + text from `content/projects.ts`.
 5. **Result**: real, explainable numbers only, never invented. Omit the row when empty.
 6. Stack chips.
 7. Footer: `Source` / `Live` (`.link`, `ArrowUpRight`, sr-only new tab; only for public repos, since private repositories are never linked) and the `.arrow` `ArrowRight` at the end.
@@ -239,7 +239,7 @@ All motion is CSS. Content is correct and visible with no JS and if no animation
 
 - **Properties:** motion only on `transform` (`translate`, `scale`), `opacity` and `filter`. State colors (`color`, `background-color`, `border-color`, `text-decoration-color`) may transition at `--duration-1 ease`. Layout properties never animate. Never `transition: all`, never `ease-in`. Use transitions, not keyframes, for anything interactive. Hover effects only inside `@media (hover: hover)`.
 - **Press:** `:active { transform: scale(.97) }` on `.btn`, `.icon-btn` and the CV pill. Containers (`.box`) press to `press` without scaling.
-- **Hero entry** (replaces the original site's 2.3 s slide-ins): the left-column items (name row, title + status, statement, CV) and the readout use `@starting-style { opacity: 0; translate: 0 8px }` → rest over `--duration-2 var(--ease-out)`, with `transition-delay: calc(var(--i) * var(--stagger))` for `--i` 0–2 (readout = 2). The last item finishes at 280 ms, under 300 ms. Nothing else on the page has an entry animation.
+- **Hero entry** (replaces the original site's 2.3 s slide-ins): the left-column items (name row, title + status, statement, CV) and the readout use `@starting-style { translate: 0 8px }` → rest over `--duration-2 var(--ease-out)`, a slide without a fade: the readout or the name is the LCP element, and a fade from `opacity: 0` held LCP back until it finished (measured 2.99 s → 1.36 s on mobile Lighthouse), with `transition-delay: calc(var(--i) * var(--stagger))` for `--i` 0–2 (readout = 2). The last item finishes at 280 ms, under 300 ms. Nothing else on the page has an entry animation.
 - **Popover / menu entry:** `@starting-style { opacity: 0; transform: scale(.95) }`, `transform-origin: top right` (the trigger), `--duration-2`. Menu rows stagger by `--stagger`. Exits are 150 ms (popover) or instant (menu). Never animate from `scale(0)`.
 - **Icon swap** (copy, theme, menu, pause): both icons in one grid cell. The outgoing one goes to `opacity 0; scale(.8); blur(4px)` and the incoming one to rest, over `--duration-2 var(--ease-out)`.
 - **Container arrow:** `.arrow` `translate: 4px 0` on `.box` hover, `--duration-1 var(--ease-out)`.
@@ -258,7 +258,7 @@ All motion is CSS. Content is correct and visible with no JS and if no animation
   .motion-toggle { display: none; }
 }
 ```
-  Under reduced motion all three loops are off, the marquee becomes a static wrapped row, the hero entry is an opacity-only fade, the CV swap is a 150 ms crossfade, and the CSS-flag `body` animation is re-declared with `!important` so the flag still works.
+  Under reduced motion all three loops are off, the marquee becomes a static wrapped row, the hero entry has no movement, and the header CV toggles instantly.
 
 ## 8. Accessibility checklist
 - [ ] Skip link is the first focusable element, visible on focus, and targets `#main`.
@@ -282,6 +282,6 @@ All motion is CSS. Content is correct and visible with no JS and if no animation
 - [ ] Test at 320, 375, 768, 1024, 1366 and 1920 px, at 200% zoom, in both themes, both languages, keyboard only, with JS off, in Firefox/Safari (no scroll timelines, View Transitions types), and with axe. No horizontal scroll at 320; cs strings (~25% longer) still fit.
 
 ## 9. Open for Jan, and history
-**Open:** (1) the hero title line (copy.md default in use); (2) a screenshot for skj-projekt: its repo has no images yet, so the card shows no image row (ZPG uses the classroom lighting render); (3) the migration `project_case_study` is applied, but `data/seed.ts` must be run by Jan to load the case-study text; (4) Resend, BotID and the WAF rule `contact-form` need their Vercel setup and env vars `RESEND_API_KEY`, `CONTACT_TO_EMAIL`; (6) proofreading every new cs string listed in §3/§5 (readout keys, status, contact, privacy note, preferences, pause, footer, Decision/Result labels).
+**Open:** (1) the hero title line (copy.md default in use); (2) a screenshot for skj-projekt: its repo has no images yet, so the card shows no image row (ZPG uses the classroom lighting render); (3) the migration `project_case_study` is applied, but `data/seed.ts` must be run by Jan to load the case-study text; (4) Resend needs the env vars `RESEND_API_KEY`, `CONTACT_TO_EMAIL`; (6) proofreading every new cs string listed in §3/§5 (readout keys, status, contact, privacy note, preferences, pause, footer, Decision/Result labels).
 **Removed in pass 3:** CV FAB, header CV at the top of home, nav and heading icons, `Layers`/`Globe`, the eyebrow, the 800-weight display name, the hero "Contact" button, the experience-page CV button, footer contacts, the footer language link and "Last updated", `--radius-sm`, `--text-display`, and the "no infinite animations" rule (replaced by the three-loop rule in §7).
 Pass 2 findings (F#/V#) stay resolved as recorded in git history (`DESIGN.md` at `154080f`).

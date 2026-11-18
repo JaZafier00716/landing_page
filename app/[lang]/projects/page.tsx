@@ -30,8 +30,9 @@ export default async function ProjectsPage({ params }: PageProps<"/[lang]/projec
           <div className="grid gap-6 md:grid-cols-2">
             {projects
               .filter((p) => p.kind === g.kind)
-              .map((p) => (
-                <CaseCard key={p.slug} project={p} lang={lang} />
+              .map((p, i) => (
+                // The first card's screenshot is the LCP element: load it eagerly; the rest stay lazy.
+                <CaseCard key={p.slug} project={p} lang={lang} priority={g.kind === groups[0].kind && i === 0} />
               ))}
           </div>
         </section>

@@ -19,6 +19,9 @@ The home "Get in touch" form posts to a Server Action that sends one email with 
 - **In-memory rate limiting**: serverless instances don't share memory, so it limits nothing reliably.
 - **Upstash/KV rate limiting**: works, but adds a data store Jan asked to avoid; the WAF rule covers it.
 
+## Update 2026-11-19: BotID removed
+BotID's client (`initBotId` in `instrumentation-client.ts`) ran on every page view to protect one form. Spam protection is now the honeypot, the WAF rate-limit rule `contact-form` (active; 5 requests per 60 s window per key) and server-side validation. Re-add BotID (lazy-loaded with the form only) if spam gets through.
+
 ## Revisit when
 - The site gets a custom domain (then verify it in Resend and send from it instead of the onboarding sender).
 - The Hobby WAF rule is needed for something else, or Free-tier limits change.

@@ -1,41 +1,42 @@
 # jan-zamostny.vercel.app
 
 Personal site of Jan Zámostný: projects, experience, skills and CV, in English and Czech.
-Next.js 16 (App Router, Cache Components), React 19, Tailwind CSS 4, Prisma 7 on Postgres, deployed on Vercel.
+Next.js 16 (App Router, Cache Components), React 19, Tailwind CSS 4, deployed on Vercel. No database: all content is in the repo.
 
 ## Setup
 
 ```bash
-npm ci                     # also runs `prisma generate` into lib/generated/prisma
-npx vercel env pull .env   # DATABASE_URL (prisma+postgres:// or postgres://)
+npm ci
 npm run dev                # http://localhost:3000 redirects to /en or /cs
 ```
 
-`npm run build` prerenders every page, so it needs a reachable database.
+The contact form needs `RESEND_API_KEY` and `CONTACT_TO_EMAIL` (`npx vercel env pull .env`); everything else works without env vars.
 
 ## Content
 
-Content lives in the database and is written by `data/seed.ts`:
+Edit the typed modules in `content/` and redeploy; there is no seed step:
 
-- `Project` + `ProjectTranslation`: project pages (`kind` is `work`, `school` or `other`; `featured` puts it on the home page)
-- `Experience` + `ExperienceTranslation`: work, education (`kind: education`) and courses (`kind: course`)
-- `SkillGroup` + `Skill`: the skills tables; `usedIn` lists project or experience slugs
-- `PersonDetails`: name, email, phone, LinkedIn, GitHub
+- `content/projects.ts`: project pages, in site order (`kind` is `work`, `school` or `hidden`; `featured` puts it on the home page)
+- `content/experience.ts`: work, education (`kind: "education"`) and courses (`kind: "course"`), in site order
+- `content/skills.ts`: the skills tables; `usedIn` lists project or experience slugs
+- `content/person.ts`: name, email, phone, LinkedIn, GitHub
+- `content/types.ts`: the shapes; every text has `en` and `cs`
 
-To change content, edit `data/seed.ts` and run:
-
-```bash
-npx prisma migrate deploy   # apply pending migrations
-npx prisma db seed          # upserts by slug/key, never deletes rows
-```
-
-Pages cache database reads for a day (`cacheLife("days")`); redeploy to publish changes immediately.
+`lib/content.ts` turns them into page data (Czech typography via `lib/typography.ts`).
 UI strings (nav, buttons, headings, the home intro) are in `lib/i18n.ts`.
 Screenshots go to `public/images/projects/` (16:10, WebP). The CV PDFs are built from `cv/` (`make install`).
 
+## Checks
+
+```bash
+npm run lint && npx tsc --noEmit && npm test && npm run build
+npm run check:cv -- http://localhost:3000   # CV buttons, against a running build (needs Playwright's Chromium)
+```
+
 ## Layout
 
-- `app/[lang]/`: pages; `proxy.ts` sends un-prefixed URLs to `/en` or `/cs`
-- `lib/content.ts`: all database reads; `lib/i18n.ts`: languages, dictionary, date formatting
-- `components/`: server components, except `site-nav`, `theme-toggle`, `lang-link` and `copy-button`
+- `app/[lang]/`: pages; `proxy.ts` sends un-prefixed URLs to `/en` or `/cs` (it runs only for those)
+- `lib/content.ts`: content access; `lib/i18n.ts`: languages, dictionary, date formatting
+- `components/`: server components, except `site-nav`, `theme-toggle`, `lang-link`, `copy-button` and `contact-form`
+- `app/fonts/`: self-hosted font subsets (`build.sh` rebuilds them)
 - `DESIGN.md`: the design system (tokens, components, accessibility checklist)

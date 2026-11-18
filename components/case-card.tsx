@@ -6,11 +6,11 @@ import ProjectImage from "./project-image";
 import StackChips from "./stack-chips";
 
 /** Case-study card (DESIGN.md §5.7): image (screenshot or placeholder), title, summary, Decision, Result, stack, links. */
-export default function CaseCard({ project: p, lang }: { project: Project; lang: Lang }) {
+export default function CaseCard({ project: p, lang, priority }: { project: Project; lang: Lang; priority?: boolean }) {
   const d = getDict(lang);
   return (
     <article className="box card flex flex-col">
-      <ProjectImage project={p} sizes="(min-width:768px) 35vw, 100vw" className="!rounded-none" />
+      <ProjectImage project={p} priority={priority} sizes="(min-width:768px) 35vw, 100vw" className="!rounded-none" />
       <h3 translate="no" className="h3 line-clamp-2 px-5 pt-4">
         <Link href={`/${lang}/projects/${p.slug}`} className="box-title after:absolute after:inset-0">
           {p.name}

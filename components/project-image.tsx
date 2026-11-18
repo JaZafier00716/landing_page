@@ -7,7 +7,7 @@ export default function ProjectImage({ project: p, sizes, priority, className = 
   if (p.thumbnail)
     return (
       <div className={`img-frame ${className}`}>
-        <Image src={p.thumbnail} alt={p.thumbnailAlt} width={1600} height={1000} sizes={sizes} priority={priority} className="aspect-[16/10] w-full object-cover object-left-top" />
+        <Image src={p.thumbnail} alt={p.thumbnailAlt} width={1600} height={1000} sizes={sizes} {...(priority && { loading: "eager", fetchPriority: "high" })} className="aspect-[16/10] w-full object-cover object-left-top" />
       </div>
     );
   const icons = p.stack.filter((s) => techKey(s)).slice(0, 4);
@@ -15,7 +15,7 @@ export default function ProjectImage({ project: p, sizes, priority, className = 
     <div aria-hidden className={`img-frame bg-surface-2 [container-type:inline-size] ${className}`}>
       <div className="dot-grid absolute inset-0" />
       <div className="relative flex aspect-[16/10] w-full flex-col items-center justify-center gap-[4cqi] px-[8cqi] text-center">
-        <span translate="no" className="text-[clamp(1.25rem,7cqi,2.5rem)] leading-tight font-semibold [font-stretch:125%] text-balance">
+        <span translate="no" className="text-[clamp(1.25rem,7cqi,2.5rem)] leading-tight font-semibold font-[family-name:var(--font-display)] text-balance">
           {p.name}
         </span>
         <span className="flex gap-[3cqi] text-[clamp(1.25rem,6cqi,2rem)] text-muted">
