@@ -170,7 +170,7 @@ Home "Selected projects" (featured, 2×2 from `md`, 1 column below) and `/projec
 1. Screenshot, full bleed, 16:10, `object-cover object-left-top`, inner outline, `next/image` `sizes="(min-width:768px) 35vw, 100vw"`, real alt. Always present: `<ProjectImage>` (`components/project-image.tsx`, server) renders the `next/image` when the project has a thumbnail, otherwise a generated placeholder in the same 16:10 slot, radius and inner outline: `surface-2` fill, the `.dot-grid` pattern (the hero's 24 px dots, static), the project name (Archivo 125%, 600, `translate="no"`) and 2–4 stack marks (`TechIcon`, muted), sized with container units so it scales with the card. The placeholder is `aria-hidden` with no alt (the card title names the project), is static, and uses tokens only.
 2. Title h3 (`text-lead` 600, `translate="no"`, `line-clamp-2`), stretched link to `/{lang}/projects/{slug}`.
 3. Summary (muted, `line-clamp-2`, full text on the detail page).
-4. **Decision**: label in mono muted + text from seed.
+4. **Decision**: label in mono muted + text from `content/projects.ts`.
 5. **Result**: real, explainable numbers only, never invented. Omit the row when empty.
 6. Stack chips.
 7. Footer: `Source` / `Live` (`.link`, `ArrowUpRight`, sr-only new tab; only for public repos, since private repositories are never linked) and the `.arrow` `ArrowRight` at the end.

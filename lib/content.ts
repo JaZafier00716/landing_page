@@ -1,6 +1,8 @@
 import "server-only";
-import { cacheLife } from "next/cache";
-import { prisma } from "@/lib/db";
+import { person } from "@/content/person";
+import { projects as projectContent } from "@/content/projects";
+import { experiences } from "@/content/experience";
+import { skillGroups } from "@/content/skills";
 import type { Lang } from "@/lib/i18n";
 import { nbsp } from "@/lib/typography";
 
@@ -44,42 +46,42 @@ export type ExperienceEntry = {
 export type SkillGroup = { key: string; title: string; skills: { name: string; detail: string | null; usedIn: UsedIn[] }[] };
 export type UsedIn = { name: string; href: string };
 
-const pick = <T extends { lang: string }>(rows: T[], lang: Lang) => rows.find((r) => r.lang === lang) ?? rows[0];
+// Content lives in content/*.ts and is read at build time. The functions stay async so callers don't change.
+const month = (ym: string) => new Date(`${ym}-01T00:00:00Z`);
 
-export async function getPerson(lang: Lang): Promise<Person> {
-  "use cache";
-  cacheLife("days");
-  const row = await prisma.personDetails.findFirst({ where: { lang }, orderBy: { id: "desc" } });
-  if (!row) throw new Error(`PersonDetails missing for ${lang}`);
-  const { name, email, phone, linkedin, github } = row;
-  return { name, email, phone, linkedin, github };
+export async function getPerson(_lang: Lang): Promise<Person> {
+  return person;
 }
 
 export async function getProjects(lang: Lang): Promise<Project[]> {
-  "use cache";
-  cacheLife("days");
-  const rows = await prisma.project.findMany({
-    where: { kind: { in: ["work", "school"] } }, // allow-list: rows still "other" in the DB stay hidden
-    orderBy: { sortOrder: "asc" },
-    include: { translations: true },
-  });
-  return rows.map(({ translations, id: _id, sortOrder: _s, ...p }) => {
-    const t = pick(translations, lang);
-    return {
-      ...p,
-      kind: p.kind as Project["kind"],
-      name: nbsp(t.name, lang),
-      summary: nbsp(t.summary, lang),
-      description: t.description.map((d) => nbsp(d, lang)),
-      role: t.role && nbsp(t.role, lang),
-      decision: t.decision && nbsp(t.decision, lang),
-      result: t.result && nbsp(t.result, lang),
-      next: t.next && nbsp(t.next, lang),
-      thumbnailAlt: nbsp(t.thumbnailAlt ?? "", lang),
-      platform: nbsp(t.platform ?? p.platform ?? "", lang) || null,
-      libraries: nbsp(t.libraries ?? p.libraries ?? "", lang) || null,
-    };
-  });
+  return projectContent
+    .filter((p) => p.kind === "work" || p.kind === "school")
+    .map((p) => {
+      const t = p.t[lang];
+      const platform = (lang === "cs" ? p.platformCs : undefined) ?? p.platform;
+      const libraries = (lang === "cs" ? p.librariesCs : undefined) ?? p.libraries;
+      return {
+        slug: p.slug,
+        kind: p.kind,
+        featured: p.featured ?? false,
+        thumbnail: p.thumbnail ?? null,
+        sourceUrl: p.sourceUrl ?? null,
+        liveUrl: p.liveUrl ?? null,
+        stack: p.stack,
+        language: p.language ?? null,
+        client: p.client ?? null,
+        name: nbsp(t.name, lang),
+        summary: nbsp(t.summary, lang),
+        description: t.description.map((d) => nbsp(d, lang)),
+        role: t.role ? nbsp(t.role, lang) : null,
+        decision: t.decision ? nbsp(t.decision, lang) : null,
+        result: t.result ? nbsp(t.result, lang) : null,
+        next: t.next ? nbsp(t.next, lang) : null,
+        thumbnailAlt: nbsp(t.thumbnailAlt ?? "", lang),
+        platform: nbsp(platform ?? "", lang) || null,
+        libraries: nbsp(libraries ?? "", lang) || null,
+      };
+    });
 }
 
 export async function getProject(lang: Lang, slug: string) {
@@ -87,49 +89,38 @@ export async function getProject(lang: Lang, slug: string) {
 }
 
 export async function getExperience(lang: Lang): Promise<ExperienceEntry[]> {
-  "use cache";
-  cacheLife("days");
-  const [rows, projects] = await Promise.all([
-    prisma.experience.findMany({ orderBy: { sortOrder: "asc" }, include: { translations: true } }),
-    getProjects(lang),
-  ]);
-  return rows.map((r) => {
-    const t = pick(r.translations, lang);
-    return {
-      slug: r.slug ?? String(r.id),
-      kind: r.kind as ExperienceEntry["kind"],
-      company: nbsp(t.company ?? r.company, lang),
-      url: r.url,
-      start: r.startDate,
-      end: r.endDate,
-      stack: t.stack ?? r.stack,
-      position: nbsp(t.position, lang),
-      bullets: t.bullets.map((b) => nbsp(b, lang)),
-      related: r.related.flatMap((s) => projects.filter((p) => p.slug === s).map((p) => ({ slug: s, name: p.name }))),
-    };
-  });
+  const projects = await getProjects(lang);
+  return experiences.map((e) => ({
+    slug: e.slug,
+    kind: e.kind,
+    company: nbsp((lang === "cs" ? e.companyCs : undefined) ?? e.company, lang),
+    url: e.url ?? null,
+    start: month(e.start),
+    end: e.end ? month(e.end) : null,
+    stack: (lang === "cs" ? e.stackCs : undefined) ?? e.stack ?? "",
+    position: nbsp(e.position[lang], lang),
+    bullets: e.bullets[lang].map((b) => nbsp(b, lang)),
+    related: (e.related ?? []).flatMap((s) => projects.filter((p) => p.slug === s).map((p) => ({ slug: s, name: p.name }))),
+  }));
 }
 
 export async function getSkills(lang: Lang): Promise<SkillGroup[]> {
-  "use cache";
-  cacheLife("days");
-  const [groups, projects, experience] = await Promise.all([
-    prisma.skillGroup.findMany({ orderBy: { sortOrder: "asc" }, include: { skills: { orderBy: { sortOrder: "asc" } } } }),
-    getProjects(lang),
-    getExperience(lang),
-  ]);
+  const [projects, experience] = await Promise.all([getProjects(lang), getExperience(lang)]);
   // usedIn holds project or experience slugs; unknown slugs are dropped.
   const targets = new Map<string, UsedIn>([
     ...experience.map((e) => [e.slug, { name: e.company, href: `/${lang}/experience#${e.slug}` }] as const),
     ...projects.map((p) => [p.slug, { name: p.name, href: `/${lang}/projects/${p.slug}` }] as const),
   ]);
-  return groups.map((g) => ({
+  return skillGroups.map((g) => ({
     key: g.key,
-    title: nbsp(lang === "cs" ? g.titleCs : g.titleEn, lang),
-    skills: g.skills.map((s) => ({
-      name: nbsp(lang === "cs" ? s.nameCs : s.nameEn, lang),
-      detail: (lang === "cs" ? s.detailCs : s.detailEn) && nbsp((lang === "cs" ? s.detailCs : s.detailEn)!, lang),
-      usedIn: s.usedIn.flatMap((slug) => targets.get(slug) ?? []),
-    })),
+    title: nbsp(g.title[lang], lang),
+    skills: g.skills.map((s) => {
+      const detail = s.detail?.[lang];
+      return {
+        name: nbsp(lang === "cs" ? (s.cs ?? s.en) : s.en, lang),
+        detail: detail ? nbsp(detail, lang) : null,
+        usedIn: (s.usedIn ?? []).flatMap((slug) => targets.get(slug) ?? []),
+      };
+    }),
   }));
 }
