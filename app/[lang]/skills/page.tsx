@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getDict, type Lang } from "@/lib/i18n";
 import { getSkills } from "@/lib/content";
-import TechIcon, { techKey } from "@/components/tech-icon";
+import { TechLabel } from "@/components/tech-icon";
 import { pageMeta } from "../meta";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/skills">) {
@@ -37,10 +37,7 @@ export default async function SkillsPage({ params }: PageProps<"/[lang]/skills">
               {g.skills.map((s) => (
                 <tr key={s.name} className="flex flex-col border-b border-border py-3 sm:table-row">
                   <th scope="row" translate="no" className="pr-6 font-semibold sm:py-3 sm:align-top">
-                    <span className="inline-flex items-center gap-2">
-                      {techKey(s.name) && <TechIcon name={s.name} className="size-[1.25em] flex-none" />}
-                      {s.name}
-                    </span>
+                    <TechLabel name={s.name} />
                   </th>
                   <td lang={lang} className="text-muted narrow hyphens-auto hit-list sm:py-3">
                     {s.detail && s.detail}

@@ -1,6 +1,6 @@
 import { Pause, Play } from "lucide-react";
 import { getDict, type Lang } from "@/lib/i18n";
-import TechIcon, { techNames } from "./tech-icon";
+import { TechLabel, techNames } from "./tech-icon";
 
 /**
  * Ambient chip marquee. Decorative: the readout `stack` row carries the same facts as text, so the whole thing is aria-hidden.
@@ -9,8 +9,7 @@ import TechIcon, { techNames } from "./tech-icon";
 export default function TechMarquee({ lang }: { lang: Lang }) {
   const items = techNames.map((n) => (
     <li key={n} translate="no" className="chip mono-meta">
-      <TechIcon name={n} className="size-[1.1em] flex-none" />
-      {n}
+      <TechLabel name={n} />
     </li>
   ));
   return (
