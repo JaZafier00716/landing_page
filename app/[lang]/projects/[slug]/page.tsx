@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { notFound, redirect } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Code } from "lucide-react";
 import { getDict, langs, type Lang } from "@/lib/i18n";
 import { getProject, getProjects } from "@/lib/content";
@@ -28,7 +28,7 @@ export default async function ProjectPage({ params }: PageProps<"/[lang]/project
   const { lang, slug } = (await params) as { lang: Lang; slug: string };
   const p = await getProject(lang, slug);
   if (!p) {
-    if (retiredSlugs.includes(slug)) redirect(`/${lang}/projects`);
+    if (retiredSlugs.includes(slug)) permanentRedirect(`/${lang}/projects`);
     notFound();
   }
   const d = getDict(lang);
