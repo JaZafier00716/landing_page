@@ -37,10 +37,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
 
   return (
     <div className="w-full">
-      <section data-hero className="relative isolate">
-        <div className="hero-grid -z-10" aria-hidden>
-          <div className="ambient" />
-        </div>
+      <section data-hero>
         <div className="container-page grid grid-cols-1 gap-x-8 gap-y-8 pt-10 pb-8 lg:grid-cols-12 lg:pt-16">
           <div className="flex flex-col gap-4 lg:col-span-7 lg:gap-5">
             <div className="hero-item flex items-center gap-4" style={item(0)}>

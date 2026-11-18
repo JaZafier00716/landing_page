@@ -1,27 +1,16 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { getDict, type Lang } from "@/lib/i18n";
 import type { Project } from "@/lib/content";
+import ProjectImage from "./project-image";
 import StackChips from "./stack-chips";
 
-/** Case-study card (DESIGN.md §5.7): screenshot (only if there is one), title, summary, Decision, Result, stack, links. */
+/** Case-study card (DESIGN.md §5.7): image (screenshot or placeholder), title, summary, Decision, Result, stack, links. */
 export default function CaseCard({ project: p, lang }: { project: Project; lang: Lang }) {
   const d = getDict(lang);
   return (
     <article className="box card flex flex-col">
-      {p.thumbnail && (
-        <div className="img-frame !rounded-none">
-          <Image
-            src={p.thumbnail}
-            alt={p.thumbnailAlt}
-            width={1600}
-            height={1000}
-            sizes="(min-width:768px) 35vw, 100vw"
-            className="aspect-[16/10] w-full object-cover object-left-top"
-          />
-        </div>
-      )}
+      <ProjectImage project={p} sizes="(min-width:768px) 35vw, 100vw" className="!rounded-none" />
       <h3 translate="no" className="h3 line-clamp-2 px-5 pt-4">
         <Link href={`/${lang}/projects/${p.slug}`} className="box-title after:absolute after:inset-0">
           {p.name}

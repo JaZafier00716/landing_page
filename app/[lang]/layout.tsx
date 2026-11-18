@@ -39,7 +39,10 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body className="flex min-h-dvh flex-col">
+      <body className="relative isolate flex min-h-dvh flex-col">
+        <div className="page-grid -z-10" aria-hidden>
+          <div className="ambient" />
+        </div>
         <a
           href="#main"
           className="sr-only z-50 border-2 border-accent bg-surface-2 focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:flex focus:min-h-11 focus:items-center focus:px-4"

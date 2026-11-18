@@ -1,10 +1,10 @@
-import Image from "next/image";
 import Link from "next/link";
 import { permanentRedirect } from "next/navigation";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { getDict, langs, type Lang } from "@/lib/i18n";
 import { getProject, getProjects } from "@/lib/content";
 import { Characteristics } from "@/components/projects";
+import ProjectImage from "@/components/project-image";
 import StackChips from "@/components/stack-chips";
 import NotFoundView from "@/components/not-found-view";
 import { pageMeta } from "../../meta";
@@ -47,19 +47,7 @@ export default async function ProjectPage({ params }: PageProps<"/[lang]/project
       <h1 translate="no" className="h1-inner mt-6">{p.name}</h1>
       <p className="text-lead mt-4 max-w-prose text-muted">{p.summary}</p>
       <StackChips stack={p.stack} lang={lang} className="mono-meta mt-4" />
-      {p.thumbnail && (
-        <div className="img-frame mt-8">
-          <Image
-            src={p.thumbnail}
-            alt={p.thumbnailAlt}
-            width={1600}
-            height={1000}
-            priority
-            sizes="(min-width:1024px) 64rem, 100vw"
-            className="aspect-[16/10] w-full object-cover object-left-top"
-          />
-        </div>
-      )}
+      <ProjectImage project={p} priority sizes="(min-width:1024px) 64rem, 100vw" className="mt-8" />
       {(p.decision || p.result || p.next) && (
         <dl className="mt-8 grid max-w-prose gap-x-6 gap-y-3 sm:grid-cols-[6rem_minmax(0,1fr)]">
           {([[d.projects.decision, p.decision], [d.projects.result, p.result], [d.projects.nextStep, p.next]] as const).map(
