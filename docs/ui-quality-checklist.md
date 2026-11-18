@@ -11,6 +11,20 @@ The bar every component and page must meet. Where a feature is not supported in 
 - Start with generous whitespace and remove it, rather than adding space to a cramped layout.
 - Every page offers a clear next step (a project → its source / the next project; experience → contact).
 
+## Consistency (one interaction language)
+- Every interactive element of the same kind behaves the same everywhere. Define exactly two hover patterns: (a) text links change underline or colour; (b) clickable containers (cards, rows, menu items) get a surface background. Never mix the two on neighbouring elements of the same role.
+- Clickable containers always have inner padding at rest, so a hover background never puts text against its edge. If a row has no padding at rest, it gets no background on hover.
+- Every clickable element shows `cursor: pointer`. Tailwind 4 resets buttons to `cursor: default`, so restore it globally for `button:not(:disabled)`, `[role=button]`, `summary` and `label[for]`.
+- Each piece of content appears once per page. No contacts in both a section and the footer, and no two download buttons visible at the same time.
+- Spacing, radius, border and icon size come only from tokens. The same component looks identical on every page.
+
+## Recruiter-first content
+- Within 10 seconds the hero answers: name, role and stack, location or remote, current position, and what Jan is looking for next. No vague labels like "passionate developer".
+- Projects read as short case studies: problem, Jan's role, stack, one hard decision and its trade-off, the result (real, explainable numbers only, never invented), and what he'd do next. 3–5 featured, each with a screenshot, a one-line outcome, and code and live links where public.
+- Show skills through projects, never as skill bars or percentages.
+- Site, CV and LinkedIn agree on names, dates and titles.
+- One primary call to action (the CV) and one clear way to get in touch.
+
 ## Type system
 - Two families maximum (Archivo for UI and headings, Red Hat Mono for metadata), and at most three weights.
 - A modular type scale (e.g. ratio 1.2–1.25) defined as tokens, with no off-scale sizes.
@@ -27,7 +41,7 @@ The bar every component and page must meet. Where a feature is not supported in 
 - `sub, sup { line-height: 0 }` so they don't push rows apart.
 - Use `font-variant-numeric: tabular-nums` for dates, numbers and anything aligned in columns.
 - Use small caps for loud acronyms (QA, CV, VŠB, CSS): `font-variant-caps: all-small-caps` plus slight letter-spacing, but only if the font has real small caps. Fake ones look worse than capitals.
-- Underlines: `text-underline-offset: 0.2em`, explicit `text-decoration-thickness`, and `text-decoration-skip-ink: auto`. Descenders (g, y, p) are never cut.
+- Underlines are never broken by descenders: set `text-underline-offset` large enough to clear g, y and p (about 0.25–0.3em, tuned per font), `text-decoration-skip-ink: none`, and an explicit `text-decoration-thickness`. Or draw the underline as an animated background line under the text box. Check it on hover too.
 - Allow `hyphens: auto` in narrow columns (needs a correct `lang` on the element), never in headings.
 - Use `line-clamp` for titles and summaries in repeated containers so cards keep equal heights. Keep the full text reachable through a `title` attribute or the detail page. Prefer `subgrid` so title, meta and body rows align across cards.
 - Truncate long filenames in the middle, keeping the extension: `jan-zamos…-cs.pdf`.
