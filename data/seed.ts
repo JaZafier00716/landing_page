@@ -377,6 +377,7 @@ const projects: ProjectSeed[] = [
     slug: "zpg",
     kind: "school",
     featured: true,
+    thumbnail: "/images/projects/zpg.webp",
     stack: ["C++23", "OpenGL", "GLSL", "GLFW", "GLAD", "GLM", "stb_image", "CMake"],
     language: "C++23, GLSL",
     libraries: "OpenGL, GLFW, GLAD, GLM, stb_image",
@@ -384,6 +385,7 @@ const projects: ProjectSeed[] = [
     t: {
       en: {
         role: "Solo coursework",
+        thumbnailAlt: "Classroom scene rendered with Phong lighting and textures; the whiteboard shows the Phong lighting equation",
         decision: "The programmable pipeline: GLSL shaders with GLM transforms. Trade-off: more setup before the first frame, in exchange for control over every vertex and pixel.",
         result: "Basic rendering of various scenes, built to learn how rendering works: individual lighting models, shaders and textures.",
         name: "ZPG: OpenGL graphics",
@@ -395,6 +397,7 @@ const projects: ProjectSeed[] = [
       },
       cs: {
         role: "Samostatná práce",
+        thumbnailAlt: "Scéna učebny vykreslená s Phongovým osvětlením a texturami; na tabuli je rovnice Phongova osvětlovacího modelu",
         decision: "Programovatelná pipeline: shadery v GLSL a transformace z GLM. Kompromis: víc přípravy před prvním snímkem, zato kontrola nad každým vrcholem a pixelem.",
         result: "Základní vykreslení různých scén, na kterých jsem se učil, jak vykreslování funguje: jednotlivé modely osvětlení, shadery a textury.",
         name: "ZPG: grafika v OpenGL",
