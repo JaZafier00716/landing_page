@@ -6,7 +6,7 @@ import { cvHref, cvSizeKb } from "@/lib/cv";
 export default function CvHero({ lang }: { lang: Lang }) {
   const d = getDict(lang);
   return (
-    <div data-hero-cv className="cv-hero flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-4">
+    <div data-hero-cv className="cv-hero flex flex-col items-stretch gap-2 sm:flex-row sm:items-center sm:gap-3">
       <a href={cvHref(lang)} download className="btn btn-primary">
         <Download aria-hidden strokeWidth={2} />
         {d.cv.download}

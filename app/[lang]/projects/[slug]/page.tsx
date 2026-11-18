@@ -64,8 +64,8 @@ export default async function ProjectPage({ params }: PageProps<"/[lang]/project
       <div className="mt-8">
         <Characteristics project={p} lang={lang} omitStack />
       </div>
-      <section aria-labelledby="about" className="mt-10">
-        <h2 id="about" className="h2 mb-4">
+      <section aria-labelledby="about" className="mt-12 lg:mt-16">
+        <h2 id="about" className="h2 mb-6">
           {d.projects.about}
         </h2>
         <div className="max-w-prose space-y-4">
@@ -75,7 +75,7 @@ export default async function ProjectPage({ params }: PageProps<"/[lang]/project
         </div>
       </section>
       {(p.sourceUrl || p.liveUrl) && (
-        <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           {p.sourceUrl && (
             <a href={p.sourceUrl} target="_blank" rel="noopener" className="btn btn-secondary">
               {d.projects.viewSource}
