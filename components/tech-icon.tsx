@@ -1,8 +1,9 @@
-// Marks from the devicon set (https://github.com/devicons/devicon, MIT license), files icons/<name>/<name>-<plain|original>.svg,
+// Devicon marks. Copyright (c) 2015 Konpa (https://github.com/devicons/devicon), MIT license.
+// Marks from the devicon set, files icons/<name>/<name>-<plain|original>.svg,
 // reduced to one monochrome path each (fill currentColor). Only technologies that are in Jan's stack.
 const icons: Record<string, { d: string; evenodd?: boolean }> = {
-  // c-original
-  "C": { d: "M125 50c-4-32-24-50-62-50C29 0 3 24 3 64c0 39 24 64 64 64 32 0 55-19 58-50H87c-2 11-8 20-20 20-21 0-24-16-24-33 0-23 8-35 22-35 13 0 20 7 22 20z" },
+  // c-plain
+  "C": { d: "M117.5 33.5l.3-.2c-.6-1.1-1.5-2.1-2.4-2.6L67.1 2.9c-.8-.5-1.9-.7-3.1-.7-1.2 0-2.3.3-3.1.7l-48 27.9c-1.7 1-2.9 3.5-2.9 5.4v55.7c0 1.1.2 2.3.9 3.4l-.2.1c.5.8 1.2 1.5 1.9 1.9l48.2 27.9c.8.5 1.9.7 3.1.7 1.2 0 2.3-.3 3.1-.7l48-27.9c1.7-1 2.9-3.5 2.9-5.4V36.1c.1-.8 0-1.7-.4-2.6zM64 88.5c9.1 0 17.1-5 21.3-12.4l12.9 7.6c-6.8 11.8-19.6 19.8-34.2 19.8-21.8 0-39.5-17.7-39.5-39.5S42.2 24.5 64 24.5c14.7 0 27.5 8.1 34.3 20l-13 7.5C81.1 44.5 73.1 39.5 64 39.5c-13.5 0-24.5 11-24.5 24.5s11 24.5 24.5 24.5z" },
   // cplusplus-plain
   "C++": { d: "M63.443 0c-1.782 0-3.564.39-4.916 1.172L11.594 28.27C8.89 29.828 6.68 33.66 6.68 36.78v54.197c0 1.562.55 3.298 1.441 4.841l-.002.002c.89 1.543 2.123 2.89 3.475 3.672l46.931 27.094c2.703 1.562 7.13 1.562 9.832 0h.002l46.934-27.094c1.352-.78 2.582-2.129 3.473-3.672.89-1.543 1.441-3.28 1.441-4.843V36.779c0-1.557-.55-3.295-1.441-4.838v-.002c-.891-1.545-2.121-2.893-3.473-3.67L68.359 1.173C67.008.39 65.226 0 63.443 0zm.002 26.033c13.465 0 26.02 7.246 32.77 18.91l-16.38 9.479c-3.372-5.836-9.66-9.467-16.39-9.467-10.432 0-18.922 8.49-18.922 18.924S53.013 82.8 63.445 82.8c6.735 0 13.015-3.625 16.395-9.465l16.375 9.477c-6.746 11.662-19.305 18.91-32.77 18.91-20.867 0-37.843-16.977-37.843-37.844s16.976-37.844 37.843-37.844v-.002zM92.881 57.57h4.201v4.207h4.203v4.203h-4.203v4.207h-4.201V65.98h-4.207v-4.203h4.207V57.57zm15.765 0h4.208v4.207h4.203v4.203h-4.203v4.207h-4.208V65.98h-4.205v-4.203h4.205V57.57z" },
   // opengl-plain
@@ -27,9 +28,14 @@ const icons: Record<string, { d: string; evenodd?: boolean }> = {
 
 export const techNames = Object.keys(icons);
 
+/** Seed names -> mark names ("Java 21" -> Java); case-insensitive. Unknown names get no mark. */
+const alias: Record<string, string> = { "java 21": "Java", "c++23": "C++", pytest: "Pytest", opengl: "OpenGL", "opengl, glsl": "OpenGL", "tailwind css": "Tailwind CSS", "next.js, react": "Next.js", "next.js 16": "Next.js", cmake: "CMake" };
+export const techKey = (n: string) => techNames.find((k) => k.toLowerCase() === n.toLowerCase()) ?? alias[n.toLowerCase()] ?? null;
+
 /** Inline devicon mark, sized in em, decorative: the name is printed next to it. */
 export default function TechIcon({ name, className }: { name: string; className?: string }) {
-  const i = icons[name];
+  const key = techKey(name);
+  const i = key && icons[key];
   if (!i) return null;
   return (
     <svg aria-hidden viewBox="0 0 128 128" fill="currentColor" className={className ?? "size-[1.25em] flex-none"}>
