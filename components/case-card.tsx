@@ -29,13 +29,13 @@ export default function CaseCard({ project: p, lang }: { project: Project; lang:
       </h3>
       <p className="line-clamp-2 px-5 pt-1 text-muted">{p.summary}</p>
       {p.decision && (
-        <p className="line-clamp-5 px-5 pt-3">
+        <p className="px-5 pt-3">
           <span className="mono-meta text-muted">{d.projects.decision} </span>
           {p.decision}
         </p>
       )}
       {p.result && (
-        <p className="line-clamp-4 px-5 pt-2">
+        <p className="px-5 pt-2">
           <span className="mono-meta text-muted">{d.projects.result} </span>
           {p.result}
         </p>

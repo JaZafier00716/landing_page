@@ -25,7 +25,7 @@ export default async function ProjectsPage({ params }: PageProps<"/[lang]/projec
       {groups.map((g) => (
         <section key={g.kind} aria-labelledby={`h-${g.kind}`} className="mt-12 lg:mt-16">
           <h2 id={`h-${g.kind}`} className="h2 mb-6">{g.title}</h2>
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="grid items-start gap-6 md:grid-cols-2">
             {projects
               .filter((p) => p.kind === g.kind)
               .map((p) => (
