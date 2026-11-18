@@ -1,7 +1,6 @@
 import { getDict, type Lang } from "@/lib/i18n";
 import { getPerson } from "@/lib/content";
 import ContactList from "./contact-list";
-import CvButton from "./cv-button";
 import LangLink from "./lang-link";
 
 // Build time = last content update for a statically rendered site.
@@ -16,10 +15,9 @@ export default async function SiteFooter({ lang }: { lang: Lang }) {
       <div className="container-page grid gap-8 lg:grid-cols-12">
         <div className="flex flex-col gap-6 lg:col-span-8">
           <ContactList lang={lang} person={person} />
-          <CvButton lang={lang} variant="secondary" />
         </div>
         <div className="mono-meta flex flex-col items-start gap-2 text-muted lg:col-span-4 lg:items-end">
-          <LangLink lang={lang} className="link flex min-h-11 items-center" />
+          <LangLink lang={lang} className="nav-link px-0" />
           <p>
             {dict.footer.updated} {updated}
           </p>

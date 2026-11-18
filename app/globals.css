@@ -384,8 +384,14 @@
     user-select: none;
     pointer-events: none;
   }
+  .nav-link svg {
+    stroke-width: 1.5;
+  }
   .nav-link[aria-current="page"] {
     font-weight: 600;
+  }
+  .nav-link[aria-current="page"] svg {
+    stroke-width: 2;
   }
   .nav-link[aria-current="page"] [data-text] {
     text-decoration-line: underline;
@@ -399,7 +405,7 @@
     }
   }
   @media (min-width: 64rem) and (max-width: 79.999rem) {
-    .nav-icon-lg-only {
+    .nav-icon {
       display: none;
     }
   }
@@ -424,6 +430,13 @@
       transform: scale(0.95);
     }
   }
+  .menu-panel .nav-link {
+    min-height: 3rem;
+    padding-inline: 0;
+  }
+  .menu-panel .nav-link [data-text] {
+    align-items: flex-start;
+  }
   .menu-item {
     transition:
       opacity var(--duration-2) var(--ease-out),
@@ -441,7 +454,7 @@
     bottom: calc(1rem + env(safe-area-inset-bottom));
     z-index: 30;
     align-self: flex-end;
-    margin-top: 1rem;
+    margin-top: auto; /* end of <main> even on short pages */
     margin-inline-end: max(1rem, env(safe-area-inset-right));
     display: inline-flex;
     height: 3rem;
