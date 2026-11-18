@@ -39,11 +39,11 @@ Readout keys translated: `nyní`, `studium`, `místo`, `stack` → `technologie`
 | Jméno (h1) | Jan Zámostný |
 | Titulek | Softwarový vývojář · automatizace testů · Ostrava |
 | `nyní` | QA Automation Engineer (stáž), FUTTEC a.s. · na dálku · od září 2026 |
-| `studium` | Bakalářské studium, Informatika, VŠB – Technická univerzita Ostrava · GPA 94,42/100 · od září 2027 plánuji magistra |
+| `studium` | Bakalářské studium, Informatika, VŠB – Technická univerzita Ostrava · GPA 94,42/100 · od září 2027 navazující magisterské studium |
 | `místo` | Ostrava |
 | `technologie` | C · C++ · OpenGL · Java · Python · TypeScript / Next.js |
 | `dříve` | Frontend vývojář ve firmách SHOWMORE (2024) a Blackfish (2023, externě) |
-| `zájem` | Jsem otevřený nabídkám: částečný nebo téměř plný úvazek, na místě či hybridně v Ostravě, nebo na dálku |
+| `zájem` | Jsem otevřený nabídkám: částečný nebo téměř plný úvazek, prezenčně či hybridně v Ostravě, nebo na dálku |
 | Popisek stavové tečky | Otevřený nabídkám |
 
 Alternative title line: „Student informatiky · stážista v QA automatizaci · Ostrava“.
@@ -58,7 +58,7 @@ I study computer science at VŠB – Technical University of Ostrava (GPA 94.42/
 
 ### CS (108 slov) (CS — for Jan to proofread)
 
-Studuji informatiku na VŠB – Technické univerzitě Ostrava (GPA 94,42/100) a na dálku pracuji jako stážista v QA automatizaci ve společnosti FUTTEC: píšu testy v Pytestu a eviduji chyby. Předtím jsem ve firmách Blackfish a SHOWMORE vyvíjel frontend v Next.js, mimo jiné hlavní komponenty pro weby Czechoslovak Group a Skladon. Ve škole rád jdu hlouběji: modální textový editor v C++23, Tetris v C se SDL2, 3D vykreslování v OpenGL. V Javě jsem napsal také informační systém pro catering s 330 automatizovanými testy. Od září 2027 plánuji magisterské studium. Do té doby jsem otevřený nabídkám na částečný nebo téměř plný úvazek, na místě či hybridně v Ostravě, nebo na dálku.
+Studuji informatiku na VŠB – Technické univerzitě Ostrava (GPA 94,42/100) a na dálku pracuji jako stážista v QA automatizaci ve společnosti FUTTEC: píšu testy v Pytestu a eviduji chyby. Předtím jsem ve firmách Blackfish a SHOWMORE vyvíjel frontend v Next.js, mimo jiné hlavní komponenty pro weby Czechoslovak Group a Skladon. Ve škole mě baví nízkoúrovňové programování: modální textový editor v C++23, Tetris v C se SDL2, 3D vykreslování v OpenGL. V Javě jsem napsal také informační systém pro catering s 330 automatizovanými testy. Od září 2027 plánuji magisterské studium. Do té doby jsem otevřený nabídkám na částečný nebo téměř plný úvazek, prezenčně či hybridně v Ostravě, nebo na dálku.
 
 ---
 
@@ -91,7 +91,7 @@ CS: Problém · Moje role · Technologie · Rozhodnutí · Výsledek · Dál.
 
 **CS** (CS — for Jan to proofread)
 
-- **Problém:** Zaměstnanci cateringu potřebují spravovat dokumenty projektů a jídelníčky s revizemi, sdílet jídelníček se zákazníkem přes odkaz, sbírat komentáře a exportovat PDF.
+- **Problém:** Zaměstnanci cateringové firmy potřebují spravovat dokumenty projektů a jídelníčky s revizemi, sdílet jídelníček se zákazníkem přes odkaz, sbírat komentáře a exportovat PDF.
 - **Moje role:** Samostatný projekt.
 - **Technologie:** Java 21, JavaFX, JDK HttpServer, JDBC, Oracle 19c, Apache PDFBox, JUnit 5, Maven
 - **Rozhodnutí:** Vlastní JDBC mappery bez frameworku a ORM, jak vyžadovalo zadání. Kompromis: plná kontrola nad každým SQL dotazem za cenu většího množství mapovacího kódu, který je třeba napsat a otestovat.
@@ -214,8 +214,8 @@ Note: "Migrated content into Sanity" combines two seed facts (CSG content is man
 ### CS (CS — for Jan to proofread)
 
 **FUTTEC a.s.**, QA Automation Engineer (stáž), září 2026 – současnost
-- Napsal jsem přes 1 200 automatizovaných testů v Pytestu a evidoval a sledoval chyby, na dálku. (new CS)
-- Při psaní testů jsem jako asistenta programování používal Claude. (new CS)
+- Na dálku jsem napsal přes 1 200 automatizovaných testů v Pytestu a evidoval chyby.
+- Při psaní testů jsem využíval AI asistenta Claude. (new CS)
 
 **VŠB-TUO**, Specialista anotací v CVAT, kvě – říj 2026
 - V CVAT jsem anotoval zhruba 20 minut záznamu z palubních kamer: poruchy vozovky (výtluky, trhliny), dopravní značení, jízdní pruhy, svodidla a směrové sloupky. (new CS)
@@ -224,7 +224,7 @@ Note: "Migrated content into Sanity" combines two seed facts (CSG content is man
 **SHOWMORE s.r.o.**, Frontend vývojář, čvc – říj 2024
 - Vytvořil jsem UI komponenty a sekce stránek pro web SolidSun v Next.js, TypeScriptu a Tailwind CSS.
 - Zlepšil jsem uživatelský zážitek a výkon klientských projektů pro SolidSun a Sype.to.
-- Pracoval jsem se Storybookem, Sanity a Vercelem podle návrhů ve Figmě, v týmu s Gitem.
+- Pracoval jsem podle návrhů ve Figmě se Storybookem, Sanity a Vercelem; v týmu jsme používali Git.
 
 **Blackfish**, Frontend vývojář (externě), čvn – pro 2023
 - Vytvořil jsem hlavní komponenty a stránky webů Czechoslovak Group a Skladon podle design systému ve Storybooku, v Next.js, TypeScriptu a Tailwind CSS.
@@ -274,7 +274,7 @@ Dates on the site come from `formatPeriod` (e.g. "čvn – pro 2023"); the ones 
 | CV meta | PDF, n KB | PDF, n kB |
 | All projects | All projects | Všechny projekty |
 | All experience | All experience | Všechny zkušenosti |
-| Project detail | Read the case study | Celá případová studie |
+| Project detail | Read the case study | Přečíst případovou studii |
 | Source | View source | Zdrojový kód |
 | Live | Open live site | Otevřít web |
 | No public source | Private university repository | Soukromý univerzitní repozitář |
@@ -285,7 +285,7 @@ Czech writes the unit as "kB" (lowercase k), with a no-break space after the num
 
 **EN:** Open to part-time or near full-time work as a software developer, in QA or full-stack, on-site or hybrid in Ostrava, or remote. Send a message here or email me directly.
 
-**CS** (CS — for Jan to proofread): Jsem otevřený nabídkám na částečný nebo téměř plný úvazek na pozicích softwarového vývojáře, v QA nebo full-stack, na místě či hybridně v Ostravě, nebo na dálku. Napište mi přes formulář nebo rovnou e-mailem.
+**CS** (CS — for Jan to proofread): Hledám pozici softwarového vývojáře, v QA nebo full-stack, na částečný či téměř plný úvazek: prezenčně nebo hybridně v Ostravě, případně na dálku. Napište mi přes formulář, nebo rovnou e-mailem. (proofread by Jan)
 
 ### Contact form
 
@@ -302,7 +302,7 @@ Czech writes the unit as "kB" (lowercase k), with a no-break space after the num
 | Error: message too long | The message is too long (2,000 characters at most). | Zpráva je příliš dlouhá (nejvýše 2 000 znaků). |
 | Error: summary | Please check the fields marked below. | Zkontrolujte prosím označená pole. |
 | Error: send failed | The message couldn’t be sent. Please email me at [email] instead. | Zprávu se nepodařilo odeslat. Napište mi prosím přímo na [e-mail]. |
-| Success | Thanks, your message was sent. I’ll reply to the email address you entered. | Děkuji, zpráva je odeslaná. Odpovím na zadaný e-mail. |
+| Success | Thanks, your message was sent. I’ll reply to the email address you entered. | Děkuji, zpráva byla odeslána. Odpovím na zadaný e-mail. |
 | Privacy line | I use your name and email only to reply to your message. | Jméno a e-mail použiji jen k odpovědi na vaši zprávu. |
 
 The lab form sends nothing yet, so the success line goes live only when delivery is wired. The privacy line needs `[FACT? where messages are stored and for how long, once a mail provider is chosen]`.
@@ -310,7 +310,7 @@ The lab form sends nothing yet, so the success line goes live only when delivery
 ### Footer
 
 - **EN:** © 2026 Jan Zámostný · Built with Next.js, source on GitHub
-- **CS** (CS — for Jan to proofread): © 2026 Jan Zámostný · Postaveno na Next.js, zdrojový kód na GitHubu
+- **CS** (CS — for Jan to proofread): © 2026 Jan Zámostný · Vytvořeno v Next.js, zdrojový kód na GitHubu
 
 ### Preferences popover
 

@@ -38,8 +38,8 @@ const experiences: ExperienceSeed[] = [
         "Used Claude as a coding assistant while writing the tests.",
       ],
       cs: [
-        "Napsal jsem přes 1 200 automatizovaných testů v Pytestu a evidoval a sledoval chyby, na dálku.",
-        "Při psaní testů jsem jako asistenta programování používal Claude.",
+        "Na dálku jsem napsal přes 1 200 automatizovaných testů v Pytestu a evidoval chyby.",
+        "Při psaní testů jsem využíval AI asistenta Claude.",
       ],
     },
   },
@@ -82,7 +82,7 @@ const experiences: ExperienceSeed[] = [
       cs: [
         "Vytvořil jsem UI komponenty a sekce stránek pro web SolidSun v Next.js, TypeScriptu a Tailwind CSS.",
         "Zlepšil jsem uživatelský zážitek a výkon klientských projektů pro SolidSun a Sype.to.",
-        "Pracoval jsem se Storybookem, Sanity a Vercelem podle návrhů ve Figmě, v týmu s Gitem.",
+        "Pracoval jsem podle návrhů ve Figmě se Storybookem, Sanity a Vercelem; v týmu jsme používali Git.",
       ],
     },
   },
