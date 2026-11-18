@@ -34,12 +34,12 @@ const experiences: ExperienceSeed[] = [
     position: { en: "QA Automation Engineer (internship)", cs: "QA Automation Engineer (stáž)" },
     bullets: {
       en: [
-        "Working remotely on test automation using Pytest and bug tracking.",
-        "Using AI-assisted tooling to enhance the QA workflow.",
+        "Wrote 1,200+ automated tests in Pytest and filed and tracked bugs, working remotely.",
+        "Used Claude as a coding assistant while writing the tests.",
       ],
       cs: [
-        "Práce na dálku: automatizace testů v Pytestu a evidence chyb.",
-        "Využívání nástrojů podporovaných umělou inteligencí ke zlepšení QA procesů.",
+        "Na dálku jsem napsal přes 1 200 automatizovaných testů v Pytestu a evidoval chyby.",
+        "Při psaní testů jsem využíval AI asistenta Claude.",
       ],
     },
   },
@@ -54,12 +54,12 @@ const experiences: ExperienceSeed[] = [
     position: { en: "CVAT Annotation Specialist", cs: "Specialista anotací v CVAT" },
     bullets: {
       en: [
-        "Analyzed dashcam footage to find road defects (potholes, cracks) and annotated them in CVAT, together with road markings, lanes, guardrails and delineator posts.",
-        "Produced precise, consistent annotations for computer vision and machine learning datasets, in cooperation with FUTTEC.",
+        "Annotated about 20 minutes of dashcam footage in CVAT: road defects (potholes, cracks), road markings, lanes, guardrails and delineator posts.",
+        "Delivered precise, consistent annotations for computer vision and machine learning datasets, in cooperation with FUTTEC.",
       ],
       cs: [
-        "Analýza záznamů z palubních kamer a vyhledávání poruch vozovky (výtluky, trhliny); anotace v CVAT včetně dopravního značení, jízdních pruhů, svodidel a směrových sloupků.",
-        "Tvorba přesných a konzistentních anotací pro datové sady v počítačovém vidění a strojovém učení, ve spolupráci se společností FUTTEC.",
+        "V CVAT jsem anotoval zhruba 20 minut záznamu z palubních kamer: poruchy vozovky (výtluky, trhliny), dopravní značení, jízdní pruhy, svodidla a směrové sloupky.",
+        "Dodával jsem přesné a konzistentní anotace pro datové sady počítačového vidění a strojového učení, ve spolupráci se společností FUTTEC.",
       ],
     },
   },
@@ -75,14 +75,14 @@ const experiences: ExperienceSeed[] = [
     position: { en: "Frontend Web Developer", cs: "Frontend vývojář" },
     bullets: {
       en: [
-        "Developed web applications using Next.js, TypeScript and Tailwind CSS, with Git, Storybook, Vercel, Sanity and Figma.",
-        "Contributed to client projects for SolidSun and Sype.to, improving user experience and performance.",
-        "Solved complex problems in the team through research and analysis.",
+        "Built UI components and page sections for the SolidSun website in Next.js, TypeScript and Tailwind CSS.",
+        "Improved user experience and performance on client projects for SolidSun and Sype.to.",
+        "Shipped through Storybook, Sanity and Vercel, working from Figma designs in a Git-based team workflow.",
       ],
       cs: [
-        "Vývoj webových aplikací v Next.js, TypeScriptu a Tailwind CSS, s nástroji Git, Storybook, Vercel, Sanity a Figma.",
-        "Práce na klientských projektech pro SolidSun a Sype.to, zlepšení uživatelského zážitku a výkonu.",
-        "Týmové řešení složitých problémů na základě rešerše a analýzy.",
+        "Vytvořil jsem UI komponenty a sekce stránek pro web SolidSun v Next.js, TypeScriptu a Tailwind CSS.",
+        "Zlepšil jsem uživatelský zážitek a výkon klientských projektů pro SolidSun a Sype.to.",
+        "Pracoval jsem podle návrhů ve Figmě se Storybookem, Sanity a Vercelem; v týmu jsme používali Git.",
       ],
     },
   },
@@ -98,14 +98,12 @@ const experiences: ExperienceSeed[] = [
     position: { en: "Frontend Web Developer (contract)", cs: "Frontend vývojář (externě)" },
     bullets: {
       en: [
-        "Built web applications using Next.js, TypeScript and Tailwind CSS.",
-        "Developed major components for the Czechoslovak Group and Skladon websites.",
-        "Collaborated on application architecture and integration with existing systems.",
+        "Built major components and pages for the Czechoslovak Group and Skladon websites from a Storybook design system, in Next.js, TypeScript and Tailwind CSS.",
+        "Migrated all the blog posts into Sanity and tested pages before release.",
       ],
       cs: [
-        "Vývoj webových aplikací v Next.js, TypeScriptu a Tailwind CSS.",
-        "Vývoj hlavních komponent pro weby Czechoslovak Group a Skladon.",
-        "Spolupráce na architektuře aplikací a jejich integraci do stávajících systémů.",
+        "Vytvořil jsem hlavní komponenty a stránky webů Czechoslovak Group a Skladon podle design systému ve Storybooku, v Next.js, TypeScriptu a Tailwind CSS.",
+        "Migroval jsem do Sanity všechny příspěvky z blogu a testoval stránky před vydáním.",
       ],
     },
   },
@@ -119,12 +117,12 @@ const experiences: ExperienceSeed[] = [
     position: { en: "IT & Hardware Intern", cs: "Stážista v oblasti IT a hardwaru" },
     bullets: {
       en: [
-        "Diagnosed, repaired and assembled computer hardware and server components.",
+        "Diagnosed, repaired and assembled computers and server components.",
         "Tested system stability and troubleshot peripherals and electronics.",
       ],
       cs: [
-        "Diagnostika, oprava a sestavování počítačového hardwaru a serverových komponent.",
-        "Testování stability systémů a řešení problémů s periferiemi a elektronikou.",
+        "Diagnostikoval, opravoval a sestavoval jsem počítače a serverové komponenty.",
+        "Testoval jsem stabilitu systémů a řešil problémy s periferiemi a elektronikou.",
       ],
     },
   },
@@ -139,8 +137,14 @@ const experiences: ExperienceSeed[] = [
     related: ["catering-is", "zpg", "osy", "tetris", "donkey-kong"],
     position: { en: "Bachelor’s degree, Computer Science", cs: "Bakalářské studium, Informatika" },
     bullets: {
-      en: ["Current GPA 94.42/100."],
-      cs: ["Aktuální GPA 94,42/100."],
+      en: [
+        "GPA 94.42/100.",
+        "Master’s at VŠB planned from September 2027, continuing in Informatics (specialisation not decided yet).",
+      ],
+      cs: [
+        "GPA 94,42/100.",
+        "Od září 2027 plánuji navázat magisterským studiem informatiky na VŠB (specializace zatím není určena).",
+      ],
     },
   },
   {
@@ -155,8 +159,8 @@ const experiences: ExperienceSeed[] = [
     },
     bullets: {
       en: [
-        "Graduated with honors as the top student of the year.",
-        "Maturita: Hardware and Networks, practical IT exam, Czech language.",
+        "Graduated with honors as the top student of my year.",
+        "Passed the maturita in Hardware and Networks, a practical IT exam and Czech.",
       ],
       cs: [
         "Maturoval jsem s vyznamenáním jako nejlepší student ročníku.",
@@ -199,7 +203,7 @@ type ProjectSeed = {
   platformCs?: string;
   librariesCs?: string;
   client?: string;
-  t: T<{ name: string; summary: string; description: string[]; role?: string; thumbnailAlt?: string }>;
+  t: T<{ name: string; summary: string; description: string[]; role?: string; thumbnailAlt?: string; decision?: string; result?: string; next?: string }>;
 };
 
 const webStack = ["Next.js", "TypeScript", "Tailwind CSS", "Storybook", "Sanity", "Vercel"];
@@ -301,13 +305,16 @@ const projects: ProjectSeed[] = [
     featured: true,
     thumbnail: "/images/projects/catering.webp",
     sourceUrl: "https://github.com/JaZafier00716/catering_project",
-    stack: ["Java 21", "JavaFX", "Oracle SQL", "JDBC", "Maven"],
+    stack: ["Java 21", "JavaFX", "JDK HttpServer", "JDBC", "Oracle 19c", "Apache PDFBox", "JUnit 5", "Maven"],
     language: "Java 21, Oracle SQL",
     libraries: "JavaFX, JDK HttpServer, JDBC, Apache PDFBox, JUnit 5",
     platform: "Desktop and web, Oracle 19c",
     platformCs: "Desktop a web, Oracle 19c",
     t: {
       en: {
+        role: "Solo project",
+        decision: "Hand-written JDBC data mappers, no ORM, as the assignment required. Trade-off: full control over SQL, but more mapping code to write and test.",
+        result: "330 automated tests, mvn clean test with 0 failures, plus a re-runnable Oracle schema with constraints and triggers.",
         name: "Catering information system",
         summary: "Information system for catering companies: menus with revisions, sharing with customers, PDF export.",
         thumbnailAlt: "Main window of the desktop client with a project’s menus",
@@ -318,6 +325,9 @@ const projects: ProjectSeed[] = [
         ],
       },
       cs: {
+        role: "Samostatný projekt",
+        decision: "Vlastní JDBC mappery bez frameworku a ORM, jak vyžadovalo zadání. Kompromis: plná kontrola nad každým SQL dotazem za cenu většího množství mapovacího kódu, který je třeba napsat a otestovat.",
+        result: "330 automatizovaných testů, mvn clean test bez chyb. Znovu spustitelné schéma v Oracle s omezeními, triggery a kontrolami integrity.",
         name: "Informační systém pro catering",
         summary: "Informační systém pro cateringové firmy: jídelníčky s revizemi, sdílení se zákazníky, export do PDF.",
         thumbnailAlt: "Hlavní okno desktopového klienta s jídelníčky projektu",
@@ -330,15 +340,52 @@ const projects: ProjectSeed[] = [
     },
   },
   {
+    slug: "skj-projekt",
+    kind: "school",
+    featured: true,
+    stack: ["Python", "FastAPI", "SQLAlchemy", "Alembic", "WebSocket", "Redis", "NumPy", "pytest"],
+    language: "Python 3",
+    platform: "Linux",
+    t: {
+      en: {
+        role: "One of two developers. My part: the gateway API (file and bucket endpoints, schemas, database and configuration), the image-processing endpoint and worker, and their tests.",
+        decision: "We kept JSON as the default message format. In our broker benchmark (5 publishers × 5 subscribers, 25,000 deliveries on localhost) JSON reached 4,015 msg/s and MessagePack 2,476 msg/s. MessagePack stays an option (?fmt=msgpack) for binary payloads.",
+        result: "Gateway, broker (durable queue, ACKs), storage node and async image worker run together, with 49 pytest tests.",
+        name: "S3-compatible object storage",
+        summary: "Part of an S3-compatible object storage in Python: API gateway, message broker, storage node and image worker.",
+        description: [
+          "Two-person team project for the SKJ course at VŠB-TUO, spring 2026. We implemented part of an S3-compatible object storage service in Python.",
+          "The FastAPI gateway manages buckets, object upload and download, and soft delete, and bills storage and ingress and egress traffic per bucket. A WebSocket message broker routes messages by topic, keeps a durable queue and confirms delivery with ACKs, in JSON or MessagePack. A Haystack-style append-only storage node holds the object data, and an async NumPy image-processing worker takes its jobs from a Redis queue.",
+          "The source is in a private university repository, so there is no public link.",
+        ],
+      },
+      cs: {
+        role: "Jeden ze dvou vývojářů. Moje část: API brány (endpointy pro soubory a buckety, schémata, databáze a konfigurace), endpoint a worker pro zpracování obrazů a jejich testy.",
+        decision: "JSON jsme ponechali jako výchozí formát zpráv. V našem benchmarku brokeru (5 publisherů × 5 subscriberů, 25 000 doručení na localhostu) dosáhl JSON 4 015 zpráv/s a MessagePack 2 476 zpráv/s. MessagePack zůstává volitelný (?fmt=msgpack) pro binární data.",
+        result: "Brána, broker zpráv s trvalou frontou a potvrzováním ACK, úložný uzel a asynchronní worker pro obrazy fungují dohromady; projekt má 49 testů v pytestu.",
+        name: "Objektové úložiště kompatibilní s S3",
+        summary: "Část objektového úložiště kompatibilního s S3 v Pythonu: brána API, broker zpráv, úložný uzel a worker pro zpracování obrazů.",
+        description: [
+          "Dvoučlenný týmový projekt do předmětu SKJ na VŠB-TUO, jaro 2026. Implementovali jsme v Pythonu část objektového úložiště kompatibilního s S3.",
+          "Brána FastAPI spravuje buckety, nahrávání a stahování objektů a měkké smazání. Pro každý bucket účtuje úložný prostor a přenos dat dovnitř a ven. WebSocket broker zpráv směruje zprávy podle témat, drží trvalou frontu a potvrzuje doručení zprávami ACK, a to ve formátu JSON nebo MessagePack. Úložný uzel v duchu Haystacku ukládá data objektů pouze k zápisu na konec a asynchronní worker s NumPy zpracovává obrazy s úlohami z fronty v Redisu.",
+          "Zdrojový kód je v soukromém univerzitním repozitáři, proto zde není veřejný odkaz.",
+        ],
+      },
+    },
+  },
+  {
     slug: "zpg",
     kind: "school",
     featured: true,
-    stack: ["C++23", "OpenGL", "GLSL", "GLFW", "GLM", "CMake"],
+    stack: ["C++23", "OpenGL", "GLSL", "GLFW", "GLAD", "GLM", "stb_image", "CMake"],
     language: "C++23, GLSL",
     libraries: "OpenGL, GLFW, GLAD, GLM, stb_image",
     platform: "CMake",
     t: {
       en: {
+        role: "Solo coursework",
+        decision: "The programmable pipeline: GLSL shaders with GLM transforms. Trade-off: more setup before the first frame, in exchange for control over every vertex and pixel.",
+        result: "Basic rendering of various scenes, built to learn how rendering works: individual lighting models, shaders and textures.",
         name: "ZPG: OpenGL graphics",
         summary: "3D rendering in modern OpenGL with shaders, transforms and textured models.",
         description: [
@@ -347,6 +394,9 @@ const projects: ProjectSeed[] = [
         ],
       },
       cs: {
+        role: "Samostatná práce",
+        decision: "Programovatelná pipeline: shadery v GLSL a transformace z GLM. Kompromis: víc přípravy před prvním snímkem, zato kontrola nad každým vrcholem a pixelem.",
+        result: "Základní vykreslení různých scén, na kterých jsem se učil, jak vykreslování funguje: jednotlivé modely osvětlení, shadery a textury.",
         name: "ZPG: grafika v OpenGL",
         summary: "3D vykreslování v moderním OpenGL se shadery, transformacemi a texturovanými modely.",
         description: [
@@ -362,7 +412,7 @@ const projects: ProjectSeed[] = [
     featured: true,
     thumbnail: "/images/projects/editor.webp",
     sourceUrl: "https://github.com/JaZafier00716/ModalEditor",
-    stack: ["C++23", "CMake", "termios"],
+    stack: ["C++23", "termios", "ANSI escape sequences", "CMake"],
     language: "C++23",
     libraries: "termios, ANSI escape sequences",
     librariesCs: "termios, ANSI escape sekvence",
@@ -370,6 +420,9 @@ const projects: ProjectSeed[] = [
     platformCs: "Terminál v Linuxu, CMake",
     t: {
       en: {
+        role: "Solo project",
+        decision: "Raw ANSI escape sequences instead of a library like ncurses. Trade-off: no dependency and full control over rendering, but terminal differences are mine to handle.",
+        result: "Normal-mode key bindings are configurable in a motions file. CMake build with optional AddressSanitizer and a Valgrind target.",
         name: "Modal text editor",
         summary: "Vim-inspired modal text editor for the terminal.",
         thumbnailAlt: "The editor open in a terminal, showing a text file",
@@ -379,6 +432,9 @@ const projects: ProjectSeed[] = [
         ],
       },
       cs: {
+        role: "Samostatný projekt",
+        decision: "Obrazovku kreslím přímo ANSI escape sekvencemi místo knihovny typu ncurses. Kompromis: žádná závislost a plná kontrola nad vykreslováním, ale rozdíly mezi terminály musím řešit sám.",
+        result: "Klávesové zkratky normálního režimu se nastavují v konfiguračním souboru. Sestavení přes CMake s volitelným AddressSanitizerem a cílem pro Valgrind.",
         name: "Modální textový editor",
         summary: "Modální textový editor pro terminál inspirovaný Vimem.",
         thumbnailAlt: "Editor otevřený v terminálu s textovým souborem",
@@ -392,7 +448,6 @@ const projects: ProjectSeed[] = [
   {
     slug: "tetris",
     kind: "school",
-    featured: true,
     thumbnail: "/images/tetris.png",
     sourceUrl: "https://github.com/JaZafier00716/tetris_clone",
     stack: ["C", "SDL2", "CMake"],
@@ -401,6 +456,7 @@ const projects: ProjectSeed[] = [
     platform: "Linux, CMake",
     t: {
       en: {
+        role: "Solo project",
         name: "Tetris",
         summary: "Real-time Tetris clone in C with SDL2.",
         thumbnailAlt: "Tetris game board with falling pieces and the score",
@@ -409,6 +465,7 @@ const projects: ProjectSeed[] = [
         ],
       },
       cs: {
+        role: "Samostatný projekt",
         name: "Tetris",
         summary: "Klon Tetrisu v reálném čase v jazyce C se SDL2.",
         thumbnailAlt: "Herní plocha Tetrisu s padajícími kostkami a skóre",
@@ -495,33 +552,6 @@ const projects: ProjectSeed[] = [
         description: [
           "Počítá středy grafu z excentricity přes BFS, zvládá nesouvislé grafy a měří dobu běhu.",
           "Repozitář je soukromý, proto zde není veřejný odkaz.",
-        ],
-      },
-    },
-  },
-  {
-    slug: "skj-projekt",
-    kind: "school",
-    stack: ["Python", "FastAPI", "SQLAlchemy", "Alembic", "Redis", "NumPy", "pytest"],
-    language: "Python 3",
-    platform: "Linux",
-    t: {
-      en: {
-        name: "S3-compatible object storage",
-        summary: "Part of an S3-compatible object storage in Python: API gateway, message broker, storage node and image worker.",
-        description: [
-          "Two-person team project for the SKJ course at VŠB-TUO, spring 2026. We implemented part of an S3-compatible object storage service in Python.",
-          "The FastAPI gateway manages buckets, object upload and download, and soft delete, and bills storage and ingress and egress traffic per bucket. A WebSocket message broker routes messages by topic, keeps a durable queue and confirms delivery with ACKs, in JSON or MessagePack. A Haystack-style append-only storage node holds the object data, and an async NumPy image-processing worker takes its jobs from a Redis queue.",
-          "The source is in a private university repository, so there is no public link.",
-        ],
-      },
-      cs: {
-        name: "Objektové úložiště kompatibilní s S3",
-        summary: "Část objektového úložiště kompatibilního s S3 v Pythonu: brána API, broker zpráv, úložný uzel a worker pro zpracování obrazů.",
-        description: [
-          "Dvoučlenný týmový projekt do předmětu SKJ na VŠB-TUO, jaro 2026. Implementovali jsme v Pythonu část objektového úložiště kompatibilního s S3.",
-          "Brána FastAPI spravuje buckety, nahrávání a stahování objektů a měkké smazání. Pro každý bucket účtuje úložný prostor a přenos dat dovnitř a ven. WebSocket broker zpráv směruje zprávy podle témat, drží trvalou frontu a potvrzuje doručení zprávami ACK, a to ve formátu JSON nebo MessagePack. Úložný uzel v duchu Haystacku ukládá data objektů pouze k zápisu na konec a asynchronní worker s NumPy zpracovává obrazy s úlohami z fronty v Redisu.",
-          "Zdrojový kód je v soukromém univerzitním repozitáři, proto zde není veřejný odkaz.",
         ],
       },
     },
@@ -724,6 +754,9 @@ async function seedProjects() {
         ...t[lang],
         role: t[lang].role ?? null,
         thumbnailAlt: t[lang].thumbnailAlt ?? null,
+        decision: t[lang].decision ?? null,
+        result: t[lang].result ?? null,
+        next: t[lang].next ?? null,
         platform: lang === "cs" ? (platformCs ?? null) : null,
         libraries: lang === "cs" ? (librariesCs ?? null) : null,
       };

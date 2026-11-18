@@ -1,8 +1,7 @@
 import Link from "next/link";
-import { BookOpen, Briefcase, GraduationCap, Mail } from "lucide-react";
 import { formatPeriod, getDict, type Lang } from "@/lib/i18n";
 import { getExperience, type ExperienceEntry } from "@/lib/content";
-import CvButton from "@/components/cv-button";
+import StackChips from "@/components/stack-chips";
 import { pageMeta } from "../meta";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/experience">) {
@@ -14,14 +13,14 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/experience
 function Entry({ e, lang }: { e: ExperienceEntry; lang: Lang }) {
   const dict = getDict(lang);
   return (
-    <li id={e.slug} className="flex flex-col gap-2 border-b border-border py-6 first:border-t">
+    <li id={e.slug} data-current={e.end ? undefined : ""} className="flex flex-col gap-2 py-6">
       <div className="flex flex-col gap-1 sm:grid sm:grid-cols-[1fr_auto] sm:items-baseline sm:gap-x-6">
         <h3 className="h3">{e.position}</h3>
         <p className="mono-meta tabular text-muted">{formatPeriod(lang, e.start, e.end, e.kind === "course")}</p>
       </div>
-      <p className="font-semibold">
+      <p className="font-semibold" translate="no">
         {e.url ? (
-          <a href={e.url} target="_blank" rel="noopener">
+          <a href={e.url} target="_blank" rel="noopener" className="link hit link-row">
             {e.company}
             <span className="sr-only"> {dict.newTab}</span>
           </a>
@@ -36,7 +35,7 @@ function Entry({ e, lang }: { e: ExperienceEntry; lang: Lang }) {
           ))}
         </ul>
       )}
-      {e.stack && <p translate="no" className="mono-meta text-muted">{e.stack}</p>}
+      {e.stack && <StackChips stack={e.stack.split(", ")} lang={lang} className="mono-meta" />}
       {e.related.length > 0 && (
         <p>
           <span className="mono-meta text-muted">{dict.experience.related}: </span>
@@ -44,7 +43,7 @@ function Entry({ e, lang }: { e: ExperienceEntry; lang: Lang }) {
             // Phones: one full-width 44px row per link; from sm: inline comma list.
             <span key={r.slug} className="max-sm:block">
               {i > 0 && <span className="max-sm:hidden">, </span>}
-              <Link href={`/${lang}/projects/${r.slug}`} className="link hit max-sm:flex max-sm:min-h-11 max-sm:w-full max-sm:items-center">
+              <Link href={`/${lang}/projects/${r.slug}`} className="link hit link-row max-sm:flex max-sm:min-h-11 max-sm:w-full max-sm:items-center">
                 {r.name}
               </Link>
             </span>
@@ -60,9 +59,9 @@ export default async function ExperiencePage({ params }: PageProps<"/[lang]/expe
   const d = getDict(lang).experience;
   const entries = await getExperience(lang);
   const sections = [
-    { kind: "work", title: d.work, icon: Briefcase },
-    { kind: "education", title: d.education, icon: GraduationCap },
-    { kind: "course", title: d.courses, icon: BookOpen },
+    { kind: "work", title: d.work },
+    { kind: "education", title: d.education },
+    { kind: "course", title: d.courses },
   ] as const;
 
   return (
@@ -71,11 +70,8 @@ export default async function ExperiencePage({ params }: PageProps<"/[lang]/expe
       <p className="mt-4 max-w-prose text-muted">{d.intro}</p>
       {sections.map((s) => (
         <section key={s.kind} aria-labelledby={`h-${s.kind}`} className="mt-12 lg:mt-16">
-          <h2 id={`h-${s.kind}`} className="h2 mb-6">
-            <s.icon aria-hidden />
-            {s.title}
-          </h2>
-          <ol>
+          <h2 id={`h-${s.kind}`} className="h2 mb-6">{s.title}</h2>
+          <ol className="tl">
             {entries
               .filter((e) => e.kind === s.kind)
               .map((e) => (
@@ -84,13 +80,9 @@ export default async function ExperiencePage({ params }: PageProps<"/[lang]/expe
           </ol>
         </section>
       ))}
-      <div className="mt-12 flex flex-col gap-4 sm:flex-row sm:items-center">
-        <CvButton lang={lang} variant="secondary" />
-        <Link href={`/${lang}#contact`} className="btn btn-secondary">
-          <Mail aria-hidden strokeWidth={2} />
-          {d.contact}
-        </Link>
-      </div>
+      <p className="mt-12">
+        <Link href={`/${lang}#contact`} className="link inline-flex min-h-11 items-center">{d.contact}</Link>
+      </p>
     </div>
   );
 }

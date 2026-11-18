@@ -4,25 +4,67 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Menu, X } from "lucide-react";
-import ThemeToggle from "./theme-toggle";
-import LangLink from "./lang-link";
-import type { Lang } from "@/lib/i18n";
 
 type Props = {
-  lang: Lang;
-  links: { href: string; label: string; icon: ReactNode; exact?: boolean }[];
-  labels: { nav: string; menu: string; theme: { toDark: string; toLight: string; toggle: string } };
+  links: { href: string; label: string; exact?: boolean }[];
+  labels: { nav: string; menu: string };
   wordmark: ReactNode;
-  cv: ReactNode;
+  cv: ReactNode; // header CV pill (server)
+  trigger: ReactNode; // preferences popover trigger (server)
+  prefs: ReactNode; // language + theme rows for the mobile menu (server)
 };
 
-export default function SiteNav({ lang, links, labels, wordmark, cv }: Props) {
+export default function SiteNav({ links, labels, wordmark, cv, trigger, prefs }: Props) {
   const pathname = usePathname();
   // The menu is open only for the path it was opened on, so navigation closes it.
   const [openOn, setOpenOn] = useState<string | null>(null);
   const open = openOn === pathname;
   const button = useRef<HTMLButtonElement>(null);
   const panel = useRef<HTMLDivElement>(null);
+
+  // CV morph (hero button <-> header pill) and the pause flags for the ambient loops. Without JS the CSS fallback in globals.css applies.
+  useEffect(() => {
+    const root = document.documentElement;
+    const hero = document.querySelector<HTMLElement>("[data-hero-cv] .btn"); // the button itself: its size line must not hold the pill back
+    const section = document.querySelector<HTMLElement>("[data-hero]");
+    const onVisibility = () => root.toggleAttribute("data-hidden", document.hidden);
+    document.addEventListener("visibilitychange", onVisibility);
+    onVisibility();
+    const observers: IntersectionObserver[] = [];
+    if (section) {
+      const io = new IntersectionObserver(([e]) => root.toggleAttribute("data-hero-off", !e.isIntersecting));
+      io.observe(section);
+      observers.push(io);
+    }
+    if (hero) {
+      const headerH = document.querySelector(".site-header")?.getBoundingClientRect().height ?? 64;
+      root.setAttribute("data-cv-js", "");
+      if ("startViewTransition" in document) root.setAttribute("data-cv-vt", "");
+      let running: ViewTransition | undefined;
+      let first = true;
+      const io = new IntersectionObserver(
+        ([e]) => {
+          const docked = !e.isIntersecting && e.boundingClientRect.top < headerH;
+          const update = () => root.toggleAttribute("data-cv-docked", docked);
+          if (root.hasAttribute("data-cv-docked") === docked) return;
+          if (first || !("startViewTransition" in document)) update();
+          else {
+            running?.skipTransition();
+            running = document.startViewTransition({ update, types: ["cv"] });
+          }
+          first = false;
+        },
+        { rootMargin: `-${headerH}px 0px 0px 0px`, threshold: 0 },
+      );
+      io.observe(hero);
+      observers.push(io);
+    }
+    return () => {
+      document.removeEventListener("visibilitychange", onVisibility);
+      observers.forEach((o) => o.disconnect());
+      ["data-cv-js", "data-cv-vt", "data-cv-docked", "data-hero-off"].forEach((a) => root.removeAttribute(a));
+    };
+  }, [pathname]);
 
   useEffect(() => {
     if (!open) return;
@@ -78,7 +120,6 @@ export default function SiteNav({ lang, links, labels, wordmark, cv }: Props) {
               }
             }}
           >
-            {l.icon}
             <span data-text={l.label}>{l.label}</span>
           </Link>
         </li>
@@ -89,33 +130,32 @@ export default function SiteNav({ lang, links, labels, wordmark, cv }: Props) {
     <>
       <div className="container-page flex h-(--header-h) items-center gap-4">
         {wordmark}
-        <nav aria-label={labels.nav} className="ml-auto hidden lg:block">
+        <nav aria-label={labels.nav} className="ms-4 hidden lg:block">
           <ul className="flex items-center">{items(false)}</ul>
         </nav>
-        <div className="hidden items-center gap-1 lg:flex">
-          <LangLink lang={lang} />
-          <ThemeToggle labels={labels.theme} />
+        {/* CV pill sits out of flow just left of the utilities, so there is no empty slot before it docks. */}
+        <div className="relative ms-auto flex items-center gap-1">
           {cv}
+          {trigger}
+          <button
+            ref={button}
+            type="button"
+            className="icon-btn swap -me-2 lg:hidden"
+            aria-expanded={open}
+            aria-controls="site-menu"
+            aria-label={labels.menu}
+            onClick={() => setOpenOn(open ? null : pathname)}
+          >
+            <X aria-hidden className="size-6" {...(open ? {} : { "data-off": "" })} />
+            <Menu aria-hidden className="size-6" {...(open ? { "data-off": "" } : {})} />
+          </button>
         </div>
-        <button
-          ref={button}
-          type="button"
-          className="icon-btn swap -mr-2 ml-auto lg:hidden"
-          aria-expanded={open}
-          aria-controls="site-menu"
-          aria-label={labels.menu}
-          onClick={() => setOpenOn(open ? null : pathname)}
-        >
-          <X aria-hidden className="size-6" {...(open ? {} : { "data-off": "" })} />
-          <Menu aria-hidden className="size-6" {...(open ? { "data-off": "" } : {})} />
-        </button>
       </div>
       <div id="site-menu" ref={panel} hidden={!open} className="menu-panel lg:hidden">
         <nav aria-label={labels.nav} className="container-page py-2">
           <ul>{items(true)}</ul>
-          <div className="menu-item mt-2 flex items-center justify-between border-t border-border pt-2" style={{ "--i": links.length } as React.CSSProperties}>
-            <LangLink lang={lang} />
-            <ThemeToggle labels={labels.theme} />
+          <div className="menu-item mt-2 border-t border-border pt-1" style={{ "--i": links.length } as React.CSSProperties}>
+            {prefs}
           </div>
         </nav>
       </div>

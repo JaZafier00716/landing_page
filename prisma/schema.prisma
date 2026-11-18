@@ -132,6 +132,9 @@ model ProjectTranslation {
   thumbnailAlt String?
   platform     String? // per-language override of Project.platform
   libraries    String? // per-language override of Project.libraries
+  decision     String? // case study: one hard decision and its trade-off
+  result       String? // case study: outcome (real numbers only)
+  next         String? // case study: what's next
 
   project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
 

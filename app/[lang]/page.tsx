@@ -1,11 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
-import { FolderGit2, Mail } from "lucide-react";
 import { getDict, type Lang } from "@/lib/i18n";
-import { getPerson, getProjects } from "@/lib/content";
-import CvButton from "@/components/cv-button";
+import { getExperience, getPerson, getProjects } from "@/lib/content";
+import CaseCard from "@/components/case-card";
+import ContactForm from "@/components/contact-form";
 import ContactList from "@/components/contact-list";
-import { ProjectRow } from "@/components/projects";
+import CvHero from "@/components/cv-hero";
+import ExperiencePreview from "@/components/experience-preview";
+import TechMarquee from "@/components/tech-marquee";
 import { pageMeta } from "./meta";
 import portrait from "@/public/images/portrait-face.webp";
 
@@ -15,64 +17,102 @@ export async function generateMetadata({ params }: PageProps<"/[lang]">) {
   return pageMeta(lang, "", d.title, d.description, true);
 }
 
+const item = (i: number) => ({ "--i": i }) as React.CSSProperties;
+
+function Kv({ k, children, translate }: { k: string; children: React.ReactNode; translate?: "no" }) {
+  return (
+    <div className="grid grid-cols-[var(--k)_minmax(0,1fr)] gap-x-4 py-2">
+      <dt className="text-muted">{k}</dt>
+      <dd translate={translate} className="max-sm:hyphens-auto">{children}</dd>
+    </div>
+  );
+}
+
 export default async function Home({ params }: PageProps<"/[lang]">) {
   const lang = (await params).lang as Lang;
   const dict = getDict(lang);
-  const [person, projects] = await Promise.all([getPerson(lang), getProjects(lang)]);
+  const h = dict.home;
+  const [person, projects, experience] = await Promise.all([getPerson(lang), getProjects(lang), getExperience(lang)]);
   const featured = projects.filter((p) => p.featured);
 
   return (
-    <div className="container-page">
-      <section data-hero className="grid grid-cols-4 items-start gap-x-6 gap-y-6 py-6 max-lg:min-h-[calc(100svh-var(--header-h)-6rem)] max-lg:content-center lg:grid-cols-12 lg:py-20">
-        <div className="col-span-4 flex flex-col items-center gap-4 text-center lg:col-span-8 lg:row-start-1 lg:items-start lg:gap-5 lg:text-left">
-          <p className="eyebrow">{dict.home.eyebrow}</p>
-          <h1 translate="no" className="text-display font-extrabold [font-stretch:112.5%] [overflow-wrap:normal] sm:[font-stretch:125%]">
-            {person.name}
-          </h1>
-          <p className="text-lead max-w-[40ch] text-muted [text-wrap:balance] lg:max-w-[52ch]">{dict.home.role}</p>
-          <div className="mt-2 flex w-full flex-col items-stretch gap-3 sm:w-auto sm:flex-row sm:items-start sm:gap-4">
-            <CvButton lang={lang} />
-            <a href="#contact" className="btn btn-secondary">
-              <Mail aria-hidden strokeWidth={2} />
-              {dict.home.contact}
-            </a>
+    <div className="w-full">
+      <section data-hero className="relative isolate">
+        <div className="hero-grid -z-10" aria-hidden>
+          <div className="ambient" />
+        </div>
+        <div className="container-page grid grid-cols-1 gap-x-8 gap-y-8 pt-10 pb-8 lg:grid-cols-12 lg:pt-16">
+          <div className="flex flex-col gap-4 lg:col-span-7 lg:gap-5">
+            <div className="hero-item flex items-center gap-4" style={item(0)}>
+              <div className="portrait w-16 flex-none sm:w-24">
+                <Image src={portrait} alt="" priority sizes="96px" className="size-full object-cover object-[50%_30%]" />
+              </div>
+              <h1 translate="no" className="h1-name">{person.name}</h1>
+            </div>
+            <div className="hero-item flex flex-col gap-2" style={item(1)}>
+              <p className="mono-meta text-muted">{h.titleLine}</p>
+              <p className="mono-meta flex items-center gap-2">
+                <span className="status-dot ambient" aria-hidden />
+                {h.status}
+              </p>
+            </div>
+            <p className="hero-item text-lead max-w-[28ch]" style={item(1)}>{h.statement}</p>
+            <div className="hero-item" style={item(2)}>
+              <CvHero lang={lang} />
+            </div>
+          </div>
+          <dl
+            className="hero-item panel mono-meta divide-y divide-border px-4 py-2 lg:col-span-5"
+            style={{ ...item(2), "--k": lang === "cs" ? "6.5rem" : "4.5rem" } as React.CSSProperties}
+          >
+            {/* "want" first: at 375×812 the last rows fall below the fold (recruiter-first). */}
+            <Kv k={h.readout.want}>{h.readout.wantValue}</Kv>
+            <Kv k={h.readout.now}>{h.readout.nowValue}</Kv>
+            <Kv k={h.readout.study}>{h.readout.studyValue}</Kv>
+            <Kv k={h.readout.based}>{h.readout.basedValue}</Kv>
+            <Kv k={h.readout.stack} translate="no">{h.readout.stackValue}</Kv>
+            <Kv k={h.readout.before}>{h.readout.beforeValue}</Kv>
+          </dl>
+          <div className="lg:col-span-12">
+            <TechMarquee lang={lang} />
           </div>
         </div>
-        <div className="portrait col-span-4 max-lg:order-first lg:row-start-1 w-[clamp(10.5rem,48vw,12rem)] justify-self-center lg:col-span-4 lg:col-start-9 lg:w-full lg:max-w-80 lg:justify-self-end">
-          <Image
-            src={portrait}
-            alt=""
-            priority
-            sizes="(min-width:1024px) 320px, 192px"
-            className="size-full object-cover object-[50%_30%]"
-          />
-        </div>
       </section>
 
-      <section aria-labelledby="featured" className="section">
-        <h2 id="featured" className="h2 mb-6">
-          <FolderGit2 aria-hidden />
-          {dict.home.featured}
-        </h2>
-        <ul>
-          {featured.map((p) => (
-            <ProjectRow key={p.slug} project={p} lang={lang} />
-          ))}
-        </ul>
-        <p className="mt-6">
-          <Link href={`/${lang}/projects`} className="link inline-flex min-h-11 items-center">
-            {dict.home.allProjects}
-          </Link>
-        </p>
-      </section>
+      <div className="container-page">
+        <section aria-labelledby="featured" className="py-10">
+          <h2 id="featured" className="h2 mb-6">{h.featured}</h2>
+          <div className="grid gap-6 md:grid-cols-2">
+            {featured.map((p) => (
+              <CaseCard key={p.slug} project={p} lang={lang} />
+            ))}
+          </div>
+          <p className="mt-6">
+            <Link href={`/${lang}/projects`} className="link inline-flex min-h-11 items-center">{h.allProjects}</Link>
+          </p>
+        </section>
 
-      <section aria-labelledby="contact" className="section">
-        <h2 id="contact" className="h2 mb-6">
-          <Mail aria-hidden />
-          {dict.contact.title}
-        </h2>
-        <ContactList lang={lang} person={person} />
-      </section>
+        <section aria-labelledby="exp" className="py-10">
+          <h2 id="exp" className="h2 mb-6">{h.experience}</h2>
+          <ExperiencePreview entries={experience} lang={lang} />
+          <p className="mt-4">
+            <Link href={`/${lang}/experience`} className="link inline-flex min-h-11 items-center">{h.allExperience}</Link>
+          </p>
+        </section>
+
+        <section id="contact" aria-labelledby="contact-h" className="py-10">
+          <h2 id="contact-h" className="h2 mb-4">{dict.contact.title}</h2>
+          <p className="mb-6 max-w-prose">{dict.contact.intro}</p>
+          <div className="panel grid grid-cols-1 gap-8 p-3 sm:p-6 lg:grid-cols-12">
+            <div className="lg:col-span-7">
+              <ContactForm lang={lang} email={person.email} />
+            </div>
+            <div className="self-start lg:col-span-5">
+              <ContactList lang={lang} person={person} />
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
   );
 }

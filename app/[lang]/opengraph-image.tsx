@@ -22,8 +22,8 @@ export default async function OpengraphImage({ params }: { params: Promise<{ lan
   const { lang } = await params;
   const d = getDict(isLang(lang) ? lang : "en").home;
   const name = "Jan Zámostný";
-  const text = `${name}${d.eyebrow}${d.role}`;
-  const [bold, regular] = await Promise.all([archivo(800, text), archivo(400, text)]);
+  const text = `${name}${d.titleLine}${d.statement}`;
+  const [bold, regular] = await Promise.all([archivo(600, text), archivo(400, text)]);
   // DESIGN.md light tokens: bg, text, muted, border, accent.
   return new ImageResponse(
     (
@@ -41,15 +41,15 @@ export default async function OpengraphImage({ params }: { params: Promise<{ lan
           fontFamily: "Archivo",
         }}
       >
-        <div style={{ fontSize: 28, color: "#596067", letterSpacing: 2, textTransform: "uppercase" }}>{d.eyebrow}</div>
-        <div style={{ fontSize: 112, fontWeight: 800, lineHeight: 1, marginTop: 24, letterSpacing: -2 }}>{name}</div>
-        <div style={{ fontSize: 40, color: "#596067", marginTop: 32, maxWidth: 980, lineHeight: 1.35 }}>{d.role}</div>
+        <div style={{ fontSize: 28, color: "#596067", letterSpacing: 0 }}>{d.titleLine}</div>
+        <div style={{ fontSize: 112, fontWeight: 600, lineHeight: 1, marginTop: 24, letterSpacing: -2 }}>{name}</div>
+        <div style={{ fontSize: 40, color: "#596067", marginTop: 32, maxWidth: 980, lineHeight: 1.35 }}>{d.statement}</div>
       </div>
     ),
     {
       ...size,
       fonts: [
-        { name: "Archivo", data: bold, weight: 800, style: "normal" },
+        { name: "Archivo", data: bold, weight: 600, style: "normal" },
         { name: "Archivo", data: regular, weight: 400, style: "normal" },
       ],
     },
