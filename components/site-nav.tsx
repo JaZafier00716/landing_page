@@ -43,18 +43,23 @@ export default function SiteNav({ links, labels, wordmark, cv, trigger, prefs }:
       let running: ViewTransition | undefined;
       let first = true;
       const io = new IntersectionObserver(
-        ([e]) => {
-          const docked = !e.isIntersecting && e.boundingClientRect.top < headerH;
+        (entries) => {
+          const e = entries[entries.length - 1]; // newest: a fast scroll can queue several
+          // Hysteresis: dock only when fully under the header, undock only when fully clear of it; in between keep the state.
+          const was = root.hasAttribute("data-cv-docked");
+          const above = e.boundingClientRect.top < headerH;
+          const docked = e.intersectionRatio === 0 ? above : e.intersectionRatio >= 0.98 ? false : first ? above : was;
+          const initial = first;
+          first = false;
           const update = () => root.toggleAttribute("data-cv-docked", docked);
-          if (root.hasAttribute("data-cv-docked") === docked) return;
-          if (first || !("startViewTransition" in document)) update();
+          if (was === docked) return;
+          if (initial || !("startViewTransition" in document)) update();
           else {
             running?.skipTransition();
             running = document.startViewTransition({ update, types: ["cv"] });
           }
-          first = false;
         },
-        { rootMargin: `-${headerH}px 0px 0px 0px`, threshold: 0 },
+        { rootMargin: `-${headerH}px 0px 0px 0px`, threshold: [0, 0.98] },
       );
       io.observe(hero);
       observers.push(io);
