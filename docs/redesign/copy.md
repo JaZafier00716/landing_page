@@ -39,11 +39,11 @@ Readout keys translated: `nyní`, `studium`, `místo`, `stack` → `technologie`
 | Jméno (h1) | Jan Zámostný |
 | Titulek | Softwarový vývojář · automatizace testů · Ostrava |
 | `nyní` | QA Automation Engineer (stáž), FUTTEC a.s. · na dálku · od září 2026 |
-| `studium` | Bakalářské studium, Informatika, VŠB – Technická univerzita Ostrava · GPA 94,42/100 · od září 2027 navazující magisterské studium |
+| `studium` | Informatika (Bc.), VŠB – Technická univerzita Ostrava · GPA 94,42/100 · od září 2027 navazující magisterské studium |
 | `místo` | Ostrava |
 | `technologie` | C · C++ · OpenGL · Java · Python · TypeScript / Next.js |
 | `dříve` | Frontend vývojář ve firmách SHOWMORE (2024) a Blackfish (2023, externě) |
-| `zájem` | Jsem otevřený nabídkám: částečný nebo téměř plný úvazek, prezenčně či hybridně v Ostravě, nebo na dálku |
+| `zájem` | částečný nebo téměř plný úvazek: prezenčně či hybridně v Ostravě, nebo na dálku |
 | Popisek stavové tečky | Otevřený nabídkám |
 
 Alternative title line: „Student informatiky · stážista v QA automatizaci · Ostrava“.
