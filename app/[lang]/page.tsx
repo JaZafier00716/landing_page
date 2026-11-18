@@ -78,7 +78,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
         <h2 id="contact" className="h2 mb-6 scroll-mt-20">
           {dict.contact.title}
         </h2>
-        <ContactList lang={lang} person={person} copy />
+        <ContactList lang={lang} person={person} />
       </section>
     </div>
   );

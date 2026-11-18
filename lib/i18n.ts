@@ -1,3 +1,5 @@
+import { nbsp } from "@/lib/typography";
+
 export const langs = ["en", "cs"] as const;
 export type Lang = (typeof langs)[number];
 
@@ -27,7 +29,7 @@ const en = {
   },
   cv: { download: "Download CV", meta: "PDF" },
   contact: { title: "Contact", email: "Email", phone: "Phone", linkedin: "LinkedIn", github: "GitHub" },
-  copy: { label: "Copy", done: "Copied", failed: "Copy failed" },
+  copy: { email: "Copy email", phone: "Copy phone", done: "Copied", failed: "Copy failed" },
   experience: {
     title: "Experience",
     intro: "Work, school and courses, newest first.",
@@ -98,7 +100,7 @@ const cs: Dict = {
   },
   cv: { download: "Stáhnout CV", meta: "PDF" },
   contact: { title: "Kontakt", email: "E-mail", phone: "Telefon", linkedin: "LinkedIn", github: "GitHub" },
-  copy: { label: "Kopírovat", done: "Zkopírováno", failed: "Kopírování selhalo" },
+  copy: { email: "Kopírovat e-mail", phone: "Kopírovat telefon", done: "Zkopírováno", failed: "Kopírování selhalo" },
   experience: {
     title: "Zkušenosti",
     intro: "Práce, škola a kurzy, od nejnovějších.",
@@ -149,7 +151,14 @@ const cs: Dict = {
   },
 };
 
-export const getDict = (lang: Lang): Dict => (lang === "cs" ? cs : en);
+// Typography is applied once here: every dictionary string goes through nbsp(); content text does it in lib/content.ts.
+const localize = <T,>(v: T, lang: Lang): T =>
+  typeof v === "string"
+    ? (nbsp(v, lang) as T)
+    : (Object.fromEntries(Object.entries(v as object).map(([k, x]) => [k, localize(x, lang)])) as T);
+const dicts = { en: localize(en, "en"), cs: localize(cs, "cs") };
+
+export const getDict = (lang: Lang): Dict => dicts[lang];
 
 /**
  * "Jun – Dec 2023" / "čvn – pro 2023", "Sep 2026 – present" / "zář 2026 – současnost"; courses show the year only.

@@ -2,6 +2,7 @@ import "server-only";
 import { cacheLife } from "next/cache";
 import { prisma } from "@/lib/db";
 import type { Lang } from "@/lib/i18n";
+import { nbsp } from "@/lib/typography";
 
 export type Person = { name: string; email: string; phone: string; linkedin: string; github: string };
 
@@ -64,13 +65,13 @@ export async function getProjects(lang: Lang): Promise<Project[]> {
     return {
       ...p,
       kind: p.kind as Project["kind"],
-      name: t.name,
-      summary: t.summary,
-      description: t.description,
-      role: t.role,
-      thumbnailAlt: t.thumbnailAlt ?? "",
-      platform: t.platform ?? p.platform,
-      libraries: t.libraries ?? p.libraries,
+      name: nbsp(t.name, lang),
+      summary: nbsp(t.summary, lang),
+      description: t.description.map((d) => nbsp(d, lang)),
+      role: t.role && nbsp(t.role, lang),
+      thumbnailAlt: nbsp(t.thumbnailAlt ?? "", lang),
+      platform: nbsp(t.platform ?? p.platform ?? "", lang) || null,
+      libraries: nbsp(t.libraries ?? p.libraries ?? "", lang) || null,
     };
   });
 }
@@ -91,13 +92,13 @@ export async function getExperience(lang: Lang): Promise<ExperienceEntry[]> {
     return {
       slug: r.slug ?? String(r.id),
       kind: r.kind as ExperienceEntry["kind"],
-      company: t.company ?? r.company,
+      company: nbsp(t.company ?? r.company, lang),
       url: r.url,
       start: r.startDate,
       end: r.endDate,
       stack: t.stack ?? r.stack,
-      position: t.position,
-      bullets: t.bullets,
+      position: nbsp(t.position, lang),
+      bullets: t.bullets.map((b) => nbsp(b, lang)),
       related: r.related.flatMap((s) => projects.filter((p) => p.slug === s).map((p) => ({ slug: s, name: p.name }))),
     };
   });
@@ -118,10 +119,10 @@ export async function getSkills(lang: Lang): Promise<SkillGroup[]> {
   ]);
   return groups.map((g) => ({
     key: g.key,
-    title: lang === "cs" ? g.titleCs : g.titleEn,
+    title: nbsp(lang === "cs" ? g.titleCs : g.titleEn, lang),
     skills: g.skills.map((s) => ({
-      name: lang === "cs" ? s.nameCs : s.nameEn,
-      detail: lang === "cs" ? s.detailCs : s.detailEn,
+      name: nbsp(lang === "cs" ? s.nameCs : s.nameEn, lang),
+      detail: (lang === "cs" ? s.detailCs : s.detailEn) && nbsp((lang === "cs" ? s.detailCs : s.detailEn)!, lang),
       usedIn: s.usedIn.flatMap((slug) => targets.get(slug) ?? []),
     })),
   }));
