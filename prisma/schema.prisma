@@ -154,6 +154,8 @@ model Skill {
   nameEn    String
   nameCs    String
   usedIn    String[] // project slugs or experience slugs
+  detailEn  String? // shown instead of usedIn links when set
+  detailCs  String?
 
   group SkillGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
 

@@ -7,7 +7,7 @@ export type Person = { name: string; email: string; phone: string; linkedin: str
 
 export type Project = {
   slug: string;
-  kind: "work" | "school" | "other";
+  kind: "work" | "school" | "hidden";
   featured: boolean;
   thumbnail: string | null;
   thumbnailAlt: string;
@@ -37,7 +37,7 @@ export type ExperienceEntry = {
   related: { slug: string; name: string }[];
 };
 
-export type SkillGroup = { key: string; title: string; skills: { name: string; usedIn: UsedIn[] }[] };
+export type SkillGroup = { key: string; title: string; skills: { name: string; detail: string | null; usedIn: UsedIn[] }[] };
 export type UsedIn = { name: string; href: string };
 
 const pick = <T extends { lang: string }>(rows: T[], lang: Lang) => rows.find((r) => r.lang === lang) ?? rows[0];
@@ -54,7 +54,11 @@ export async function getPerson(lang: Lang): Promise<Person> {
 export async function getProjects(lang: Lang): Promise<Project[]> {
   "use cache";
   cacheLife("days");
-  const rows = await prisma.project.findMany({ orderBy: { sortOrder: "asc" }, include: { translations: true } });
+  const rows = await prisma.project.findMany({
+    where: { kind: { not: "hidden" } },
+    orderBy: { sortOrder: "asc" },
+    include: { translations: true },
+  });
   return rows.map(({ translations, id: _id, sortOrder: _s, ...p }) => {
     const t = pick(translations, lang);
     return {
@@ -117,6 +121,7 @@ export async function getSkills(lang: Lang): Promise<SkillGroup[]> {
     title: lang === "cs" ? g.titleCs : g.titleEn,
     skills: g.skills.map((s) => ({
       name: lang === "cs" ? s.nameCs : s.nameEn,
+      detail: lang === "cs" ? s.detailCs : s.detailEn,
       usedIn: s.usedIn.flatMap((slug) => targets.get(slug) ?? []),
     })),
   }));

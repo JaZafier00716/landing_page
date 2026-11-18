@@ -40,10 +40,9 @@ const en = {
   },
   projects: {
     title: "Projects",
-    intro: "Client work, school projects and other code. Each project has a detail page.",
+    intro: "Client work and school projects. Each project has a detail page.",
     work: "Work projects",
     school: "School projects",
-    other: "Other projects",
     source: "Source",
     live: "Live site",
     viewSource: "View source",
@@ -112,10 +111,9 @@ const cs: Dict = {
   },
   projects: {
     title: "Projekty",
-    intro: "Práce pro klienty, školní projekty a další kód. Každý projekt má vlastní stránku.",
+    intro: "Práce pro klienty a školní projekty. Každý projekt má vlastní stránku.",
     work: "Pracovní projekty",
     school: "Školní projekty",
-    other: "Další projekty",
     source: "Zdrojový kód",
     live: "Web",
     viewSource: "Zdrojový kód",

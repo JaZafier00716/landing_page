@@ -187,7 +187,7 @@ const experiences: ExperienceSeed[] = [
 
 type ProjectSeed = {
   slug: string;
-  kind: "work" | "school" | "other";
+  kind: "work" | "school" | "hidden";
   featured?: boolean;
   thumbnail?: string;
   sourceUrl?: string;
@@ -500,8 +500,35 @@ const projects: ProjectSeed[] = [
     },
   },
   {
+    slug: "skj-projekt",
+    kind: "school",
+    stack: ["Python", "FastAPI", "SQLAlchemy", "Alembic", "Redis", "NumPy", "pytest"],
+    language: "Python 3",
+    platform: "Linux",
+    t: {
+      en: {
+        name: "S3-compatible object storage",
+        summary: "Part of an S3-compatible object storage in Python: API gateway, message broker, storage node and image worker.",
+        description: [
+          "Two-person team project for the SKJ course at VŠB-TUO, spring 2026. We implemented part of an S3-compatible object storage service in Python.",
+          "The FastAPI gateway manages buckets, object upload and download, and soft delete, and bills storage and ingress and egress traffic per bucket. A WebSocket message broker routes messages by topic, keeps a durable queue and confirms delivery with ACKs, in JSON or MessagePack. A Haystack-style append-only storage node holds the object data, and an async NumPy image-processing worker takes its jobs from a Redis queue.",
+          "The source is in a private university repository, so there is no public link.",
+        ],
+      },
+      cs: {
+        name: "Objektové úložiště kompatibilní s S3",
+        summary: "Část objektového úložiště kompatibilního s S3 v Pythonu: brána API, broker zpráv, úložný uzel a worker pro zpracování obrazů.",
+        description: [
+          "Dvoučlenný týmový projekt do předmětu SKJ na VŠB-TUO, jaro 2026. Implementovali jsme v Pythonu část objektového úložiště kompatibilního s S3.",
+          "Brána FastAPI spravuje buckety, nahrávání a stahování objektů a měkké smazání. Pro každý bucket účtuje úložný prostor a přenos dat dovnitř a ven. WebSocket broker zpráv směruje zprávy podle témat, drží trvalou frontu a potvrzuje doručení zprávami ACK, a to ve formátu JSON nebo MessagePack. Úložný uzel v duchu Haystacku ukládá data objektů pouze k zápisu na konec a asynchronní worker s NumPy zpracovává obrazy s úlohami z fronty v Redisu.",
+          "Zdrojový kód je v soukromém univerzitním repozitáři, proto zde není veřejný odkaz.",
+        ],
+      },
+    },
+  },
+  {
     slug: "raynet-leaderboard",
-    kind: "other",
+    kind: "hidden",
     sourceUrl: "https://github.com/JanMarianek/raynet-",
     stack: ["TypeScript", "React", "Vite", "Storybook", "MSW", "Express"],
     language: "TypeScript",
@@ -530,7 +557,7 @@ const projects: ProjectSeed[] = [
   },
   {
     slug: "dev-events",
-    kind: "other",
+    kind: "hidden",
     sourceUrl: "https://github.com/JaZafier00716/dev-events-nextjs16-course",
     stack: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS"],
     language: "TypeScript",
@@ -557,7 +584,7 @@ const projects: ProjectSeed[] = [
   },
 ];
 
-type SkillSeed = { en: string; cs?: string; usedIn?: string[] };
+type SkillSeed = { en: string; cs?: string; usedIn?: string[]; detail?: T<string> };
 type GroupSeed = { key: string; title: T<string>; skills: SkillSeed[] };
 
 const skillGroups: GroupSeed[] = [
@@ -568,8 +595,8 @@ const skillGroups: GroupSeed[] = [
       { en: "C", usedIn: ["tetris", "osy"] },
       { en: "C++", usedIn: ["zpg", "modal-text-editor", "osy", "graph-center"] },
       { en: "Java", usedIn: ["catering-is", "donkey-kong"] },
-      { en: "TypeScript", usedIn: ["csg-website", "solidsun-platform", "raynet-leaderboard"] },
-      { en: "Python", usedIn: ["futtec"] },
+      { en: "TypeScript", usedIn: ["csg-website", "solidsun-platform"] },
+      { en: "Python", usedIn: ["futtec", "skj-projekt"] },
       { en: "SQL, PL/SQL", usedIn: ["catering-is"] },
       { en: "Haskell" },
       { en: "VHDL" },
@@ -589,11 +616,10 @@ const skillGroups: GroupSeed[] = [
     key: "web",
     title: { en: "Web and backend", cs: "Web a backend" },
     skills: [
-      { en: "Next.js, React", usedIn: ["csg-website", "skladon-website", "solidsun-platform", "dev-events"] },
+      { en: "Next.js, React", usedIn: ["csg-website", "skladon-website", "solidsun-platform"] },
       { en: "Tailwind CSS", usedIn: ["csg-website", "solidsun-platform"] },
-      { en: "Storybook", usedIn: ["csg-website", "raynet-leaderboard"] },
+      { en: "Storybook", usedIn: ["csg-website"] },
       { en: "Sanity CMS", usedIn: ["csg-website", "skladon-website"] },
-      { en: "Express", usedIn: ["raynet-leaderboard"] },
       { en: "Prisma, PostgreSQL" },
       { en: "PHP, MySQL" },
     ],
@@ -611,12 +637,12 @@ const skillGroups: GroupSeed[] = [
     key: "tools",
     title: { en: "Tools", cs: "Nástroje" },
     skills: [
-      { en: "Git" },
+      { en: "Git", detail: { en: "Used in every project", cs: "Používám ve všech projektech" } },
       { en: "CMake", usedIn: ["zpg", "modal-text-editor", "tetris"] },
       { en: "Maven", usedIn: ["catering-is", "donkey-kong"] },
       { en: "Pytest", usedIn: ["futtec"] },
       { en: "Docker", usedIn: ["catering-is"] },
-      { en: "Linux (Debian)" },
+      { en: "Linux", detail: { en: "Debian (daily driver); also Mint, Arch, Fedora", cs: "Debian (každodenně); dále Mint, Arch, Fedora" } },
     ],
   },
   {
@@ -714,8 +740,12 @@ async function seedSkills() {
   for (const [gi, g] of skillGroups.entries()) {
     const group = { sortOrder: gi + 1, titleEn: g.title.en, titleCs: g.title.cs };
     const row = await prisma.skillGroup.upsert({ where: { key: g.key }, update: group, create: { key: g.key, ...group } });
+    // Renamed rows are updated in place (no duplicate); runs once, then matches nothing.
+    await prisma.skill.updateMany({ where: { groupId: row.id, nameEn: "Linux (Debian)" }, data: { nameEn: "Linux", nameCs: "Linux" } });
+    // Express is no longer used in any listed project. Jan approved deleting this one row (2026-11-18).
+    await prisma.skill.deleteMany({ where: { groupId: row.id, nameEn: "Express" } });
     for (const [si, s] of g.skills.entries()) {
-      const skill = { sortOrder: si + 1, nameCs: s.cs ?? s.en, usedIn: s.usedIn ?? [] };
+      const skill = { sortOrder: si + 1, nameCs: s.cs ?? s.en, usedIn: s.usedIn ?? [], detailEn: s.detail?.en ?? null, detailCs: s.detail?.cs ?? null };
       await prisma.skill.upsert({
         where: { groupId_nameEn: { groupId: row.id, nameEn: s.en } },
         update: skill,

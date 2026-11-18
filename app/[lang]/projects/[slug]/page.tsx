@@ -1,11 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { ArrowLeft, Code, ExternalLink } from "lucide-react";
 import { getDict, langs, type Lang } from "@/lib/i18n";
 import { getProject, getProjects } from "@/lib/content";
 import { Characteristics } from "@/components/projects";
 import { pageMeta } from "../../meta";
+
+// Projects removed from the site; their old URLs send visitors to the list.
+const retiredSlugs = ["raynet-leaderboard", "dev-events"];
 
 // First request for an unlisted slug waits for the full render, so notFound() sends a real 404.
 export const ensureStatic = "navigation";
@@ -24,7 +27,10 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/projects/[
 export default async function ProjectPage({ params }: PageProps<"/[lang]/projects/[slug]">) {
   const { lang, slug } = (await params) as { lang: Lang; slug: string };
   const p = await getProject(lang, slug);
-  if (!p) notFound();
+  if (!p) {
+    if (retiredSlugs.includes(slug)) redirect(`/${lang}/projects`);
+    notFound();
+  }
   const d = getDict(lang);
 
   return (

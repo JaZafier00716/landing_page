@@ -11,6 +11,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
+    "test": "node --test lib/*.test.ts",
     "prisma:generate": "prisma generate",
     "postinstall": "prisma generate"
   },

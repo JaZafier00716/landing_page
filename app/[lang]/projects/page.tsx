@@ -16,7 +16,6 @@ export default async function ProjectsPage({ params }: PageProps<"/[lang]/projec
   const groups = [
     { kind: "work", title: d.work },
     { kind: "school", title: d.school },
-    { kind: "other", title: d.other },
   ] as const;
 
   return (
