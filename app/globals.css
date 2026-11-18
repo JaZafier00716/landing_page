@@ -237,6 +237,11 @@
     }
     .hit-list { line-height: 2.75rem; }
   }
+  /* Phones: list-style links become full-width 44px rows (one link per line); inline from sm. */
+  @media (width < 40rem) {
+    .link-row { display: flex; align-items: center; min-height: 2.75rem; width: 100%; }
+    .link-row::after { inset-inline: 0; height: 100%; }
+  }
 
   /* ---- buttons ---- */
   .btn {

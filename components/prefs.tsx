@@ -47,7 +47,7 @@ export function PrefsTrigger({ lang }: { lang: Lang }) {
 
 export function PrefsPopover({ lang }: { lang: Lang }) {
   return (
-    <div id="prefs" popover="auto" aria-label={getDict(lang).prefs.name} className="prefs-pop max-lg:hidden">
+    <div id="prefs" popover="auto" role="dialog" aria-label={getDict(lang).prefs.name} className="prefs-pop max-lg:hidden">
       <PrefRows lang={lang} />
     </div>
   );

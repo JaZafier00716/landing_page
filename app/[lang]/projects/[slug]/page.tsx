@@ -1,17 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
-import { notFound, permanentRedirect } from "next/navigation";
+import { permanentRedirect } from "next/navigation";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { getDict, langs, type Lang } from "@/lib/i18n";
 import { getProject, getProjects } from "@/lib/content";
 import { Characteristics } from "@/components/projects";
 import StackChips from "@/components/stack-chips";
+import NotFoundView from "@/components/not-found-view";
 import { pageMeta } from "../../meta";
 
 // Projects removed from the site; their old URLs send visitors to the list.
 const retiredSlugs = ["raynet-leaderboard", "dev-events"];
 
-// First request for an unlisted slug waits for the full render, so notFound() sends a real 404.
+// First request for an unlisted slug waits for the full render (static result, no streaming).
 export const ensureStatic = "navigation";
 
 export async function generateStaticParams() {
@@ -22,7 +23,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps<"/[lang]/projects/[slug]">) {
   const { lang, slug } = (await params) as { lang: Lang; slug: string };
   const p = await getProject(lang, slug);
-  return p ? pageMeta(lang, `/projects/${slug}`, p.name, p.summary) : {};
+  return p ? pageMeta(lang, `/projects/${slug}`, p.name, p.summary) : { title: getDict(lang).notFound.title, robots: { index: false } };
 }
 
 export default async function ProjectPage({ params }: PageProps<"/[lang]/projects/[slug]">) {
@@ -30,7 +31,8 @@ export default async function ProjectPage({ params }: PageProps<"/[lang]/project
   const p = await getProject(lang, slug);
   if (!p) {
     if (retiredSlugs.includes(slug)) permanentRedirect(`/${lang}/projects`);
-    notFound();
+    // Rendered here, not via notFound(): under cacheComponents that sends an empty client-filled shell.
+    return <NotFoundView lang={lang} />;
   }
   const d = getDict(lang);
   const all = await getProjects(lang);

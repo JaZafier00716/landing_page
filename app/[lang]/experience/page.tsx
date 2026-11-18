@@ -20,7 +20,7 @@ function Entry({ e, lang }: { e: ExperienceEntry; lang: Lang }) {
       </div>
       <p className="font-semibold" translate="no">
         {e.url ? (
-          <a href={e.url} target="_blank" rel="noopener" className="link hit">
+          <a href={e.url} target="_blank" rel="noopener" className="link hit link-row">
             {e.company}
             <span className="sr-only"> {dict.newTab}</span>
           </a>
@@ -40,9 +40,9 @@ function Entry({ e, lang }: { e: ExperienceEntry; lang: Lang }) {
         <p className="hit-list">
           <span className="mono-meta text-muted">{dict.experience.related}: </span>
           {e.related.map((r, i) => (
-            <span key={r.slug}>
-              {i > 0 && ", "}
-              <Link href={`/${lang}/projects/${r.slug}`} className="link hit">
+            <span key={r.slug} className="max-sm:block">
+              {i > 0 && <span className="max-sm:hidden">, </span>}
+              <Link href={`/${lang}/projects/${r.slug}`} className="link hit link-row">
                 {r.name}
               </Link>
             </span>

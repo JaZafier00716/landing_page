@@ -22,7 +22,7 @@ const en = {
     title: "Jan Zámostný, computer science student",
     titleLine: "Software developer\u00A0· QA automation\u00A0· Ostrava",
     status: "Open to opportunities",
-    statement: "I build and test software, from C and OpenGL up to Next.js. At FUTTEC I’ve written 1,200+ automated tests.",
+    statement: "I build and test software, from C and OpenGL up to Next.js.",
     readout: {
       now: "now",
       study: "study",
@@ -58,7 +58,7 @@ const en = {
     message: "Message",
     send: "Send message",
     sending: "Sending…",
-    privacy: "I use your name and email only to reply to your message.",
+    privacy: "I use your name and email only to reply. Your message is delivered to me by email via Resend and isn’t stored on this site.",
     errorPrefix: "Error:",
     errors: {
       name: "Enter your name.",
@@ -142,14 +142,14 @@ const cs: Dict = {
     title: "Jan Zámostný, student informatiky",
     titleLine: "Softwarový vývojář\u00A0· automatizace testů\u00A0· Ostrava",
     status: "Otevřený nabídkám",
-    statement: "Vyvíjím a testuji software od C a OpenGL až po Next.js. Ve FUTTEC jsem napsal přes 1\u00A0200 automatizovaných testů.",
+    statement: "Vyvíjím a testuji software, od C a OpenGL až po Next.js.",
     readout: {
       now: "nyní",
       study: "studium",
       based: "místo",
       stack: "technologie",
       before: "dříve",
-      want: "zájem",
+      want: "hledám",
       nowValue: "QA Automation Engineer (stáž), FUTTEC a.s. · na dálku · od září 2026",
       studyValue: "Bakalářské studium, Informatika, VŠB – Technická univerzita Ostrava · GPA 94,42/100 · od září 2027 plánuji magistra",
       basedValue: "Ostrava",
@@ -178,7 +178,7 @@ const cs: Dict = {
     message: "Zpráva",
     send: "Odeslat zprávu",
     sending: "Odesílám…",
-    privacy: "Jméno a e-mail použiji jen k odpovědi na vaši zprávu.",
+    privacy: "Jméno a e-mail použiji jen k odpovědi. Zprávu mi doručí e-mailem služba Resend, na tomto webu se neukládá.",
     errorPrefix: "Chyba:",
     errors: {
       name: "Vyplňte své jméno.",

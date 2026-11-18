@@ -82,7 +82,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
       <div className="container-page">
         <section aria-labelledby="featured" className="py-10">
           <h2 id="featured" className="h2 mb-6">{h.featured}</h2>
-          <div className="grid items-start gap-6 md:grid-cols-2">
+          <div className="grid gap-6 md:grid-cols-2">
             {featured.map((p) => (
               <CaseCard key={p.slug} project={p} lang={lang} />
             ))}
