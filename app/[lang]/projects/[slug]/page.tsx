@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
-import { ArrowLeft, Code, ExternalLink } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, Code } from "lucide-react";
 import { getDict, langs, type Lang } from "@/lib/i18n";
 import { getProject, getProjects } from "@/lib/content";
 import { Characteristics } from "@/components/projects";
@@ -32,25 +32,29 @@ export default async function ProjectPage({ params }: PageProps<"/[lang]/project
     notFound();
   }
   const d = getDict(lang);
+  const all = await getProjects(lang);
+  const next = all[(all.findIndex((x) => x.slug === slug) + 1) % all.length];
 
   return (
-    <article className="container-page max-w-[64rem] py-12 lg:py-20">
+    <article className="container-page section max-w-[64rem]">
       <Link href={`/${lang}/projects`} className="link inline-flex min-h-11 items-center gap-2">
-        <ArrowLeft aria-hidden className="size-4" />
+        <ArrowLeft aria-hidden className="size-[1em]" />
         {d.projects.back}
       </Link>
-      <h1 className="h1-inner mt-6">{p.name}</h1>
-      <p className="mt-4 max-w-prose text-[1.0625rem] text-muted lg:text-[1.375rem]">{p.summary}</p>
+      <h1 translate="no" className="h1-inner mt-6">{p.name}</h1>
+      <p className="text-lead mt-4 max-w-prose text-muted">{p.summary}</p>
       {p.thumbnail && (
-        <Image
-          src={p.thumbnail}
-          alt={p.thumbnailAlt}
-          width={1600}
-          height={1000}
-          priority
-          sizes="(min-width:1024px) 64rem, 100vw"
-          className="mt-8 aspect-[16/10] w-full rounded-sm border border-border object-cover object-left-top"
-        />
+        <div className="img-frame mt-8">
+          <Image
+            src={p.thumbnail}
+            alt={p.thumbnailAlt}
+            width={1600}
+            height={1000}
+            priority
+            sizes="(min-width:1024px) 64rem, 100vw"
+            className="aspect-[16/10] w-full object-cover object-left-top"
+          />
+        </div>
       )}
       <div className="mt-8">
         <Characteristics project={p} lang={lang} />
@@ -68,14 +72,14 @@ export default async function ProjectPage({ params }: PageProps<"/[lang]/project
       <div className="mt-10 flex flex-col gap-3 sm:flex-row">
         {p.sourceUrl && (
           <a href={p.sourceUrl} target="_blank" rel="noopener" className="btn btn-primary">
-            <Code aria-hidden />
+            <Code aria-hidden strokeWidth={2} />
             {d.projects.viewSource}
             <span className="sr-only"> {d.newTab}</span>
           </a>
         )}
         {p.liveUrl && (
           <a href={p.liveUrl} target="_blank" rel="noopener" className="btn btn-primary">
-            <ExternalLink aria-hidden />
+            <ArrowUpRight aria-hidden strokeWidth={2} />
             {d.projects.openLive}
             <span className="sr-only"> {d.newTab}</span>
           </a>
@@ -84,6 +88,20 @@ export default async function ProjectPage({ params }: PageProps<"/[lang]/project
           {d.projects.all}
         </Link>
       </div>
+      {next.slug !== slug && (
+        <Link
+          href={`/${lang}/projects/${next.slug}`}
+          className="group mt-12 flex items-center justify-between gap-6 border-y border-border py-4 hover:bg-surface hover:shadow-1 active:bg-press"
+        >
+          <span className="flex min-w-0 flex-col">
+            <span className="mono-meta text-muted">{d.projects.next}</span>
+            <span translate="no" className="h3 group-hover:underline">
+              {next.name}
+            </span>
+          </span>
+          <ArrowRight aria-hidden className="size-5 flex-none transition-transform duration-150 ease-in-out group-hover:translate-x-1" />
+        </Link>
+      )}
     </article>
   );
 }

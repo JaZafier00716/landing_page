@@ -38,6 +38,7 @@ const en = {
     courses: "Courses and certificates",
     present: "present",
     related: "Related projects",
+    contact: "Get in touch",
     description: "Work experience, education and courses of Jan Zámostný.",
   },
   projects: {
@@ -51,6 +52,7 @@ const en = {
     openLive: "Open live site",
     all: "All projects",
     back: "Back to projects",
+    next: "Next project",
     about: "Description",
     description: "Work and school projects by Jan Zámostný: C, C++, OpenGL, Java and Next.js.",
   },
@@ -109,6 +111,7 @@ const cs: Dict = {
     courses: "Kurzy a certifikáty",
     present: "současnost",
     related: "Související projekty",
+    contact: "Napište mi",
     description: "Pracovní zkušenosti, vzdělání a kurzy Jana Zámostného.",
   },
   projects: {
@@ -122,6 +125,7 @@ const cs: Dict = {
     openLive: "Otevřít web",
     all: "Všechny projekty",
     back: "Zpět na projekty",
+    next: "Další projekt",
     about: "Popis",
     description: "Pracovní a školní projekty Jana Zámostného: C, C++, OpenGL, Java a Next.js.",
   },
