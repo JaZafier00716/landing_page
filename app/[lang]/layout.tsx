@@ -6,7 +6,6 @@ import { themeColors } from "../theme";
 import { getDict, isLang, langs, siteUrl } from "@/lib/i18n";
 import SiteHeader from "@/components/site-header";
 import SiteFooter from "@/components/site-footer";
-import CvFab from "@/components/cv-fab";
 
 export const generateStaticParams = () => langs.map((lang) => ({ lang }));
 
@@ -50,7 +49,6 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
         <SiteHeader lang={lang} />
         <main id="main" tabIndex={-1}>
           {children}
-          <CvFab lang={lang} />
         </main>
         <SiteFooter lang={lang} />
       </body>

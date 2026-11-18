@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { ChartScatter, Code, Languages, Server, Shapes, Wrench } from "lucide-react";
 import { getDict, type Lang } from "@/lib/i18n";
 import { getSkills } from "@/lib/content";
+import TechIcon, { techKey } from "@/components/tech-icon";
 import { pageMeta } from "../meta";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/skills">) {
@@ -9,8 +9,6 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/skills">) 
   const d = getDict(lang).skills;
   return pageMeta(lang, "/skills", d.title, d.description);
 }
-
-const icons = { programming: Code, graphics: Shapes, web: Server, data: ChartScatter, tools: Wrench, spoken: Languages };
 
 export default async function SkillsPage({ params }: PageProps<"/[lang]/skills">) {
   const lang = (await params).lang as Lang;
@@ -21,21 +19,16 @@ export default async function SkillsPage({ params }: PageProps<"/[lang]/skills">
     <div className="container-page section">
       <h1 className="h1-inner">{d.title}</h1>
       <p className="mt-4 max-w-prose text-muted">{d.intro}</p>
-      {groups.map((g) => {
-        const Icon = icons[g.key as keyof typeof icons];
-        return (
+      {groups.map((g) => (
         <section key={g.key} id={g.key} aria-labelledby={`h-${g.key}`} className="mt-12 lg:mt-16">
-          <h2 id={`h-${g.key}`} className="h2 mb-4">
-            {Icon && <Icon aria-hidden />}
-            {g.title}
-          </h2>
+          <h2 id={`h-${g.key}`} className="h2 mb-4">{g.title}</h2>
           <table className="w-full border-collapse text-left">
             <thead className="sr-only sm:not-sr-only">
               <tr className="border-b border-border">
-                <th scope="col" className="py-2 pr-6 font-semibold [font-stretch:87.5%] text-muted sm:w-2/5">
+                <th scope="col" className="py-2 pr-6 font-semibold text-muted sm:w-2/5">
                   {d.skill}
                 </th>
-                <th scope="col" className="py-2 font-semibold [font-stretch:87.5%] text-muted">
+                <th scope="col" className="py-2 font-semibold text-muted">
                   {d.usedIn}
                 </th>
               </tr>
@@ -44,9 +37,12 @@ export default async function SkillsPage({ params }: PageProps<"/[lang]/skills">
               {g.skills.map((s) => (
                 <tr key={s.name} className="flex flex-col border-b border-border py-3 sm:table-row">
                   <th scope="row" translate="no" className="pr-6 font-semibold sm:py-3 sm:align-top">
-                    {s.name}
+                    <span className="inline-flex items-center gap-2">
+                      {techKey(s.name) && <TechIcon name={s.name} className="size-[1.25em] flex-none" />}
+                      {s.name}
+                    </span>
                   </th>
-                  <td lang={lang} className="hit-list text-muted hyphens-auto sm:py-3">
+                  <td lang={lang} className="hit-list text-muted narrow sm:py-3">
                     {s.detail && s.detail}
                     {!s.detail && s.usedIn.length === 0 && (
                       <>
@@ -68,8 +64,7 @@ export default async function SkillsPage({ params }: PageProps<"/[lang]/skills">
             </tbody>
           </table>
         </section>
-        );
-      })}
+      ))}
     </div>
   );
 }

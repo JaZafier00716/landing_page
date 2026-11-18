@@ -11,11 +11,11 @@ export default function NotFound() {
       <p lang="cs" className="mt-2 max-w-prose text-muted">
         {cs.notFound.title}. {cs.notFound.text}
       </p>
-      <p className="mt-8 flex flex-col gap-3 sm:flex-row">
-        <Link href="/en/projects" className="btn btn-primary">
-          {en.nav.projects}
+      <p className="mt-8 flex flex-wrap gap-x-6">
+        <Link href="/en/projects" className="link inline-flex min-h-11 items-center">
+          {en.projects.all}
         </Link>
-        <Link href="/en" className="btn btn-secondary">
+        <Link href="/en" className="link inline-flex min-h-11 items-center">
           {en.notFound.home}
         </Link>
       </p>
