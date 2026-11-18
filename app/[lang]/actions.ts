@@ -2,13 +2,12 @@
 
 import { headers } from "next/headers";
 import { Resend } from "resend";
-import { checkBotId } from "botid/server";
 import { checkRateLimit } from "@vercel/firewall";
 import { initialContactState, type ContactState } from "@/lib/contact";
 
 const str = (fd: FormData, k: string) => String(fd.get(k) ?? "").trim();
 
-/** Validates (trust boundary), screens bots, then emails the message. Nothing is stored. Works without JS. */
+/** Validates (trust boundary), screens bots (honeypot + WAF rate limit), then emails the message. Nothing is stored. Works without JS. */
 export async function sendMessage(_prev: ContactState, fd: FormData): Promise<ContactState> {
   const values = { name: str(fd, "name"), email: str(fd, "email"), message: str(fd, "message") };
   const errors: ContactState["errors"] = {};
@@ -23,11 +22,6 @@ export async function sendMessage(_prev: ContactState, fd: FormData): Promise<Co
 
   const failed: ContactState = { status: "failed", errors: {}, values };
   const h = await headers();
-  try {
-    if ((await checkBotId()).isBot) return failed;
-  } catch (e) {
-    console.error("contact: botid check failed", e);
-  }
   try {
     // Missing rule (not-found) or a non-Vercel environment counts as not limited.
     const { rateLimited, error } = await checkRateLimit("contact-form", { headers: h, timeout: 2000 });
