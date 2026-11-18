@@ -44,7 +44,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
           <div className="flex flex-col gap-4 lg:col-span-7 lg:gap-5">
             <div className="hero-item flex items-center gap-4" style={item(0)}>
               <div className="portrait w-16 flex-none sm:w-24">
-                <Image src={portrait} alt="" priority sizes="96px" className="size-full object-cover object-[50%_30%]" />
+                <Image src={portrait} alt="" loading="eager" fetchPriority="high" sizes="96px" className="size-full object-cover object-[50%_30%]" />
               </div>
               <h1 translate="no" className="h1-name">{person.name}</h1>
             </div>

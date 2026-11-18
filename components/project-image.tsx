@@ -7,7 +7,7 @@ export default function ProjectImage({ project: p, sizes, priority, className = 
   if (p.thumbnail)
     return (
       <div className={`img-frame ${className}`}>
-        <Image src={p.thumbnail} alt={p.thumbnailAlt} width={1600} height={1000} sizes={sizes} priority={priority} className="aspect-[16/10] w-full object-cover object-left-top" />
+        <Image src={p.thumbnail} alt={p.thumbnailAlt} width={1600} height={1000} sizes={sizes} {...(priority && { loading: "eager", fetchPriority: "high" })} className="aspect-[16/10] w-full object-cover object-left-top" />
       </div>
     );
   const icons = p.stack.filter((s) => techKey(s)).slice(0, 4);
