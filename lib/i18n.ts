@@ -102,7 +102,7 @@ const cs: Dict = {
   },
   cv: { download: "Stáhnout CV", meta: "PDF" },
   contact: { title: "Kontakt", email: "E-mail", phone: "Telefon", linkedin: "LinkedIn", github: "GitHub" },
-  copy: { email: "Kopírovat e-mail", phone: "Kopírovat telefon", done: "Zkopírováno", failed: "Kopírování selhalo" },
+  copy: { email: "Kopírovat e-mail", phone: "Kopírovat telefonní číslo", done: "Zkopírováno", failed: "Kopírování selhalo" },
   experience: {
     title: "Zkušenosti",
     intro: "Práce, škola a kurzy, od nejnovějších.",
