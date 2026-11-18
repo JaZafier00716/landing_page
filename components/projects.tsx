@@ -1,6 +1,7 @@
 import { ArrowUpRight } from "lucide-react";
 import { getDict, type Lang } from "@/lib/i18n";
 import type { Project } from "@/lib/content";
+import { TechLabel } from "./tech-icon";
 
 const bare = (url: string) => url.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
 
@@ -27,9 +28,9 @@ export function Characteristics({ project: p, lang, omitStack = false }: { proje
         ]
       : [
           [t.role, p.role],
-          [t.language, p.language],
-          [t.libraries, p.libraries],
-          [t.platform, p.platform],
+          [t.language, p.language && <TechLabel name={p.language} />],
+          [t.libraries, p.libraries && <TechLabel name={p.libraries} />],
+          [t.platform, p.platform && <TechLabel name={p.platform} />],
           [t.source, p.sourceUrl && <ExternalLink href={p.sourceUrl} lang={lang} />],
         ];
   const rows = all.filter(([, value]) => value);
