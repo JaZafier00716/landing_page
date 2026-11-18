@@ -138,11 +138,11 @@ const experiences: ExperienceSeed[] = [
     position: { en: "Bachelor’s degree, Computer Science", cs: "Bakalářské studium, Informatika" },
     bullets: {
       en: [
-        "GPA 94.42/100.",
+        "GPA 90+/100.",
         "Master’s at VŠB planned from September 2027, continuing in Informatics (specialisation not decided yet).",
       ],
       cs: [
-        "GPA 94,42/100.",
+        "GPA 90+/100.",
         "Od září 2027 plánuji navázat magisterským studiem informatiky na VŠB (specializace zatím není určena).",
       ],
     },

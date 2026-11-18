@@ -18,7 +18,7 @@ Draft copy for the redesigned home page and shared chrome. Sources: `data/seed.t
 | Name (h1) | Jan Zámostný |
 | Title line | Software developer · QA automation · Ostrava |
 | `now` | QA Automation Engineer (internship), FUTTEC a.s. · remote · since Sep 2026 |
-| `study` | Bachelor’s, Computer Science, VŠB – Technical University of Ostrava · GPA 94.42/100 · master’s planned from Sep 2027 |
+| `study` | Bachelor’s, Computer Science, VŠB – Technical University of Ostrava · GPA 90+/100 · master’s planned from Sep 2027 |
 | `based` | Ostrava, Czech Republic |
 | `stack` | C · C++ · OpenGL · Java · Python · TypeScript / Next.js |
 | `before` | Frontend developer at SHOWMORE (2024) and Blackfish (2023, contract) |
@@ -39,7 +39,7 @@ Readout keys translated: `nyní`, `studium`, `místo`, `stack` → `technologie`
 | Jméno (h1) | Jan Zámostný |
 | Titulek | Softwarový vývojář · automatizace testů · Ostrava |
 | `nyní` | QA Automation Engineer (stáž), FUTTEC a.s. · na dálku · od září 2026 |
-| `studium` | Informatika (Bc.), VŠB – Technická univerzita Ostrava · GPA 94,42/100 · od září 2027 navazující magisterské studium |
+| `studium` | Informatika (Bc.), VŠB – Technická univerzita Ostrava · GPA 90+/100 · od září 2027 navazující magisterské studium |
 | `místo` | Ostrava |
 | `technologie` | C · C++ · OpenGL · Java · Python · TypeScript / Next.js |
 | `dříve` | Frontend vývojář ve firmách SHOWMORE (2024) a Blackfish (2023, externě) |
@@ -54,11 +54,11 @@ Alternative title line: „Student informatiky · stážista v QA automatizaci �
 
 ### EN (113 words)
 
-I study computer science at VŠB – Technical University of Ostrava (GPA 94.42/100) and work remotely as a QA automation intern at FUTTEC, where I write Pytest tests and track bugs. Before that I built Next.js frontends at Blackfish and SHOWMORE, including major components for the Czechoslovak Group and Skladon websites. At school I like going lower in the stack: a modal text editor in C++23, Tetris in C with SDL2, 3D rendering in OpenGL. I also wrote a catering information system in Java with 330 automated tests. I plan to start a master’s in September 2027. Until then I’m open to part-time or near full-time work, on-site or hybrid in Ostrava, or remote.
+I study computer science at VŠB – Technical University of Ostrava (GPA 90+/100) and work remotely as a QA automation intern at FUTTEC, where I write Pytest tests and track bugs. Before that I built Next.js frontends at Blackfish and SHOWMORE, including major components for the Czechoslovak Group and Skladon websites. At school I like going lower in the stack: a modal text editor in C++23, Tetris in C with SDL2, 3D rendering in OpenGL. I also wrote a catering information system in Java with 330 automated tests. I plan to start a master’s in September 2027. Until then I’m open to part-time or near full-time work, on-site or hybrid in Ostrava, or remote.
 
 ### CS (108 slov) (CS — for Jan to proofread)
 
-Studuji informatiku na VŠB – Technické univerzitě Ostrava (GPA 94,42/100) a na dálku pracuji jako stážista v QA automatizaci ve společnosti FUTTEC: píšu testy v Pytestu a eviduji chyby. Předtím jsem ve firmách Blackfish a SHOWMORE vyvíjel frontend v Next.js, mimo jiné hlavní komponenty pro weby Czechoslovak Group a Skladon. Ve škole mě baví nízkoúrovňové programování: modální textový editor v C++23, Tetris v C se SDL2, 3D vykreslování v OpenGL. V Javě jsem napsal také informační systém pro catering s 330 automatizovanými testy. Od září 2027 plánuji magisterské studium. Do té doby jsem otevřený nabídkám na částečný nebo téměř plný úvazek, prezenčně či hybridně v Ostravě, nebo na dálku.
+Studuji informatiku na VŠB – Technické univerzitě Ostrava (GPA 90+/100) a na dálku pracuji jako stážista v QA automatizaci ve společnosti FUTTEC: píšu testy v Pytestu a eviduji chyby. Předtím jsem ve firmách Blackfish a SHOWMORE vyvíjel frontend v Next.js, mimo jiné hlavní komponenty pro weby Czechoslovak Group a Skladon. Ve škole mě baví nízkoúrovňové programování: modální textový editor v C++23, Tetris v C se SDL2, 3D vykreslování v OpenGL. V Javě jsem napsal také informační systém pro catering s 330 automatizovanými testy. Od září 2027 plánuji magisterské studium. Do té doby jsem otevřený nabídkám na částečný nebo téměř plný úvazek, prezenčně či hybridně v Ostravě, nebo na dálku.
 
 ---
 
@@ -196,7 +196,7 @@ Courses (CAE, Udemy) keep their title line only. One bullet each is given below 
 - Tested system stability and troubleshot peripherals and electronics.
 
 **VŠB – Technical University of Ostrava, FEI**, Bachelor’s, Computer Science, Sep 2024–present
-- GPA 94.42/100.
+- GPA 90+/100.
 - Master’s at VŠB planned from September 2027, continuing in Informatics (specialisation not decided yet).
 
 **SPŠE Havířov**, Information Technology, 2020–2024
@@ -235,7 +235,7 @@ Note: "Migrated content into Sanity" combines two seed facts (CSG content is man
 - Testoval jsem stabilitu systémů a řešil problémy s periferiemi a elektronikou.
 
 **VŠB – Technická univerzita Ostrava, FEI**, Bakalářské studium, Informatika, září 2024 – současnost
-- GPA 94,42/100.
+- GPA 90+/100.
 - Od září 2027 plánuji navázat magisterským studiem informatiky na VŠB (specializace zatím není určena). (new CS)
 
 **SPŠE Havířov**, Informační technologie, 2020 – 2024
