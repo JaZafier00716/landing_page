@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 import "../globals.css";
-import { archivo, redHatMono } from "../fonts";
+import { archivo, archivoSemiWide, archivoWide, redHatMono } from "../fonts";
 import { themeColors } from "../theme";
 import { getDict, isLang, langs, siteUrl } from "@/lib/i18n";
 import SiteHeader from "@/components/site-header";
@@ -35,7 +35,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
   if (!isLang(lang)) notFound();
   const dict = getDict(lang);
   return (
-    <html lang={lang} className={`${archivo.variable} ${redHatMono.variable}`} suppressHydrationWarning>
+    <html lang={lang} className={`${archivo.variable} ${archivoWide.variable} ${archivoSemiWide.variable} ${redHatMono.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>

@@ -51,6 +51,7 @@
 
   --font-sans: var(--font-archivo), system-ui, sans-serif;
   --font-mono: var(--font-redhatmono), ui-monospace, monospace;
+  --font-display: var(--font-archivo-wide), var(--font-archivo), system-ui, sans-serif;
 
   /* type scale: mobile 16px x1.2 @360px -> desktop 17px x1.25 @1280px */
   --text-meta: clamp(0.8333rem, 0.8268rem + 0.029vw, 0.85rem);    /* 13.3–13.6 */
@@ -609,16 +610,16 @@
     line-height: var(--text-h1--line-height);
     letter-spacing: var(--text-h1--letter-spacing);
     font-weight: 600;
-    font-stretch: 125%;
+    font-family: var(--font-display);
   }
   .h1-name { overflow-wrap: normal; }
-  @media (max-width: 39.999rem) { .h1-name { font-stretch: 112.5%; } }
+  @media (max-width: 39.999rem) { .h1-name { font-family: var(--font-archivo-semiwide), var(--font-display); } }
   .h2 {
     font-size: var(--text-h2);
     line-height: var(--text-h2--line-height);
     letter-spacing: var(--text-h2--letter-spacing);
     font-weight: 600;
-    font-stretch: 125%;
+    font-family: var(--font-display);
   }
   .h3 { font-size: var(--text-lead); line-height: var(--text-lead--line-height); font-weight: 600; }
   .narrow { hyphens: auto; }

@@ -55,11 +55,11 @@ Container hover background: `color-mix(in oklch, var(--color-text) var(--hover-m
 Rules: body text uses `text`. `muted` is for metadata only (readout keys, dates, sizes, summaries), never on `press` in light. `border` is never the only cue for something the user must see; use `border-strong`. Accent covers about 10% of a screen: the CV button/pill, the current nav underline, the status dot, the current-role timeline dot, link hover and the focus ring. There are no semantic colors: errors use text, an icon and `aria-invalid`, never red.
 
 ## 3. Typography
-Fonts come from `next/font/google` (`app/fonts.ts`): Archivo (variable wght + `wdth`) and Red Hat Mono, both `latin` + `latin-ext`. **Weights 400 and 600 only** (800 is dropped). Mono is 400. Root: `antialiased`, `text-size-adjust: 100%`.
+Fonts are self-hosted static subset instances (`app/fonts/`, built from the Google Fonts variable files by `app/fonts/build.sh`, OFL) loaded with `next/font/local`: Archivo 400 and 600 (`--font-archivo`), Archivo 600 at 125% width (`--font-archivo-wide`, used as `--font-display` for h1/h2), Archivo 600 at 112.5% (`--font-archivo-semiwide`, the phone hero name only, not preloaded) and Red Hat Mono 400 (not preloaded). Each is about 14 KB with Latin + Latin Extended-A (Czech). **Weights 400 and 600 only.** Add an instance to `build.sh` before using a new weight or width. Root: `antialiased`, `text-size-adjust: 100%`.
 
 | Role | Token | Family / width | Weight | Wrap |
 |---|---|---|---|---|
-| Name (h1 on `/`), inner h1 | `text-h1` | Archivo `font-stretch:125%` | 600 | balance |
+| Name (h1 on `/`), inner h1 | `text-h1` | `--font-display` (Archivo 125%) | 600 | balance |
 | h2 (section titles, plain words) | `text-h2` | Archivo 125% | 600 | balance |
 | h3, card titles, timeline roles | `text-lead` (cards/nodes `text-body`) | Archivo 100% | 600 | balance |
 | Hero statement | `text-lead` | Archivo 100% | 400, `max-width: 28ch` | balance |
@@ -67,7 +67,7 @@ Fonts come from `next/font/google` (`app/fonts.ts`): Archivo (variable wght + `w
 | Readout, chips, dates, labels, sizes, footer | `text-meta` | Red Hat Mono | 400 (keys `muted`, values `text`) | pretty |
 
 - `--text-display`, the `.eyebrow` class and all uppercase text are removed. Readout keys are lowercase words, not labels in caps. Section titles carry no numbering; only the timeline shows years, because it is a sequence.
-- No off-scale sizes, no `px` line-heights, letter-spacing in `em` only. Prose `max-width: 65ch`. The name must not clip at 320 px (`overflow-wrap: normal`; below `sm` drop to `font-stretch: 112.5%` if needed).
+- No off-scale sizes, no `px` line-heights, letter-spacing in `em` only. Prose `max-width: 65ch`. The name must not clip at 320 px (`overflow-wrap: normal`; below `sm` it uses `--font-archivo-semiwide`, 112.5%).
 - **Small caps:** not used (the served fonts have no `smcp`).
 - **Numbers:** `.tabular` on dates, ranges, years, sizes and phone numbers. `sub, sup { line-height: 0 }`.
 - **Underlines (links only, never emphasis), §Typography details:** `text-decoration-line: underline; text-underline-offset: var(--underline-offset); text-decoration-thickness: var(--underline-thickness); text-decoration-skip-ink: none`. Hover (inside `@media (hover:hover)`): thickness `var(--underline-thickness-hover)` + `color: var(--color-accent)`. The offset is measured from the baseline and the thickness grows downward, so descenders are never cut, at rest or on hover. Verify with "g y p" links at `text-meta` (13.3 px) and `text-body` (17 px) in both fonts. The current nav item uses `underline-offset: 0.5em` with 2 px accent.
