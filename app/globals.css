@@ -244,10 +244,6 @@
       height: max(100%, 2.75rem);
       translate: 0 -50%;
     }
-    /* Comma lists of links: 44px lines so neighbouring hit areas never overlap when they wrap. */
-    .hit-list {
-      line-height: 2.75rem;
-    }
   }
   @media (hover: hover) {
     .link:hover {

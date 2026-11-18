@@ -38,12 +38,13 @@ function Entry({ e, lang }: { e: ExperienceEntry; lang: Lang }) {
       )}
       {e.stack && <p translate="no" className="mono-meta text-muted">{e.stack}</p>}
       {e.related.length > 0 && (
-        <p className="hit-list">
+        <p>
           <span className="mono-meta text-muted">{dict.experience.related}: </span>
           {e.related.map((r, i) => (
-            <span key={r.slug}>
-              {i > 0 && ", "}
-              <Link href={`/${lang}/projects/${r.slug}`} className="link hit">
+            // Phones: one full-width 44px row per link; from sm: inline comma list.
+            <span key={r.slug} className="max-sm:block">
+              {i > 0 && <span className="max-sm:hidden">, </span>}
+              <Link href={`/${lang}/projects/${r.slug}`} className="link hit max-sm:flex max-sm:min-h-11 max-sm:w-full max-sm:items-center">
                 {r.name}
               </Link>
             </span>
