@@ -55,9 +55,10 @@ export default async function SkillsPage({ params }: PageProps<"/[lang]/skills">
                       </>
                     )}
                     {!s.detail && s.usedIn.map((u, i) => (
-                      <span key={u.href}>
-                        {i > 0 && ", "}
-                        <Link href={u.href} className="link">
+                      // Phones: one full-width 44px row per link; from sm: inline comma list.
+                      <span key={u.href} className="max-sm:block">
+                        {i > 0 && <span className="max-sm:hidden">, </span>}
+                        <Link href={u.href} className="link hit max-sm:flex max-sm:min-h-11 max-sm:w-full max-sm:items-center">
                           {u.name}
                         </Link>
                       </span>

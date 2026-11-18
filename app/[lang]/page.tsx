@@ -23,13 +23,13 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
 
   return (
     <div className="container-page">
-      <section className="grid grid-cols-4 items-start gap-x-6 gap-y-6 py-6 max-lg:min-h-[calc(100svh-var(--header-h)-6rem)] max-lg:content-center lg:grid-cols-12 lg:py-20">
+      <section data-hero className="grid grid-cols-4 items-start gap-x-6 gap-y-6 py-6 max-lg:min-h-[calc(100svh-var(--header-h)-6rem)] max-lg:content-center lg:grid-cols-12 lg:py-20">
         <div className="col-span-4 flex flex-col items-center gap-4 text-center lg:col-span-8 lg:row-start-1 lg:items-start lg:gap-5 lg:text-left">
           <p className="eyebrow">{dict.home.eyebrow}</p>
           <h1 translate="no" className="text-display font-extrabold [font-stretch:112.5%] [overflow-wrap:normal] sm:[font-stretch:125%]">
             {person.name}
           </h1>
-          <p className="text-lead max-w-[40ch] text-muted lg:max-w-[52ch]">{dict.home.role}</p>
+          <p className="text-lead max-w-[40ch] text-muted [text-wrap:balance] lg:max-w-[52ch]">{dict.home.role}</p>
           <div className="mt-2 flex w-full flex-col items-stretch gap-3 sm:w-auto sm:flex-row sm:items-start sm:gap-4">
             <CvButton lang={lang} />
             <a href="#contact" className="btn btn-secondary">

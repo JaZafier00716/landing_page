@@ -8,7 +8,7 @@ const bare = (url: string) => url.replace(/^https?:\/\/(www\.)?/, "").replace(/\
 
 function ExternalLink({ href, lang }: { href: string; lang: Lang }) {
   return (
-    <a href={href} target="_blank" rel="noopener" translate="no" className="link [overflow-wrap:anywhere]">
+    <a href={href} target="_blank" rel="noopener" translate="no" className="link hit [overflow-wrap:anywhere]">
       {bare(href)}
       <ArrowUpRight aria-hidden className="inline size-[1em] align-[-0.1em]" />
       <span className="sr-only"> {getDict(lang).newTab}</span>
@@ -99,8 +99,8 @@ export function ProjectArticle({ project: p, lang }: { project: Project; lang: L
         </div>
       )}
       <div className={`col-span-4 flex min-w-0 flex-col gap-4 ${p.thumbnail ? "lg:col-span-7" : "lg:col-span-8"}`}>
-        <h3 translate="no" className="h2 line-clamp-2">
-          <Link href={`/${lang}/projects/${p.slug}`} className="link">
+        <h3 translate="no" className="h2">
+          <Link href={`/${lang}/projects/${p.slug}`} className="link hit">
             {p.name}
           </Link>
         </h3>
