@@ -133,7 +133,7 @@ Buttons: `<a>`/`<Link>` for navigation and downloads, `<button>` for actions. A 
 `position: sticky; top: 0` at every width, `z-40`, `bg`, bottom hairline, `padding-top: env(safe-area-inset-top)`, height `--header-h`. No shadow, no blur.
 - **`lg`+:** wordmark "Jan Zámostný" (`translate="no"`, 600, `text-lead`, links to `/{lang}`, 44 px hit) | `<nav aria-label>` with Home, Experience, Projects, Skills, **text only** (`<span data-text>` width reserve kept, `px-3`, 44 px tall; Home is current only on exactly `/{lang}`) | utility group outside `<nav>`, at the end: **CV pill**, then **preferences trigger**.
 - **Below `lg`:** wordmark | CV pill | menu button. Preferences are rows inside the menu panel, not a second popover.
-- **CV pill:** `<a href={cvHref(lang)} download class="btn btn-primary cv-pill">` with `Download` + visible "CV" and `aria-label` "Download CV (PDF, n KB)" / "Stáhnout CV (PDF, n KB)". It is out of flow (`position: absolute; inset-inline-end: calc(100% + .5rem)` within the utility group), so there is no empty slot and no shift when it appears; below `lg` it sits left of the menu button. On pages without a hero CV it is always visible (`:root:not(:has([data-hero-cv]))`). On home it follows §5.4. When hidden it is `visibility: hidden` (not focusable, not in the a11y tree).
+- **Header CV:** `<a href={cvHref(lang)} download class="btn btn-primary cv-pill">` with `Download` + visible "CV" below `lg` and "Download CV" / "Stáhnout CV" from `lg`, `aria-label` "Download CV (PDF, n KB)" / "Stáhnout CV (PDF, n KB)". It sits in flow in `.cv-slot`, so its slot is always reserved (no layout shift); below `lg` it is left of the menu button. On pages without a hero CV it is always visible. On home it follows §5.4. When hidden the slot has `data-off`, `inert` and `aria-hidden` (not focusable, not in the a11y tree).
 - **Width budget:** verify at 1024 px in cs ("Domů", "Zkušenosti", "Projekty", "Dovednosti", "CS ☀", "CV") and at 320 px (wordmark + pill + menu button). With the icons gone it should fit; if not, the nav moves inline only from `xl`.
 
 **Preferences (language + theme), one native `popover`.** Why: the inspiration research (Josh W Comeau) found that settings are utilities, not navigation. Hick's law keeps the header to name, 4 links and one CTA, and the one-line footer has no room. A trigger that **shows the current state** (`EN ☾`) keeps a visible language cue for a Czech recruiter, unlike a bare gear. Native `popover` gives light dismiss, Esc and focus return with no JS.
@@ -147,14 +147,10 @@ Buttons: `<a>`/`<Link>` for navigation and downloads, `<button>` for actions. A 
 
 ### 5.4 One CV download (home)
 **Rule:** exactly one CV control is visible at any time on every page and at every width. There is no floating button anywhere: `components/cv-fab.tsx`, `.cv-fab`, `fab-reveal*` and the `main` bottom padding are deleted.
-- Home hero: `<div class="cv-hero" data-hero-cv>` holds the primary "Download CV" (`Download` icon) + mono muted `PDF, n KB` (`tabular`, nbsp before KB). It is the only CV until it scrolls under the header; then it **morphs into the header pill** (~300 ms, `--ease-out`), and back on scroll up. The two are never both visible.
-- **Primary mechanism: true shared element, driven by `site-nav.tsx`** (already client, already renders the header). In one `useEffect`:
-  1. If `[data-hero-cv]` is missing, return (the pill is docked by CSS).
-  2. Set `html[data-cv-js]`, which switches off the CSS fallback below.
-  3. Use one `IntersectionObserver` on the hero CV with `rootMargin` = `-{header-h in px} 0 0 0` and `threshold: [0, 0.98]`, reading the newest entry. Hysteresis: dock only at ratio 0 with `boundingClientRect.top < headerH` (fully under the header); undock only at ratio >= 0.98 (fully clear of it); in between the state is kept, so the button never returns while still partly under the header. `npm run check:cv` guards this.
-  4. On change: `update = () => html.toggleAttribute("data-cv-docked", docked)`. If `document.startViewTransition` exists, call `startViewTransition({ update, types: ["cv"] })` and first `skipTransition()` any running one. Otherwise call `update()` directly and let the CSS transitions below animate.
-  CSS: `view-transition-name: cv` goes on whichever of the two is visible (`:root:not([data-cv-docked]) [data-hero-cv] .btn`, `:root[data-cv-docked] .cv-pill`). `::view-transition-group(cv) { animation-duration: var(--duration-4); animation-timing-function: var(--ease-out) }`. During `:active-view-transition-type(cv)`, `:root` and `.site-header` get `view-transition-name: none`, so the scrolling page is not snapshotted and only the button morphs. **Reduced motion:** the group gets `animation: none` and old/new crossfade at `--duration-1`. **Risk to test:** scrolling and clicking during the 300 ms. If anything freezes, ship the fallback instead (Jan agreed).
-- **Fallback (no JS, no View Transitions API), the lab's CSS scroll flag** scoped to `:root:not([data-cv-js])`: `@property --cv-docked`, `view-timeline: --hero-cv` on `.cv-hero` with `view-timeline-inset: var(--header-h) 0`, `html { timeline-scope }`, and `body { animation: cv-flag … }` that survives the reduced-motion reset. `@container style(--cv-docked: 1)` swaps them with **time-based** transitions (300 ms): the hero button goes to `opacity 0; translate 12px -8px; scale .9`, and the pill goes from `opacity 0; translate 0 6px; scale .9; blur(2px)` to rest. Visibility is delayed so the hidden one leaves the focus order. Reduced motion: opacity only, 150 ms. Browsers without scroll timelines and without JS never dock, so home shows only the hero CV (still one).
+- Home hero: `<div data-hero-cv>` holds the primary "Download CV" (`Download` icon) + mono muted `PDF, n KB` (`tabular`, nbsp before KB). It is **static content**: it never moves, transforms or changes layer; it scrolls away with the page.
+- **Header CV (Apple-style sticky CTA), driven by `site-nav.tsx`:** one `IntersectionObserver` on the hero CV button with `rootMargin` = `-{header height in px} 0 0 0` (rebuilt when the header height changes at 64rem), so "behind the header" counts as out of view. While any part of the hero button is in view, the header CV slot is off (`data-off`, `inert`, `aria-hidden`); otherwise it is on. The state lives in React (per path, like the menu), so a navigation never carries a stale value. Server render on home starts with the slot off; on other pages it is on. Without JS on home the header CV stays off and the hero CV is the one.
+- **Motion:** a CSS transition on `.cv-slot[data-off]`, never scroll-linked and no JS animation. Show: `opacity` 0 → 1 and `translate: 0 4px` → `0`, `--duration-1` (150 ms) `--ease-out`, `visibility` immediately. Hide: 120 ms, `visibility` delayed to the end. It is interruptible: a fast scroll just toggles the attribute, nothing queues. **Reduced motion:** `transition: none` (instant toggle).
+- `npm run check:cv -- <baseUrl>` guards it: at every scroll stop (slow stops around the hand-off, a fast fling, rapid reversals) exactly one CV button is visible and usable, the header one is never shown while the hero one is fully visible, and the hero one never moves; on pages without a hero CV the header one is usable.
 - CV file: `public/cv/jan-zamostny-cv-{lang}.pdf`, `download` attribute, never `target=_blank`. The size comes from `fs.stat`. The download icon never animates.
 
 ### 5.5 Home hero ("spec readout")
@@ -222,21 +218,21 @@ Selected projects (peeks)            Selected projects   [card][card] / [card][c
                                      Experience          ●2026 ──── ●2024 ──── ●2023
                                      Get in touch        [form 7 cols] [email/LinkedIn/GitHub 5]
 ```
-The `[CV]` pill on home stays hidden until the hero CV docks (§5.4). Section order: hero → Selected projects (+ "All projects") → Experience timeline (+ "All experience") → Get in touch. The `Contact` hero button, the eyebrow, the large portrait and the featured-row list are removed.
+The header CV on home stays hidden while the hero CV is in view (§5.4). Section order: hero → Selected projects (+ "All projects") → Experience timeline (+ "All experience") → Get in touch. The `Contact` hero button, the eyebrow, the large portrait and the featured-row list are removed.
 
 **`/{lang}/experience`:** h1 + intro → Work, Education, Courses timelines (§5.8) → "Get in touch" `.link`. No CV button (the header pill is the one CV).
 **`/{lang}/projects`, `/projects/[slug]`, `/skills`, 404:** §5.11.
 
 ## 7. Motion
-All motion is CSS, except the single View Transition call in `site-nav.tsx`. Content is correct and visible with no JS and if no animation runs: **never server-render `opacity: 0`, `visibility: hidden` or an offset transform**, except as `@starting-style` values, view-transition pseudo-elements, or the hidden half of the CV swap (§5.4).
+All motion is CSS. Content is correct and visible with no JS and if no animation runs: **never server-render `opacity: 0`, `visibility: hidden` or an offset transform**, except as `@starting-style` values, view-transition pseudo-elements, or the hidden header CV slot on home (§5.4).
 
 | Token | Value | Use |
 |---|---|---|
 | `--duration-1` | 150 ms | color/background/border hover, press, reduced-motion crossfades, popover exit |
 | `--duration-2` | 200 ms | icon swaps, menu/popover entry, hero entry items |
 | `--duration-3` | 250 ms | page crossfade |
-| `--duration-4` | 300 ms | CV morph; ceiling for any UI transition |
-| `--ease-out` | `cubic-bezier(0.23, 1, 0.32, 1)` | enter, exit, CV morph |
+| `--duration-4` | 300 ms | ceiling for any UI transition |
+| `--ease-out` | `cubic-bezier(0.23, 1, 0.32, 1)` | enter, exit, header CV show/hide |
 | `--ease-in-out` | `cubic-bezier(0.77, 0, 0.175, 1)` | movement on screen |
 | `ease` / `linear` | — | color and hover / ambient loops only |
 | `--stagger` | 40 ms | hero entry and menu rows (30–60 ms) |
@@ -247,7 +243,7 @@ All motion is CSS, except the single View Transition call in `site-nav.tsx`. Con
 - **Popover / menu entry:** `@starting-style { opacity: 0; transform: scale(.95) }`, `transform-origin: top right` (the trigger), `--duration-2`. Menu rows stagger by `--stagger`. Exits are 150 ms (popover) or instant (menu). Never animate from `scale(0)`.
 - **Icon swap** (copy, theme, menu, pause): both icons in one grid cell. The outgoing one goes to `opacity 0; scale(.8); blur(4px)` and the incoming one to rest, over `--duration-2 var(--ease-out)`.
 - **Container arrow:** `.arrow` `translate: 4px 0` on `.box` hover, `--duration-1 var(--ease-out)`.
-- **CV morph:** §5.4 (View Transition group 300 ms `--ease-out`; CSS fallback 300 ms).
+- **Header CV:** §5.4 (opacity + 4px translate, 150 ms show / 120 ms hide, CSS transition on `data-off`).
 - **Page transitions:** React `<ViewTransition>` around the page content plus `@view-transition { navigation: auto }`. Root old/new crossfade at `--duration-3 var(--ease-out)`. The header (`view-transition-name: site-header`) has `animation: none`, so the chrome never fades. Crossfade only.
 - **Ambient loops: max 3 (the grid in the shared layout, the chip marquee and status dot in the home hero), all with class `.ambient`:** (1) dot-grid drift, 12 s; (2) chip marquee, 45 s, mask-faded edges; (3) status-dot ring (`::after` `scale 1 → 2.4`, `opacity .5 → 0`, 2.4 s `--ease-out` infinite; the dot itself is static). They use transform/opacity only. They are **paused** (`animation-play-state: paused`) when `html[data-hero-off]` (off-screen) or `html[data-hidden]` (tab hidden; `data-hero-off` is only ever set on home, so on inner pages the cheap, masked, transform-only grid keeps running while scrolled out of view) is set, or when the motion checkbox is on (§5.5). Both attributes are set by `site-nav.tsx`: the same `IntersectionObserver` also watches `[data-hero]`, and a `visibilitychange` listener handles the tab. No inline script is needed, and without JS the loops simply run. No other infinite animation exists anywhere: no pulsing rules, no bouncing download icons, no spinning rings.
 - **No** scroll-triggered reveals, no load-time animation outside the hero entry, and no animation on keyboard-initiated actions beyond the state change.
@@ -279,7 +275,7 @@ All motion is CSS, except the single View Transition call in `site-nav.tsx`. Con
 - [ ] Popover: Esc and light dismiss close it and focus returns to the trigger. Mobile menu: focus moves in, is trapped, Esc closes it, focus returns; `overscroll-behavior: contain`.
 - [ ] Contact form: visible labels, `autocomplete`, errors linked by `aria-describedby`, `aria-live` status, focus to the first error; works with JS disabled.
 - [ ] Moving content: a pause control exists (WCAG 2.2.2); loops stop off-screen, in hidden tabs and under reduced motion; the marquee is `aria-hidden` (its facts are in the readout).
-- [ ] Images: alt in the page language; portrait `alt=""`; explicit dimensions; CLS 0 (header, CV pill out of flow, fonts, hydration).
+- [ ] Images: alt in the page language; portrait `alt=""`; explicit dimensions; CLS 0 (header, CV slot always reserved, fonts, hydration).
 - [ ] Tables use `<th scope>`.
 - [ ] No theme flash; theme persists; `theme-color` and `color-scheme` follow the active theme.
 - [ ] `forced-colors: active`: buttons, chips, fields, cards and icon buttons keep a 1 px border; focus uses `outline`; the dot grid is hidden.

@@ -54,11 +54,11 @@ const experiences: ExperienceSeed[] = [
     position: { en: "CVAT Annotation Specialist", cs: "Specialista anotací v CVAT" },
     bullets: {
       en: [
-        "Annotated about 20 minutes of dashcam footage in CVAT: road defects (potholes, cracks), road markings, lanes, guardrails and delineator posts.",
+        "Annotated over 500 dashcam frames in CVAT: road defects (potholes, cracks), road markings, lanes, guardrails and delineator posts.",
         "Delivered precise, consistent annotations for computer vision and machine learning datasets, in cooperation with FUTTEC.",
       ],
       cs: [
-        "V CVAT jsem anotoval zhruba 20 minut záznamu z palubních kamer: poruchy vozovky (výtluky, trhliny), dopravní značení, jízdní pruhy, svodidla a směrové sloupky.",
+        "V CVAT jsem anotoval přes 500 snímků z palubních kamer: poruchy vozovky (výtluky, trhliny), dopravní značení, jízdní pruhy, svodidla a směrové sloupky.",
         "Dodával jsem přesné a konzistentní anotace pro datové sady počítačového vidění a strojového učení, ve spolupráci se společností FUTTEC.",
       ],
     },
@@ -138,11 +138,11 @@ const experiences: ExperienceSeed[] = [
     position: { en: "Bachelor’s degree, Computer Science", cs: "Bakalářské studium, Informatika" },
     bullets: {
       en: [
-        "GPA 94.42/100.",
+        "GPA 90+/100.",
         "Master’s at VŠB planned from September 2027, continuing in Informatics (specialisation not decided yet).",
       ],
       cs: [
-        "GPA 94,42/100.",
+        "GPA 90+/100.",
         "Od září 2027 plánuji navázat magisterským studiem informatiky na VŠB (specializace zatím není určena).",
       ],
     },

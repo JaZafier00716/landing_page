@@ -6,7 +6,7 @@ import { getProject, getProjects } from "@/lib/content";
 import { Characteristics } from "@/components/projects";
 import ProjectImage from "@/components/project-image";
 import StackChips from "@/components/stack-chips";
-import NotFoundView from "@/components/not-found-view";
+import { NotFoundPage } from "@/components/not-found-view";
 import { pageMeta } from "../../meta";
 
 // Projects removed from the site; their old URLs send visitors to the list.
@@ -33,8 +33,7 @@ export default async function ProjectPage({ params }: PageProps<"/[lang]/project
   const p = await getProject(lang, slug);
   if (!p) {
     if (retiredSlugs.includes(slug)) permanentRedirect(`/${lang}/projects`);
-    // Rendered here, not via notFound(): under cacheComponents that sends an empty client-filled shell.
-    return <NotFoundView lang={lang} />;
+    return <NotFoundPage lang={lang} />;
   }
   const d = getDict(lang);
   const all = await getProjects(lang);

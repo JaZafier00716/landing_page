@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { getDict, type Lang } from "@/lib/i18n";
 
 /** Localized 404 body, used by the catch-all page (server-rendered) and not-found.tsx. */
@@ -17,5 +19,21 @@ export default function NotFoundView({ lang }: { lang: Lang }) {
         </Link>
       </p>
     </div>
+  );
+}
+
+async function Missing(): Promise<never> {
+  notFound();
+}
+
+/**
+ * Real 404 with the localized page in the server HTML. A bare notFound() under cacheComponents sends an
+ * empty client-filled shell; thrown inside Suspense it still sets the 404 status, and the fallback (this view) is what the server renders.
+ */
+export function NotFoundPage({ lang }: { lang: Lang }) {
+  return (
+    <Suspense fallback={<NotFoundView lang={lang} />}>
+      <Missing />
+    </Suspense>
   );
 }
