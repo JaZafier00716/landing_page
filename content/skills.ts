@@ -7,7 +7,7 @@ export const skillGroups: GroupSeed[] = [
     title: { en: "Programming languages", cs: "Programovací jazyky" },
     skills: [
       { en: "C", usedIn: ["tetris", "osy"] },
-      { en: "C++", usedIn: ["zpg", "modal-text-editor", "osy", "graph-center"] },
+      { en: "C++", usedIn: ["zpg", "modal-text-editor", "osy"] },
       { en: "Java", usedIn: ["catering-is", "donkey-kong"] },
       { en: "TypeScript", usedIn: ["csg-website", "solidsun-platform"] },
       { en: "Python", usedIn: ["futtec", "skj-projekt"] },
