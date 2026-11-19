@@ -26,6 +26,14 @@
 \pagestyle{plain}
 \hypersetup{urlcolor=cyan,linkbordercolor=cyan,pdfborder={0 0 0.5}}
 
+% PDF metadata. The Makefile passes CV_CANARY (kept out of the repo) as \cvcanary via -usepretex; without it no token is added.
+\providecommand{\cvcanary}{}
+\hypersetup{
+  pdfauthor={Jan Zámostný},
+  pdftitle={CV – Jan Zámostný},
+  pdfcreator={XeLaTeX},
+  pdfkeywords={CV, Jan Zámostný, software developer\ifx\cvcanary\empty\else, \cvcanary\fi}}
+
 % Section heading: icon + bold title
 \titleformat{\section}{\Large\bfseries}{}{0pt}{}
 \titlespacing*{\section}{0pt}{16pt}{8pt}

@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "node scripts/check-no-sourcemaps.mjs",
     "start": "next start",
     "lint": "eslint .",
     "test": "node --test lib/*.test.ts",

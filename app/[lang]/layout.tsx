@@ -17,6 +17,10 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Prom
     metadataBase: new URL(siteUrl),
     title: { default: name, template: `%s | ${name}` },
     description: isLang(lang) ? getDict(lang).home.description : undefined,
+    // Authorship metadata (README "Security"): <meta name="author|creator|publisher">, no visible change.
+    authors: [{ name, url: siteUrl }],
+    creator: name,
+    publisher: name,
     openGraph: { siteName: name, type: "website", locale: lang === "cs" ? "cs_CZ" : "en_US" },
   };
 }
