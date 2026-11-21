@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { formatPeriod } from "@/lib/i18n";
-import EdgeStubs from "./edge-stubs";
+import EdgeStubs, { nodeStubs } from "./edge-stubs";
 import type { Lang } from "@/lib/i18n";
 import type { ExperienceEntry } from "@/lib/content";
 
@@ -29,7 +29,7 @@ export default function ExperiencePreview({ entries, lang }: { entries: Experien
               <ArrowRight aria-hidden className="arrow size-4 flex-none text-text" />
             </span>
           </Link>
-          <EdgeStubs count={1} />
+          <EdgeStubs stubs={nodeStubs} />
         </li>
       ))}
     </ol>

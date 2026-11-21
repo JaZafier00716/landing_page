@@ -543,8 +543,9 @@
   .tr, .edge-stubs { display: none; }
   @media (min-width: 80rem) {
     .stub-host { position: relative; }
-    .edge-stubs, .tr { position: absolute; width: 0; height: 0; pointer-events: none; color: var(--color-border-strong); opacity: 0.55; }
-    .edge-stubs { display: block; top: 28px; left: 100%; }
+    .edge-stubs, .tr { position: absolute; width: 0; pointer-events: none; color: var(--color-border-strong); opacity: 0.55; }
+    .tr { height: 0; }
+    .edge-stubs { display: block; top: 0; bottom: 0; left: 100%; }
     .edge-stubs svg, .tr svg { position: absolute; left: 0; top: 0; overflow: visible; stroke: currentColor; transform-origin: 0 0; }
     .edge-stubs circle, .tr circle { fill: var(--color-bg); }
     /* cards in a two-column grid: odd = left column (stubs go left), even = right column. Timeline nodes: first = left, last = right, middle none. */
@@ -553,10 +554,8 @@
     .axis > li:nth-child(2) > .edge-stubs { display: none; }
     .axis > li:first-child > .edge-stubs { left: 0; }
     .axis > li:first-child > .edge-stubs svg { scale: -1 1; }
-    .axis > li:last-child > .edge-stubs { left: 100%; }
-    .axis > li:last-child > .edge-stubs svg { scale: 1; }
     /* /experience: only the first (newest) entry of each group leaves the timeline axis (the li's left edge) at the dot's height */
-    .tl > li > .edge-stubs { display: none; top: 2.25rem; left: 0; }
+    .tl > li > .edge-stubs { display: none; left: 0; }
     .tl > li:first-child > .edge-stubs { display: block; }
     .tl > li > .edge-stubs svg { scale: -1 1; }
   }
@@ -569,18 +568,24 @@
     @supports (width: round(down, 1px, 1px)) and (width: 1cqw) {
       [data-hero] { container-type: inline-size; }
       .hero-panel { --pl: calc(50cqw + 109.333px); --pr: calc(50cqw + 544px); }
-      .tr { display: block; }
+      .tr { display: block; --cl: calc(50cqw - 544px); }
       .tr-in { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
       .tr-run { position: absolute; left: var(--h); top: calc(var(--ry) - 0.625px); height: 1.25px; width: calc(var(--vx) - var(--h) - var(--t)); background: currentColor; }
       .tr .tr-tail { left: calc(var(--vx) - var(--t)); top: var(--ry); }
-            .tr-pad { position: absolute; left: -3.5px; top: -3.5px; width: 7px; height: 7px; background: currentColor; }
+      .tr-pad { position: absolute; left: -3.5px; top: -3.5px; width: 7px; height: 7px; background: currentColor; }
       .tr-accent { color: var(--color-accent); }
-      .tr-tl .tr-in, .tr-cv .tr-in { scale: -1 1; }
-      /* --vx = distance from the pad to the via, in the trace's own frame; the via is snapped to a dot (12 + 24n from the backdrop origin) */
-      .tr-r { left: 100%; --vx: calc(round(down, calc(min(var(--pr) + 120px, 100cqw - 16px) - 12px), 24px) + 12px - var(--pr)); }
-      .tr-tl { --vx: calc(var(--pl) + var(--ax, 40px) - (round(calc(var(--pl) + var(--ax, 40px) - 150px - 12px), 24px) + 12px)); }
-      .tr-tr { --vx: calc(round(down, calc(min(var(--pr) - var(--ax, 56px) + 120px, 100cqw - 16px) - 12px), 24px) + 12px - (var(--pr) - var(--ax, 56px))); }
-      .tr-cv { --vx: calc(50cqw - 544px - max(12px, round(calc(50cqw - 544px - 72px - 12px), 24px) + 12px)); }
+      .tr-l .tr-in, .tr-tl .tr-in, .tr-cv .tr-in { scale: -1 1; }
+      .tr-l { left: 0; }
+      .tr-r { left: 100%; }
+      /* --vx = distance from the pad to the via, in the trace's own frame (--len = nominal length); the via is snapped to a dot (12 + 24n from the backdrop origin) */
+      .tr-r { --vx: calc(round(down, calc(min(var(--pr) + var(--len), 100cqw - 16px) - 12px), 24px) + 12px - var(--pr)); }
+      .tr-l { --vx: calc(var(--pl) - (round(calc(var(--pl) - var(--len) - 12px), 24px) + 12px)); }
+      .tr-tl { --vx: calc(var(--pl) + var(--ax) - (round(calc(var(--pl) + var(--ax) - var(--len) - 12px), 24px) + 12px)); }
+      .tr-tm { --vx: calc(round(calc(var(--pl) + var(--ax) + var(--len) - 12px), 24px) + 12px - (var(--pl) + var(--ax))); }
+      .tr-tr { --vx: calc(round(down, calc(min(var(--pr) - var(--ax) + var(--len), 100cqw - 16px) - 12px), 24px) + 12px - (var(--pr) - var(--ax))); }
+      .tr-cb { --vx: calc(round(calc(var(--cl) + var(--ax) + var(--len) - 12px), 24px) + 12px - (var(--cl) + var(--ax))); }
+      /* CV: 36 px from the button at 1280 (gutter 96 px), up to 72 px where the gutter allows, always >= 12 px from the window edge */
+      .tr-cv { --vx: calc(var(--cl) - max(12px, round(calc(var(--cl) - clamp(36px, calc(var(--cl) * 0.4), 72px) - 12px), 24px) + 12px)); }
     }
   }
   @media (forced-colors: active) { .tr, .edge-stubs { display: none !important; } }
