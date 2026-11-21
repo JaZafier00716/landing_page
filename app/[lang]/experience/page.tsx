@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { formatPeriod, getDict, isLang, type Lang } from "@/lib/i18n";
 import { getExperience, type ExperienceEntry } from "@/lib/content";
+import EdgeStubs, { entryStubs } from "@/components/edge-stubs";
 import StackChips from "@/components/stack-chips";
 import { pageMeta } from "../meta";
 
@@ -14,7 +15,8 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/experience
 function Entry({ e, lang }: { e: ExperienceEntry; lang: Lang }) {
   const dict = getDict(lang);
   return (
-    <li id={e.slug} data-current={e.end ? undefined : ""} className="flex flex-col gap-3 py-6">
+    <li id={e.slug} data-current={e.end ? undefined : ""} className="stub-host flex flex-col gap-3 py-6">
+      <EdgeStubs stubs={entryStubs} />
       <div className="flex flex-col gap-1 sm:grid sm:grid-cols-[1fr_auto] sm:items-baseline sm:gap-x-6">
         <h3 className="h3">{e.position}</h3>
         <p className="mono-meta tabular text-muted">{formatPeriod(lang, e.start, e.end, e.kind === "course")}</p>

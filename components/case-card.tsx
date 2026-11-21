@@ -3,12 +3,14 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { getDict, type Lang } from "@/lib/i18n";
 import type { Project } from "@/lib/content";
 import ProjectImage from "./project-image";
+import EdgeStubs from "./edge-stubs";
 import StackChips from "./stack-chips";
 
 /** Case-study card (DESIGN.md §5.7): image (screenshot or placeholder), title, summary, Decision, Result, stack, links. */
 export default function CaseCard({ project: p, lang, priority }: { project: Project; lang: Lang; priority?: boolean }) {
   const d = getDict(lang);
   return (
+    <div className="stub-host stub-card">
     <article className="box card flex flex-col">
       <ProjectImage project={p} priority={priority} sizes="(min-width:768px) 35vw, 100vw" className="!rounded-none" />
       <h3 translate="no" className="h3 line-clamp-2 px-5 pt-4">
@@ -51,5 +53,7 @@ export default function CaseCard({ project: p, lang, priority }: { project: Proj
         <ArrowRight aria-hidden className="arrow ms-auto size-5 flex-none" />
       </div>
     </article>
+    <EdgeStubs />
+    </div>
   );
 }

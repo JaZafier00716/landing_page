@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { formatPeriod } from "@/lib/i18n";
+import EdgeStubs, { nodeStubs } from "./edge-stubs";
 import type { Lang } from "@/lib/i18n";
 import type { ExperienceEntry } from "@/lib/content";
 
@@ -12,7 +13,7 @@ export default function ExperiencePreview({ entries, lang }: { entries: Experien
   return (
     <ol className="axis grid gap-2 lg:grid-cols-3 lg:gap-6">
       {rows.map((e) => (
-        <li key={e.slug}>
+        <li key={e.slug} className="stub-host">
           <Link
             href={`/${lang}/experience#${e.slug}`}
             className="box block h-full p-5 pt-4 [--box-bg:var(--color-surface)] [--box-border:var(--color-border)] rounded-md shadow-1"
@@ -28,6 +29,7 @@ export default function ExperiencePreview({ entries, lang }: { entries: Experien
               <ArrowRight aria-hidden className="arrow size-4 flex-none text-text" />
             </span>
           </Link>
+          <EdgeStubs stubs={nodeStubs} />
         </li>
       ))}
     </ol>

@@ -534,16 +534,74 @@
     mask-image: radial-gradient(ellipse at 30% 40%, #000 30%, transparent 75%);
   }
   .page-grid > div {
-    width: calc(100% + 24px);
-    height: calc(100% + 24px);
-    animation: grid-drift 12s linear infinite;
+    width: 100%;
+    height: 100%;
   }
   .page-grid > div, .dot-grid { background: radial-gradient(var(--color-grid) 1px, transparent 1.5px) 0 0 / 24px 24px; }
-  @keyframes grid-drift { to { translate: -24px -24px; } }
-  /* the drift only runs on home, where the pause control and the off-screen pause exist (WCAG 2.2.2) */
-  :root:not(:has([data-hero])) .page-grid > div { animation: none; }
-  /* phones and data savers: a static grid (one less loop keeping frames going); the marquee keeps its pause control */
-  @media (pointer: coarse), (prefers-reduced-data: reduce) { .page-grid > div { animation: none; } }
+
+  /* ---- PCB-style traces (hero-traces.tsx, edge-stubs.tsx): decoration only, static, xl+ ---- */
+  .tr, .edge-stubs { display: none; }
+  @media (min-width: 80rem) {
+    .stub-host { position: relative; }
+    .tr { position: absolute; width: 0; height: 0; pointer-events: none; color: var(--color-border-strong); opacity: 0.55; }
+    .tr svg { position: absolute; left: 0; top: 0; overflow: visible; stroke: currentColor; transform-origin: 0 0; }
+    .tr circle { fill: var(--color-bg); }
+  }
+  @media print { .tr, .edge-stubs { display: none !important; } }
+
+  /* Traces need round() (snap to the dot pitch) and container units; without them they are not drawn.
+     Hero geometry (xl+, W = main/backdrop width, content 1088 px): readout panel left = W/2 + 109.333, right = W/2 + 544,
+     top = 65 px below the backdrop origin (header hairline); CV button left = W/2 - 544. Re-measure if the hero grid changes. */
+  @media (min-width: 80rem) {
+    @supports (width: round(down, 1px, 1px)) and (width: 1cqw) {
+      main { container-type: inline-size; }
+      .hero-panel { --pl: calc(50cqw + 109.333px); --pr: calc(50cqw + 544px); }
+      .tr, .edge-stubs { --cl: calc(50cqw - 544px); --cr: calc(50cqw + 544px); }
+      .tr { display: block; }
+      .tr-in { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
+      .tr-run { position: absolute; left: var(--h); top: calc(var(--ry) - 0.625px); height: 1.25px; width: calc(var(--vx) - var(--h) - var(--t)); background: currentColor; }
+      .tr .tr-tail { left: calc(var(--vx) - var(--t)); top: var(--ry); }
+      .tr-pad { position: absolute; left: -3.5px; top: -3.5px; width: 7px; height: 7px; background: currentColor; }
+      .tr-accent { color: var(--color-accent); }
+      .tr-l .tr-in, .tr-tl .tr-in, .tr-cv .tr-in { scale: -1 1; }
+      .tr-l { left: 0; }
+      .tr-r { left: 100%; }
+      /* --vx = distance from the pad to the via, in the trace's own frame (--len = nominal length); the via is snapped to a dot (12 + 24n from the backdrop origin) */
+      .tr-r { --vx: calc(round(down, calc(min(var(--pr) + var(--len), 100cqw - 16px) - 12px), 24px) + 12px - var(--pr)); }
+      .tr-l { --vx: calc(var(--pl) - (round(calc(var(--pl) - var(--len) - 12px), 24px) + 12px)); }
+      .tr-tl { --vx: calc(var(--pl) + var(--ax) - (round(calc(var(--pl) + var(--ax) - var(--len) - 12px), 24px) + 12px)); }
+      .tr-tm { --vx: calc(round(calc(var(--pl) + var(--ax) + var(--len) - 12px), 24px) + 12px - (var(--pl) + var(--ax))); }
+      .tr-tr { --vx: calc(round(down, calc(min(var(--pr) - var(--ax) + var(--len), 100cqw - 16px) - 12px), 24px) + 12px - (var(--pr) - var(--ax))); }
+      /* CV pins enter from the left margin; the via is always >= 48 px inside the window (dot column 60 at 1280) */
+      .tr-cv { --vx: calc(var(--cl) - max(60px, round(calc(var(--cl) - var(--len) - 12px), 24px) + 12px)); }
+
+      /* Edge stubs. Vertical alignment is exact only because each stub host carries its own dot layer (::before) whose origin is the host's
+         top edge: the host's y on the page depends on content flow and cannot be known in CSS, so a local grid is anchored to the host and the
+         global backdrop dots are covered by it (same x phase as the backdrop, y phase tied to the card). --sgn: 1 = outer side is right, -1 = left. */
+      .edge-stubs { display: block; position: absolute; top: 0; bottom: 0; width: 0; pointer-events: none; left: 100%; --sgn: 1; --edge: var(--cr); --g: calc(50cqw - 544px); }
+      .edge-stubs::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: var(--g);
+        background: radial-gradient(var(--color-grid) 1px, transparent 1.5px) calc(0px - var(--edge)) 0 / 24px 24px, var(--color-bg);
+      }
+      .stub-card:nth-child(odd) > .edge-stubs, .axis > li:first-child > .edge-stubs, .tl > li > .edge-stubs { left: 0; --sgn: -1; --edge: var(--cl); }
+      .stub-card:nth-child(odd) > .edge-stubs::before, .axis > li:first-child > .edge-stubs::before, .tl > li > .edge-stubs::before { left: auto; right: calc(var(--edge) - var(--cl)); background-position: 0 0, 0 0; }
+      /* /experience: the host's left edge is the timeline axis (4 px margin + 1 px border inside the container edge); only the first entry of each group */
+      .tl > li > .edge-stubs { --edge: calc(var(--cl) + 5px); display: none; }
+      .tl > li:first-child > .edge-stubs { display: block; }
+      /* timeline nodes: first = left, last = right, middle none */
+      .axis > li:nth-child(2) > .edge-stubs { display: none; }
+      .tr-s { left: 0; --h: 0px; --t: 24px; --ry: 0px;
+        top: calc(round(down, var(--p), 24px) + 12px - var(--dy));
+        --vx: calc(var(--sgn) * (round(calc(var(--edge) + var(--sgn) * var(--len) - 12px), 24px) + 12px - var(--edge))); }
+      .tr-s .tr-in { scale: var(--sgn) 1; }
+    }
+  }
+  @media (forced-colors: active) { .tr, .edge-stubs { display: none !important; } }
 
   .status-dot { position: relative; display: inline-block; flex: none; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--color-accent); }
   .status-dot::after {

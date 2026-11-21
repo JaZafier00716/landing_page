@@ -6,6 +6,7 @@ import { getExperience, getPerson, getProjects } from "@/lib/content";
 import CaseCard from "@/components/case-card";
 import ContactForm from "@/components/contact-form";
 import ContactList from "@/components/contact-list";
+import HeroTraces from "@/components/hero-traces";
 import CvHero from "@/components/cv-hero";
 import ExperiencePreview from "@/components/experience-preview";
 import TechMarquee from "@/components/tech-marquee";
@@ -60,10 +61,8 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
               <CvHero lang={lang} />
             </div>
           </div>
-          <dl
-            className="hero-item panel mono-meta divide-y divide-border px-4 py-2 lg:col-span-5"
-            style={{ ...item(2), "--k": lang === "cs" ? "6.5rem" : "4.5rem" } as React.CSSProperties}
-          >
+          <div className="hero-item hero-panel relative lg:col-span-5" style={{ ...item(2), "--k": lang === "cs" ? "6.5rem" : "4.5rem" } as React.CSSProperties}>
+          <dl className="panel mono-meta h-full divide-y divide-border px-4 py-2">
             {/* "want" first: at 375×812 the last rows fall below the fold (recruiter-first). */}
             <Kv k={h.readout.want}>{h.readout.wantValue}</Kv>
             <Kv k={h.readout.now}>{h.readout.nowValue}</Kv>
@@ -72,6 +71,8 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
             <Kv k={h.readout.stack} translate="no">{h.readout.stackValue}</Kv>
             <Kv k={h.readout.before}>{h.readout.beforeValue}</Kv>
           </dl>
+          <HeroTraces />
+          </div>
           <div className="lg:col-span-12">
             <TechMarquee lang={lang} />
           </div>
