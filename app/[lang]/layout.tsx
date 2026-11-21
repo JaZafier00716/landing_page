@@ -46,7 +46,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
       </head>
       <body className="relative isolate flex min-h-dvh flex-col">
         <div className="page-grid -z-10" aria-hidden>
-          <div className="ambient" />
+          <div />
         </div>
         <a
           href="#main"

@@ -41,7 +41,6 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
   return (
     <div className="w-full">
       <section data-hero>
-        <HeroTraces />
         <div className="container-page grid grid-cols-1 gap-x-8 gap-y-8 pt-10 pb-10 lg:grid-cols-12 lg:pt-16">
           <div className="flex flex-col gap-4 lg:col-span-7 lg:gap-5">
             <div className="hero-item flex items-center gap-4" style={item(0)}>
@@ -62,10 +61,8 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
               <CvHero lang={lang} />
             </div>
           </div>
-          <dl
-            className="hero-item panel mono-meta divide-y divide-border px-4 py-2 lg:col-span-5"
-            style={{ ...item(2), "--k": lang === "cs" ? "6.5rem" : "4.5rem" } as React.CSSProperties}
-          >
+          <div className="hero-item hero-panel relative lg:col-span-5" style={{ ...item(2), "--k": lang === "cs" ? "6.5rem" : "4.5rem" } as React.CSSProperties}>
+          <dl className="panel mono-meta h-full divide-y divide-border px-4 py-2">
             {/* "want" first: at 375×812 the last rows fall below the fold (recruiter-first). */}
             <Kv k={h.readout.want}>{h.readout.wantValue}</Kv>
             <Kv k={h.readout.now}>{h.readout.nowValue}</Kv>
@@ -74,6 +71,8 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
             <Kv k={h.readout.stack} translate="no">{h.readout.stackValue}</Kv>
             <Kv k={h.readout.before}>{h.readout.beforeValue}</Kv>
           </dl>
+          <HeroTraces />
+          </div>
           <div className="lg:col-span-12">
             <TechMarquee lang={lang} />
           </div>

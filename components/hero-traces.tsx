@@ -1,51 +1,75 @@
 /**
- * Decorative PCB-style traces behind the home hero (DESIGN.md §5.5). Static, server-rendered inline SVG,
- * aria-hidden, drawn on the page backdrop's 24 px pitch so every via sits on a dot (the dots are the centres of
- * 24 px cells, hence the +12 offset; `.hero-traces` snaps its left edge to a multiple of 24 px).
- * Geometry is hand-authored in cell units: no randomness, no runtime work. Colours are tokens (see globals.css).
+ * Decorative PCB-style traces for the home hero (DESIGN.md §5.5). Static, server-rendered, aria-hidden, no JS.
+ *
+ * Every trace is anchored to the readout panel (rendered inside the panel wrapper, overflowing outward) and starts at a
+ * square pad drawn on the panel's border; the other end is an open ring (via) on a dot of the page backdrop.
+ * Pieces: [pad] -> optional head (fixed shape) -> run (variable length, so the via can snap) -> tail (fixed shape) -> via.
+ * The variable part is computed in CSS (`--vx`, see globals.css): the via is snapped to the 24 px dot pitch from the
+ * panel's known grid position. Y is fixed: the panel top is 65 px below the grid origin from lg, so pad rows are
+ * hand-picked in dot rows (12 + 24n). Coordinates below are px in the trace's own frame (x outward, y down).
  */
-const CELL = 24;
-type Pt = readonly [number, number];
-type Trace = { accent?: boolean; pts: readonly Pt[] };
+import type { CSSProperties } from "react";
 
-// x: 0 = left edge of the SVG, the readout panel spans cells ~18-36. y: 0 = top of the hero.
+type Side = "r" | "tl" | "tr";
+type Trace = { side: Side; at: number; dy?: number; accent?: boolean };
+
+// r: pad on the panel's right edge, `at` = px from the panel top (65 + at = dot row). tl/tr: pad on the top edge, `at` = px from the panel's left/right edge.
 const traces: Trace[] = [
-  // left of the readout, in the empty area below the name: a short bus of two muted traces and one accent trace
-  { pts: [[18, 9], [15, 9], [13, 11], [10, 11]] },
-  { pts: [[18, 10], [14, 10], [12, 12], [10, 12]] },
-  { pts: [[18, 6], [16, 6], [14, 4], [12, 4]] },
-  { accent: true, pts: [[18, 15], [14, 15], [12, 17], [8, 17]] },
-  // above and right of the readout
-  { pts: [[19, 1], [30, 1]] },
-  { pts: [[36, 5], [39, 5], [41, 7], [44, 7]] },
-  { pts: [[36, 11], [40, 11], [42, 13], [44, 13]] },
-  { accent: true, pts: [[36, 15], [38, 15], [40, 17], [40, 18]] },
+  { side: "r", at: 43, dy: -24 }, // dot row 108 -> via on row 84
+  { side: "r", at: 115, dy: 24 }, // row 180 -> row 204
+  { side: "r", at: 187, dy: -24, accent: true }, // row 252 -> row 228
+  { side: "tl", at: 40 }, // up and left, along dot row 36 (above all content)
+  { side: "tr", at: 56 }, // up and right, along dot row 36
 ];
 
-const xy = ([x, y]: Pt) => `${x * CELL + CELL / 2} ${y * CELL + CELL / 2}`;
-const line = (t: Trace) => "M" + t.pts.map(xy).join("L");
-// vias sit at the free end only: the other end disappears behind the readout panel
-const viaAt = (t: Trace) => t.pts[t.pts.length - 1];
+const HEAD = "M0 0V-17L12-29"; // pad on the top edge, up 17, 45 degrees up to the run's row
+const RUN_Y = -29; // panel top is 65 px below the grid origin (64 + the header's 1 px hairline), so -29 lands on dot row 36
+
+const style = (t: Trace): CSSProperties => {
+  if (t.side === "r") return { top: t.at, "--h": "0px", "--t": "24px", "--ry": "0px" } as CSSProperties;
+  const edge = t.side === "tl" ? { top: 0, left: t.at } : { top: 0, right: t.at };
+  return { ...edge, "--ax": `${t.at}px`, "--h": "12px", "--t": "0px", "--ry": `${RUN_Y}px` } as unknown as CSSProperties;
+};
 
 export default function HeroTraces() {
-  const via = (t: Trace, i: number) => {
-    const [x, y] = viaAt(t).map((v) => v * CELL + CELL / 2);
-    return <circle key={i} cx={x} cy={y} r="3.5" />;
-  };
-  const muted = traces.filter((t) => !t.accent);
-  const accent = traces.filter((t) => t.accent);
   return (
-    <div className="hero-traces" aria-hidden>
-      <svg width="1104" height="480" viewBox="0 0 1104 480" fill="none" strokeWidth="1.25" strokeLinejoin="round" focusable="false">
-        <g className="trace-muted">
-          {muted.map((t, i) => <path key={i} d={line(t)} />)}
-          {muted.map(via)}
-        </g>
-        <g className="trace-accent">
-          {accent.map((t, i) => <path key={i} d={line(t)} />)}
-          {accent.map(via)}
-        </g>
-      </svg>
+    <div aria-hidden>
+      {traces.map((t, i) => {
+        const dy = t.dy ?? 0;
+        const top = t.side !== "r";
+        return (
+          <span key={i} className={`tr tr-${t.side}${t.accent ? " tr-accent" : ""}`} style={style(t)}>
+            <span className="tr-in">
+              {top && (
+                <svg className="tr-head" width="12" height="1" viewBox="0 0 12 1" fill="none" strokeWidth="1.25" strokeLinejoin="round" focusable="false">
+                  <path d={HEAD} />
+                </svg>
+              )}
+              <span className="tr-run" />
+              <svg className="tr-tail" width="24" height="1" viewBox="0 0 24 1" fill="none" strokeWidth="1.25" strokeLinejoin="round" focusable="false">
+                {!top && <path d={`M0 0L24 ${dy}`} />}
+                <circle cx={top ? 0 : 24} cy={top ? 0 : dy} r="3.5" />
+              </svg>
+              <span className="tr-pad" />
+            </span>
+          </span>
+        );
+      })}
     </div>
+  );
+}
+
+/** One accent trace to the primary CTA: pad on the button's left edge, a run into the left gutter, a via on a dot column. */
+export function CvTrace() {
+  return (
+    <span className="tr tr-cv tr-accent" aria-hidden style={{ left: 0, top: 22, "--h": "0px", "--t": "0px", "--ry": "0px" } as CSSProperties}>
+      <span className="tr-in">
+        <span className="tr-run" />
+        <svg className="tr-tail" width="1" height="1" viewBox="0 0 1 1" fill="none" strokeWidth="1.25" focusable="false">
+          <circle cx="0" cy="0" r="3.5" />
+        </svg>
+        <span className="tr-pad" />
+      </span>
+    </span>
   );
 }
