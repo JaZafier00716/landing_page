@@ -2,6 +2,7 @@
 
 Binding spec for every page (home, experience, projects, project detail, skills, 404), header and footer, in `en` and `cs` and in both themes. Stack: Next 16, React 19, Tailwind 4 (CSS-first), routes under `app/[lang]/`. Also binding: `docs/ui-quality-checklist.md` (cited as §Section) and `CLAUDE.md`. The visual reference is `/lab/b` (`app/lab/b`, `app/lab/components`, `app/lab/lab.css`), and the rationale is `docs/redesign/directions.md` §0 and §2. Where the lab and this doc differ, this doc wins.
 Not in scope: chip/IC imagery, fake part numbers, skill bars or levels, icon fonts, motion libraries, iframes, flags, WebGL, cursor-tracking effects.
+Allowed: PCB-style traces as a decorative background in the home hero only (no chips/ICs, no other pages); static, from `xl`, tokens only (`components/hero-traces.tsx`).
 
 ## 1. Principles
 1. **A spec readout, not a costume.** Facts are shown as key/value rows (now, study, based, stack, before, want), as chips and as a timeline. Structure carries information; there are no decorative icons on headings or in the nav.

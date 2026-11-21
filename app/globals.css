@@ -545,6 +545,31 @@
   /* phones and data savers: a static grid (one less loop keeping frames going); the marquee keeps its pause control */
   @media (pointer: coarse), (prefers-reduced-data: reduce) { .page-grid > div { animation: none; } }
 
+  /* decorative PCB traces behind the home hero (HeroTraces): xl+ only, vias snapped to the 24 px dot pitch, faded out toward the text column */
+  .hero-traces { display: none; }
+  @media (min-width: 80rem) {
+    [data-hero] { position: relative; isolation: isolate; }
+    .hero-traces {
+      display: block;
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      overflow: clip;
+      pointer-events: none;
+    }
+    .hero-traces svg {
+      position: absolute;
+      top: 0;
+      /* right-aligned to the container's content edge, left edge snapped to the 24 px grid */
+      left: calc(min(50% + 544px, 100% - 2rem) - 864px);
+      left: round(down, calc(min(50% + 544px, 100% - 2rem) - 864px), 24px);
+      mask-image: linear-gradient(90deg, transparent 8%, #000 40%);
+    }
+    .trace-muted { stroke: var(--color-border-strong); opacity: 0.55; }
+    .trace-accent { stroke: var(--color-accent); opacity: 0.55; }
+    .trace-muted circle, .trace-accent circle { fill: var(--color-bg); }
+  }
+
   .status-dot { position: relative; display: inline-block; flex: none; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--color-accent); }
   .status-dot::after {
     content: "";
@@ -690,5 +715,5 @@ main { display: flex; flex: 1; flex-direction: column; outline: none; }
   .motion-toggle { display: none; }
 }
 @media (forced-colors: active) {
-  .page-grid { display: none; }
+  .page-grid, .hero-traces { display: none; }
 }

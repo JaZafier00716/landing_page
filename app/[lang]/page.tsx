@@ -6,6 +6,7 @@ import { getExperience, getPerson, getProjects } from "@/lib/content";
 import CaseCard from "@/components/case-card";
 import ContactForm from "@/components/contact-form";
 import ContactList from "@/components/contact-list";
+import HeroTraces from "@/components/hero-traces";
 import CvHero from "@/components/cv-hero";
 import ExperiencePreview from "@/components/experience-preview";
 import TechMarquee from "@/components/tech-marquee";
@@ -40,6 +41,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
   return (
     <div className="w-full">
       <section data-hero>
+        <HeroTraces />
         <div className="container-page grid grid-cols-1 gap-x-8 gap-y-8 pt-10 pb-10 lg:grid-cols-12 lg:pt-16">
           <div className="flex flex-col gap-4 lg:col-span-7 lg:gap-5">
             <div className="hero-item flex items-center gap-4" style={item(0)}>
