@@ -22,7 +22,7 @@ const en = {
     title: "Jan Zámostný, computer science student",
     titleLine: "Software developer\u00A0· QA automation\u00A0· Ostrava",
     status: "Open to opportunities",
-    statement: "I build and test software, from C and OpenGL up to Next.js.",
+    statement: "I build software and the automated tests that keep it working.",
     readout: {
       now: "now",
       study: "study",
@@ -142,7 +142,7 @@ const cs: Dict = {
     title: "Jan Zámostný, student informatiky",
     titleLine: "Softwarový vývojář\u00A0· automatizace testů\u00A0· Ostrava",
     status: "Otevřený nabídkám",
-    statement: "Vyvíjím a testuji software, od C a OpenGL až po Next.js.",
+    statement: "Vyvíjím software i automatizované testy, které hlídají, že funguje.",
     readout: {
       now: "nyní",
       study: "studium",
