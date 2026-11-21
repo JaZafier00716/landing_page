@@ -286,7 +286,7 @@ export const projects: ProjectSeed[] = [
         thumbnailAlt: "Donkey Kong level with ladders, girders and barrels",
         description: [
           "A Donkey Kong platformer in JavaFX. The game scales to any window size, and its logic runs in fixed design coordinates, so collisions do not depend on the screen.",
-          "Scores go through two Spring Boot services: a web service with a Thymeleaf leaderboard and a REST gateway, and a database service with Spring Data JPA and H2. The project has 147 automated tests (JUnit 5, Spring MockMvc).",
+          "Scores go through two Spring Boot services: a web service with a Thymeleaf leaderboard and a REST gateway, and a database service with Spring Data JPA and H2. The project has 150 automated tests (JUnit 5, Spring MockMvc).",
         ],
       },
       cs: {
@@ -295,7 +295,7 @@ export const projects: ProjectSeed[] = [
         thumbnailAlt: "Úroveň hry Donkey Kong se žebříky, nosníky a sudy",
         description: [
           "Plošinovka Donkey Kong v JavaFX. Hra se přizpůsobí libovolné velikosti okna a její logika běží v pevných návrhových souřadnicích, takže kolize nezávisí na obrazovce.",
-          "Skóre se ukládá přes dvě služby ve Spring Bootu: webovou službu s žebříčkem v Thymeleafu a REST bránou a databázovou službu se Spring Data JPA a H2. Projekt má 147 automatizovaných testů (JUnit 5, Spring MockMvc).",
+          "Skóre se ukládá přes dvě služby ve Spring Bootu: webovou službu s žebříčkem v Thymeleafu a REST bránou a databázovou službu se Spring Data JPA a H2. Projekt má 150 automatizovaných testů (JUnit 5, Spring MockMvc).",
         ],
       },
     },
