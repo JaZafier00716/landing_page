@@ -1,42 +1,45 @@
+import type { CSSProperties } from "react";
+
 /**
  * Short muted stubs that leave a content panel's outer edge into the gutter and end in a via (DESIGN.md §5.5, "Traces"),
  * spread along the panel's height. Static, aria-hidden, absolutely positioned (no reflow), xl+ only (CSS). The parent must be
- * `.stub-host` (position: relative, not clipped). Drawn outward from the panel edge; CSS mirrors them for the left side.
- * Vias are not snapped to the backdrop dots: panel edges are not on the 24 px grid, and the grid ends 40rem down.
+ * `.stub-host` (position: relative, not clipped).
+ *
+ * Exact dot alignment: a panel's y on the page depends on content flow, which CSS cannot know, so the panel carries its own
+ * dot layer in its gutter (`.edge-stubs::before`, origin = the panel's top edge, x phase = the page backdrop's) that covers the
+ * backdrop dots there. Via rows are `round(p, 24px) + 12px` from the panel top and via columns are snapped like the hero's, so every
+ * via sits on a dot of that local layer. See globals.css. Where the page backdrop is visible next to a panel, its y phase can differ
+ * from the local layer's by up to one cell at the panel's top and bottom edges.
  */
-const shapes = [
-  { d: "M-1 0H22L38 16", via: [38, 16] }, // jog down
-  { d: "M-1 0H30", via: [30, 0] }, // straight, short
-  { d: "M-1 0H18L34-16", via: [34, -16] }, // jog up
-  { d: "M-1 0H40L52 12", via: [52, 12] }, // long, jog down
-] as const;
+type Stub = { p: string; len: number; dy: -24 | 0 | 24 };
 
-type Stub = { y: string; shape: 0 | 1 | 2 | 3 };
-
+// p = nominal via row as a share of the panel height (snapped down to a row), len = nominal edge-to-via distance in px, dy = the 45 degree jog.
 export const cardStubs: Stub[] = [
-  { y: "9%", shape: 3 },
-  { y: "33%", shape: 1 },
-  { y: "58%", shape: 0 },
-  { y: "84%", shape: 2 },
+  { p: "9%", len: 64, dy: 24 },
+  { p: "33%", len: 52, dy: 0 },
+  { p: "58%", len: 56, dy: -24 },
+  { p: "84%", len: 60, dy: 24 },
 ];
 export const nodeStubs: Stub[] = [
-  { y: "28%", shape: 0 },
-  { y: "74%", shape: 1 },
+  { p: "28%", len: 60, dy: 24 },
+  { p: "74%", len: 52, dy: 0 },
 ];
-export const entryStubs: Stub[] = [{ y: "2.25rem", shape: 0 }];
+export const entryStubs: Stub[] = [{ p: "36px", len: 60, dy: 24 }];
 
 export default function EdgeStubs({ stubs = cardStubs }: { stubs?: Stub[] }) {
   return (
     <span className="edge-stubs" aria-hidden>
-      {stubs.map((s) => {
-        const sh = shapes[s.shape];
-        return (
-          <svg key={s.y} style={{ top: s.y }} width="1" height="1" viewBox="0 0 1 1" fill="none" strokeWidth="1.25" strokeLinejoin="round" focusable="false">
-            <path d={sh.d} />
-            <circle cx={sh.via[0]} cy={sh.via[1]} r="3.5" />
-          </svg>
-        );
-      })}
+      {stubs.map((s) => (
+        <span key={s.p} className="tr tr-s" style={{ "--p": s.p, "--len": `${s.len}px`, "--dy": `${s.dy}px` } as CSSProperties}>
+          <span className="tr-in">
+            <span className="tr-run" />
+            <svg className="tr-tail" width="24" height="1" viewBox="0 0 24 1" fill="none" strokeWidth="1.25" strokeLinejoin="round" focusable="false">
+              <path d={`M0 0L24 ${s.dy}`} />
+              <circle cx="24" cy={s.dy} r="3.5" />
+            </svg>
+          </span>
+        </span>
+      ))}
     </span>
   );
 }

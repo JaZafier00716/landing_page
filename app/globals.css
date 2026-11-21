@@ -543,32 +543,21 @@
   .tr, .edge-stubs { display: none; }
   @media (min-width: 80rem) {
     .stub-host { position: relative; }
-    .edge-stubs, .tr { position: absolute; width: 0; pointer-events: none; color: var(--color-border-strong); opacity: 0.55; }
-    .tr { height: 0; }
-    .edge-stubs { display: block; top: 0; bottom: 0; left: 100%; }
-    .edge-stubs svg, .tr svg { position: absolute; left: 0; top: 0; overflow: visible; stroke: currentColor; transform-origin: 0 0; }
-    .edge-stubs circle, .tr circle { fill: var(--color-bg); }
-    /* cards in a two-column grid: odd = left column (stubs go left), even = right column. Timeline nodes: first = left, last = right, middle none. */
-    .stub-card:nth-child(odd) > .edge-stubs { left: 0; }
-    .stub-card:nth-child(odd) > .edge-stubs svg { scale: -1 1; }
-    .axis > li:nth-child(2) > .edge-stubs { display: none; }
-    .axis > li:first-child > .edge-stubs { left: 0; }
-    .axis > li:first-child > .edge-stubs svg { scale: -1 1; }
-    /* /experience: only the first (newest) entry of each group leaves the timeline axis (the li's left edge) at the dot's height */
-    .tl > li > .edge-stubs { display: none; left: 0; }
-    .tl > li:first-child > .edge-stubs { display: block; }
-    .tl > li > .edge-stubs svg { scale: -1 1; }
+    .tr { position: absolute; width: 0; height: 0; pointer-events: none; color: var(--color-border-strong); opacity: 0.55; }
+    .tr svg { position: absolute; left: 0; top: 0; overflow: visible; stroke: currentColor; transform-origin: 0 0; }
+    .tr circle { fill: var(--color-bg); }
   }
   @media print { .tr, .edge-stubs { display: none !important; } }
 
-  /* Hero traces need round() (snap to the dot pitch) and container units; without them they are not drawn.
-     Geometry (xl+, section width W = backdrop width, content 1088 px): readout panel left = W/2 + 109.333, right = W/2 + 544,
+  /* Traces need round() (snap to the dot pitch) and container units; without them they are not drawn.
+     Hero geometry (xl+, W = main/backdrop width, content 1088 px): readout panel left = W/2 + 109.333, right = W/2 + 544,
      top = 65 px below the backdrop origin (header hairline); CV button left = W/2 - 544. Re-measure if the hero grid changes. */
   @media (min-width: 80rem) {
     @supports (width: round(down, 1px, 1px)) and (width: 1cqw) {
-      [data-hero] { container-type: inline-size; }
+      main { container-type: inline-size; }
       .hero-panel { --pl: calc(50cqw + 109.333px); --pr: calc(50cqw + 544px); }
-      .tr { display: block; --cl: calc(50cqw - 544px); }
+      .tr, .edge-stubs { --cl: calc(50cqw - 544px); --cr: calc(50cqw + 544px); }
+      .tr { display: block; }
       .tr-in { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
       .tr-run { position: absolute; left: var(--h); top: calc(var(--ry) - 0.625px); height: 1.25px; width: calc(var(--vx) - var(--h) - var(--t)); background: currentColor; }
       .tr .tr-tail { left: calc(var(--vx) - var(--t)); top: var(--ry); }
@@ -583,9 +572,33 @@
       .tr-tl { --vx: calc(var(--pl) + var(--ax) - (round(calc(var(--pl) + var(--ax) - var(--len) - 12px), 24px) + 12px)); }
       .tr-tm { --vx: calc(round(calc(var(--pl) + var(--ax) + var(--len) - 12px), 24px) + 12px - (var(--pl) + var(--ax))); }
       .tr-tr { --vx: calc(round(down, calc(min(var(--pr) - var(--ax) + var(--len), 100cqw - 16px) - 12px), 24px) + 12px - (var(--pr) - var(--ax))); }
-      .tr-cb { --vx: calc(round(calc(var(--cl) + var(--ax) + var(--len) - 12px), 24px) + 12px - (var(--cl) + var(--ax))); }
-      /* CV: 36 px from the button at 1280 (gutter 96 px), up to 72 px where the gutter allows, always >= 12 px from the window edge */
-      .tr-cv { --vx: calc(var(--cl) - max(12px, round(calc(var(--cl) - clamp(36px, calc(var(--cl) * 0.4), 72px) - 12px), 24px) + 12px)); }
+      /* CV pins enter from the left margin; the via is always >= 48 px inside the window (dot column 60 at 1280) */
+      .tr-cv { --vx: calc(var(--cl) - max(60px, round(calc(var(--cl) - var(--len) - 12px), 24px) + 12px)); }
+
+      /* Edge stubs. Vertical alignment is exact only because each stub host carries its own dot layer (::before) whose origin is the host's
+         top edge: the host's y on the page depends on content flow and cannot be known in CSS, so a local grid is anchored to the host and the
+         global backdrop dots are covered by it (same x phase as the backdrop, y phase tied to the card). --sgn: 1 = outer side is right, -1 = left. */
+      .edge-stubs { display: block; position: absolute; top: 0; bottom: 0; width: 0; pointer-events: none; left: 100%; --sgn: 1; --edge: var(--cr); --g: calc(50cqw - 544px); }
+      .edge-stubs::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: var(--g);
+        background: radial-gradient(var(--color-grid) 1px, transparent 1.5px) calc(0px - var(--edge)) 0 / 24px 24px, var(--color-bg);
+      }
+      .stub-card:nth-child(odd) > .edge-stubs, .axis > li:first-child > .edge-stubs, .tl > li > .edge-stubs { left: 0; --sgn: -1; --edge: var(--cl); }
+      .stub-card:nth-child(odd) > .edge-stubs::before, .axis > li:first-child > .edge-stubs::before, .tl > li > .edge-stubs::before { left: auto; right: calc(var(--edge) - var(--cl)); background-position: 0 0, 0 0; }
+      /* /experience: the host's left edge is the timeline axis (4 px margin + 1 px border inside the container edge); only the first entry of each group */
+      .tl > li > .edge-stubs { --edge: calc(var(--cl) + 5px); display: none; }
+      .tl > li:first-child > .edge-stubs { display: block; }
+      /* timeline nodes: first = left, last = right, middle none */
+      .axis > li:nth-child(2) > .edge-stubs { display: none; }
+      .tr-s { left: 0; --h: 0px; --t: 24px; --ry: 0px;
+        top: calc(round(down, var(--p), 24px) + 12px - var(--dy));
+        --vx: calc(var(--sgn) * (round(calc(var(--edge) + var(--sgn) * var(--len) - 12px), 24px) + 12px - var(--edge))); }
+      .tr-s .tr-in { scale: var(--sgn) 1; }
     }
   }
   @media (forced-colors: active) { .tr, .edge-stubs { display: none !important; } }

@@ -17,11 +17,14 @@ type Side = "r" | "l" | "tl" | "tm" | "tr";
 type Trace = { side: Side; at: number; len: number; dy?: number; ry?: number; accent?: boolean };
 
 // The text column ends 200 px left of the panel, so left vias (len <= 132) keep >= 60 px clear of the name and meta line.
-// No bottom traces: only 32 px separate the panel from the marquee chips.
+// No traces on the bottom edge: only 32 px separate it from the marquee chips and the next dot row below it is 5 px above them,
+// so the two lowest traces leave the right edge instead, near the bottom corner.
 const traces: Trace[] = [
   { side: "r", at: 43, len: 120, dy: -24 }, // dot row 108 -> via on row 84
   { side: "r", at: 115, len: 96, dy: 24 }, // 180 -> 204
   { side: "r", at: 187, len: 120, dy: -24, accent: true }, // 252 -> 228
+  { side: "r", at: 331, len: 96, dy: -24 }, // 396 -> 372 (low on the right edge: the bottom edge is only 32 px above the marquee)
+  { side: "r", at: 379, len: 120, dy: 24 }, // 444 -> 468
   { side: "l", at: 67, len: 96, dy: 24 }, // 132 -> 156
   { side: "l", at: 163, len: 132, dy: -24 }, // 228 -> 204
   { side: "l", at: 259, len: 84, dy: 24 }, // 324 -> 348
@@ -81,33 +84,32 @@ export default function HeroTraces() {
   );
 }
 
-// Pins on the Download CV button: one accent trace to the left (into the gutter, short so it stays well inside the window at 1280)
-// and three muted pins from the bottom edge: down, a 45 degree turn, then sideways to a via. Pins to the right are deepest on the
-// left, so no run crosses another pin's vertical; none passes the "PDF, n KB" text (they start below the button) or reaches the marquee.
-const pins = [
-  { at: 24, len: 200, ry: 74 },
-  { at: 72, len: 150, ry: 50 },
-  { at: 120, len: 100, ry: 26 },
+// Pins on the Download CV button: three traces enter its left edge from the left margin, so everything points into the button.
+// The accent one is straight; the muted ones come in on a 45 degree jog from above and below, with different lengths at 1440. Vias are
+// snapped to dot columns (never closer than 48 px to the window edge; at 1280 all three share column 60) but not to rows: the button's y depends on content.
+const cvPins = [
+  { y: 22, len: "clamp(36px, calc(var(--cl) * 0.4), 72px)", dy: 0, accent: true },
+  { y: 8, len: "110px", dy: -12 },
+  { y: 36, len: "36px", dy: 12 },
 ];
 
 export function CvTrace() {
-  const left = { "--h": "0px", "--t": "0px", "--ry": "0px" } as unknown as CSSProperties;
   return (
     <>
-      <span className="tr tr-cv tr-accent" aria-hidden style={{ left: 0, top: 22, ...left }}>
-        <span className="tr-in">
-          <Pieces via="point" />
-        </span>
-      </span>
-      {pins.map((p) => (
+      {cvPins.map((p) => (
         <span
-          key={p.at}
-          className="tr tr-cb"
+          key={p.y}
+          className={`tr tr-cv${p.accent ? " tr-accent" : ""}`}
           aria-hidden
-          style={{ left: p.at, top: "100%", "--ax": px(p.at), "--len": px(p.len), "--h": "12px", "--t": "0px", "--ry": px(p.ry) } as unknown as CSSProperties}
+          style={{ left: 0, top: p.y, "--len": p.len, "--h": "0px", "--t": p.dy ? "12px" : "0px", "--ry": "0px" } as unknown as CSSProperties}
         >
           <span className="tr-in">
-            <Pieces head={`M0 0V${p.ry - 12}L12 ${p.ry}`} via="point" />
+            <span className="tr-run" />
+            <svg className="tr-tail" width={p.dy ? 12 : 1} height="1" viewBox={`0 0 ${p.dy ? 12 : 1} 1`} fill="none" strokeWidth="1.25" strokeLinejoin="round" focusable="false">
+              {p.dy !== 0 && <path d={`M0 0L12 ${p.dy}`} />}
+              <circle cx={p.dy ? 12 : 0} cy={p.dy} r="3.5" />
+            </svg>
+            <span className="tr-pad" />
           </span>
         </span>
       ))}
